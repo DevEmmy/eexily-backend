@@ -7,5 +7,4 @@ const userController = Container.get(UserController);
 router.post("/sign-in", (req: Request, res:Response)=> userController.signIn(req, res))
 router.post("/sign-up", (req: Request, res:Response)=> userController.signUp(req, res))
 
-
 export default router;
