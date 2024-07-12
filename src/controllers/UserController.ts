@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import "reflect-metadata";
 import { UserServices } from "../services/UserServices";
 import { Request, Response } from "express";
-import { UserLoginDto, userDto } from "../dto/user-dto";
+import { UserLoginDto, createUserDto, userDto } from "../dto/user-dto";
 import { error, success } from "../utils/response";
 
 @Service()
@@ -13,7 +13,7 @@ export class UserController{
 
     async signUp(req: Request, res: Response){
         try{
-            const body : userDto = req.body;
+            const body : createUserDto = req.body;
             let {payload, message} = await this.service.signUp(body);
             if(!payload && message){
                 return error(message, res, 400)

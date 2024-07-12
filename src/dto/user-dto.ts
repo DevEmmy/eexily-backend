@@ -5,6 +5,16 @@ export interface userDto{
     password: string
 }
 
+export interface createUserDto{
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+    size: string,
+    houseHoldSize: number,
+    primaryCookingAppliance: string
+}
+
 export interface UpdateUserDto{
     firstName: string,
     lastName: string,
