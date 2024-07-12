@@ -8,12 +8,13 @@ import { Service } from "typedi";
 import mongoose from "mongoose";
 import GasRepository from "../repositories/GasRepository";
 import { GasDto } from "../dto/gas-dto";
+import { OTPServices } from "./OtpServices";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
 @Service()
 export class UserServices {
-    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository) { };
+    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices) { };
 
     generateToken(id: string) {
         let token = jwt.sign({ id }, jwtSecret)
@@ -32,14 +33,65 @@ export class UserServices {
 
             data.password = await bcrypt.hash(password, 8);
 
+            let otp = this.otpService.generateOTP()
+            data.generatedOtp = await bcrypt.hash(String(otp), 8);
+
+            //set date
+            const currentDate = new Date();
+
+            data.generatedOtpExpiration = new Date(currentDate.getTime() + 5 * 60 * 60 * 1000);
+
+
             let user = await this.repo.create(data);
+
+            //send otp
+            await this.otpService.sendCreateUserOTP(otp, email)
 
             let gasObject: GasDto = { size, houseHoldSize, primaryCookingAppliance, ownedBy: String(user._id) };
 
             let gas = await this.gasRepo.create(gasObject)
+            
+            return {
+                payload: { user, gas }
+            }
+        }
+        catch (err: any) {
+            throw Error(err.message);
+        }
+    }
+
+    async verifyOtp(otp: number, email: string) {
+        try {
+            let user: any = await this.repo.findByEmail(email);
+            if (!user) {
+                return {
+                    payload: null,
+                    message: "Email not found"
+                }
+            }
+
+            // if (user.generatedOtpExpiration > new Date()) {
+            //     return {
+            //         payload: null,
+            //         message: "OTP Expired"
+            //     }
+            // }
+
+
+            let doMatch = await bcrypt.compare(String(otp), user.generatedOtp);
+            if (!doMatch) {
+                return { message: "Incorrect OTP", payload: null }
+            }
+
+            user.isVerified = true;
+            user.generatedOtp = null
+            user.generatedOtpExpiration = null
+            user = await this.repo.update(user._id, user)
+            let gas = await this.gasRepo.findByOwner(user._id);
+
             let token = this.generateToken(String(user._id))
             return {
-                payload: { user, token, gas }
+                payload: { user, gas, token }
             }
         }
         catch (err: any) {
@@ -56,7 +108,11 @@ export class UserServices {
                 return { message: "User with this email does not exist" }
             }
 
-            let doMatch = await bcrypt.compare(password, user.password,);
+            if(user.isVerified !== true){
+                return {payload: null, message: "You're not verified yet!"}
+            }
+
+            let doMatch = await bcrypt.compare(password, user.password);
             if (!doMatch) {
                 return { message: "Incorrect Password" }
             }

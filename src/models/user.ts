@@ -6,7 +6,9 @@ const schema = new Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     residence: {type: String, required: true},
-    isVerified: {type: Boolean, default: false}
+    isVerified: {type: Boolean, default: false},
+    generatedOtp: {type: String},
+    generatedOtpExpiration: {type: Date}
 },
 {
     timestamps: true

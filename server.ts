@@ -17,7 +17,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb' }))
 
 // Run MongoDB
-mongoose.connect(process.env.MONGODB_URI || `mongodb://127.0.0.1:27017/backend`)
+mongoose.connect(process.env.MONGODB_URI as string)
 const connection = mongoose.connection
 connection.once('open', () => { console.log('Database running Successfully') });
 

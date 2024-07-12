@@ -13,6 +13,8 @@ export interface createUserDto{
     size: string,
     houseHoldSize: number,
     primaryCookingAppliance: string
+    generatedOtp: string
+    generatedOtpExpiration: Date
 }
 
 export interface UpdateUserDto{

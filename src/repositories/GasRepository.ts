@@ -38,6 +38,11 @@ class GasRepository {
         const result = await this.model.findOne({ primaryCookingAppliance: appliance });
         return result;
     }
+
+    async findByOwner(ownerId: string){
+        const result = await this.model.findOne({ownedBy: ownerId}).populate("ownedBy")
+        return result
+    }
 }
 
 export default GasRepository;
