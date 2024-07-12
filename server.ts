@@ -23,7 +23,7 @@ const options = {
   definition: {
     openapi: "3.1.0",
     info: {
-      title: "Bettisports API",
+      title: "Eexily API",
       version: "0.1.0",
       description:
         "This is the docs for all APIs for Eexily",
