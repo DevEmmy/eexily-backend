@@ -1,25 +1,38 @@
-import mongoose, {Schema} from "mongoose";
-import { UserType } from "../enum/userTypes";
+import mongoose, { Schema, Document } from 'mongoose';
+import { UserType } from '../enum/userTypes';
 
-const schema = new Schema({
-    firstName : {type: String, required: true},
-    lastName: {type: String, required: true},
-    email: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
-    
-    isVerified: {type: Boolean, default: false},
-    generatedOtp: {type: String},
-    generatedOtpExpiration: {type: Date},
-    type: {
-        type: String,
-        enum: Object.values(UserType),
-        default: UserType.INDIVIDUAL
-      }
-      
-},
-{
-    timestamps: true
-})
+// Define an interface for the User model
+export interface IUser extends Document {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  isVerified: boolean;
+  generatedOtp?: string;
+  generatedOtpExpiration?: Date;
+  type: UserType;
+}
 
-const User = mongoose.model('User', schema);
+// Define the User schema
+const UserSchema = new Schema<IUser>({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  
+  isVerified: { type: Boolean, default: false },
+  generatedOtp: { type: String },
+  generatedOtpExpiration: { type: Date },
+  
+  type: {
+    type: String,
+    enum: Object.values(UserType),
+    default: UserType.INDIVIDUAL,
+  },
+}, {
+  timestamps: true
+});
+
+// Create the User model
+const User = mongoose.model<IUser>('User', UserSchema);
 export default User;

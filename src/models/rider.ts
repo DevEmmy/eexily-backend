@@ -1,15 +1,25 @@
-import mongoose, {Schema} from "mongoose";
+import mongoose, { Schema, Document, Types } from 'mongoose';
 
-const schema = new Schema({
-    user : {type: Schema.Types.ObjectId, ref: "User", required: true},
-    driverLisence: {type: String},
-    expiryDate: {type: Date},
-    workPlaceAddress: {type: String},
-    profilePicture: {type: String}
-},
-{
-    timestamps: true
-})
+// Define an interface for the Rider model
+export interface IRider extends Document {
+  user: Types.ObjectId;
+  driverLicense?: string;
+  expiryDate?: Date;
+  workPlaceAddress?: string;
+  profilePicture?: string;
+}
 
-const Rider = mongoose.model('Rider', schema);
+// Define the Rider schema
+const RiderSchema = new Schema<IRider>({
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  driverLicense: { type: String },
+  expiryDate: { type: Date },
+  workPlaceAddress: { type: String },
+  profilePicture: { type: String },
+}, {
+  timestamps: true
+});
+
+// Create the Rider model
+const Rider = mongoose.model<IRider>('Rider', RiderSchema);
 export default Rider;
