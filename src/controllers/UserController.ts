@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import "reflect-metadata";
 import { UserServices } from "../services/UserServices";
 import { Request, Response } from "express";
-import { UserLoginDto, createUserDto, userDto } from "../dto/user-dto";
+import { UserLoginDto, createUserDto, userDto } from "../interfaces/user";
 import { error, success } from "../utils/response";
 
 @Service()

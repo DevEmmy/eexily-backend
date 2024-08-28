@@ -1,4 +1,4 @@
-import { UserLoginDto, createUserDto, userDto } from "../dto/user-dto";
+import { UserLoginDto, createUserDto, userDto } from "../interfaces/user";
 import UserRepository from "../repositories/UserRepository";
 import jwt from "jsonwebtoken"
 require("dotenv").config();
@@ -7,7 +7,7 @@ import "reflect-metadata";
 import { Service } from "typedi";
 import mongoose from "mongoose";
 import GasRepository from "../repositories/GasRepository";
-import { GasDto } from "../dto/gas-dto";
+import { GasDto } from "../interfaces/gas";
 import { OTPServices } from "./OtpServices";
 
 let jwtSecret = process.env.JWT_SECRET as string;

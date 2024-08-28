@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import Gas from "../models/gas";
-import { GasDto, UpdateGasDto } from "../dto/gas-dto";
+import { GasDto, UpdateGasDto } from "../interfaces/gas";
 import "reflect-metadata";
 
 @Service()

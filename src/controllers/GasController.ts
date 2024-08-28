@@ -2,7 +2,7 @@ import { Service } from "typedi";
 import "reflect-metadata";
 import { GasServices } from "../services/GasServices";
 import { Request, Response } from "express";
-import { GasDto, UpdateGasDto } from "../dto/gas-dto";
+import { GasDto, UpdateGasDto } from "../interfaces/gas";
 import { error, success } from "../utils/response";
 
 @Service()

@@ -1,6 +1,6 @@
 import { Service } from "typedi"
 import User from "../models/user"
-import { UpdateUserDto, userDto } from "../dto/user-dto";
+import { UpdateUserDto, userDto } from "../interfaces/user";
 import "reflect-metadata";
 
 

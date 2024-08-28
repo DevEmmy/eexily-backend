@@ -1,4 +1,4 @@
-import { GasDto, UpdateGasDto } from "../dto/gas-dto";
+import { GasDto, UpdateGasDto } from "../interfaces/gas";
 import GasRepository from "../repositories/GasRepository";
 import "reflect-metadata";
 import { Service } from "typedi";
