@@ -2,9 +2,9 @@ import mongoose, { Schema, Document, Types } from 'mongoose';
 
 // Define an interface for the Business model
 export interface IBusiness extends Document {
-  user: Types.ObjectId;
-  address: string;
-  category: string;
+  user: Types.ObjectId | string;
+  address?: string;
+  category?: string;
 }
 
 // Define the Business schema

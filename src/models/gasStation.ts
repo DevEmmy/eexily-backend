@@ -3,7 +3,7 @@ import mongoose, { Schema, Document, Types } from 'mongoose';
 // Define an interface for the GasStation model
 export interface IGasStation extends Document {
   user: Types.ObjectId;
-  gasStationName: string;
+  gasStationName?: string;
 }
 
 // Define the GasStation schema

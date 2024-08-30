@@ -1,3 +1,5 @@
+import { UserType } from "../enum/userTypes"
+
 export interface userDto{
     firstName: string,
     lastName: string,
@@ -10,9 +12,7 @@ export interface createUserDto{
     lastName: string,
     email: string,
     password: string
-    size: string,
-    houseHoldSize: number,
-    primaryCookingAppliance: string
+    type: UserType,
     generatedOtp: string
     generatedOtpExpiration: Date
 }

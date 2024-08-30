@@ -1,7 +1,7 @@
-import { Schema } from "mongoose";
+import { Schema, Types } from "mongoose";
 
-export interface Business{
-    user: Schema.Types.ObjectId | string,
+export interface BusinessInterface{
+    user: Types.ObjectId | string,
     address: string,
     category: string
 }

@@ -1,16 +1,16 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
 
-// Define an interface for the Business model
-export interface IBusiness extends Document {
+// Define an interface for the Individual model
+export interface IIndividual extends Document {
   user: Types.ObjectId;
-  address: string;
+  address?: string;
   houseHoldSize?: number;
   primaryCookingAppliance?: string;
   gas?: Types.ObjectId;
 }
 
-// Define the Business schema
-const BusinessSchema = new Schema<IBusiness>({
+// Define the Individual schema
+const IndividualSchema = new Schema<IIndividual>({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   address: { type: String, required: true },
   houseHoldSize: { type: Number },
@@ -20,6 +20,6 @@ const BusinessSchema = new Schema<IBusiness>({
   timestamps: true
 });
 
-// Create the Business model
-const Business = mongoose.model<IBusiness>('Business', BusinessSchema);
-export default Business;
+// Create the Individual model
+const Individual = mongoose.model<IIndividual>('Individual', IndividualSchema);
+export default Individual;

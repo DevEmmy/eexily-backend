@@ -9,12 +9,18 @@ import mongoose from "mongoose";
 import GasRepository from "../repositories/GasRepository";
 import { GasDto } from "../interfaces/gas";
 import { OTPServices } from "./OtpServices";
+import { UserType } from "../enum/userTypes";
+import BusinessServices from "./BusinessServices";
+import CustomerServiceServices from "./CustomerServiceServices";
+import GasStationServices from "./GasStationServices";
+import IndividualServices from "./IndividualServices";
+import RiderServices from "./RiderServices";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
 @Service()
 export class UserServices {
-    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices) { };
+    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices,private readonly csServices : CustomerServiceServices,private readonly gsServices: GasStationServices,private readonly individualServices: IndividualServices,private readonly riderServices: RiderServices) { };
 
     generateToken(id: string) {
         let token = jwt.sign({ id }, jwtSecret)
@@ -23,8 +29,8 @@ export class UserServices {
 
     async signUp(data: createUserDto) {
         try {
-            let { email, password } = data;
-            let { size, houseHoldSize, primaryCookingAppliance } = data;
+            let { email, password, type } = data;
+            // let { size, houseHoldSize, primaryCookingAppliance } = data;
 
             let checkUser = await this.repo.findByEmail(email);
             if (checkUser) {
@@ -45,14 +51,35 @@ export class UserServices {
             let user = await this.repo.create(data);
 
             //send otp
-            await this.otpService.sendCreateUserOTP(otp, email)
+            await this.otpService.sendCreateUserOTP(otp, email);
 
-            let gasObject: GasDto = { size, houseHoldSize, primaryCookingAppliance, ownedBy: String(user._id) };
+            let typeData : any= {
+                user
+            }
+            switch (type) {
+                case  UserType.BUSINESS:
+                    await this.businessServices.createBusiness(typeData);
+                case UserType.RIDER:
+                    await this.riderServices.create(typeData)
+                case UserType.CUSTOMER_SERVICE:
+                    await this.csServices.create(typeData);
+                case UserType.GAS_STATION:
+                    await this.gsServices.create(typeData)
+                case UserType.INDIVIDUAL:
+                    await this.individualServices.create(typeData)
+                    break;
+            
+                default:
+                    await this.individualServices.create(typeData)
+                    break;
+            }
 
-            let gas = await this.gasRepo.create(gasObject)
+            // let gasObject: GasDto = { size, houseHoldSize, primaryCookingAppliance, ownedBy: String(user._id) };
+
+            // let gas = await this.gasRepo.create(gasObject)
             
             return {
-                payload: { user, gas }
+                payload: { user }
             }
         }
         catch (err: any) {
