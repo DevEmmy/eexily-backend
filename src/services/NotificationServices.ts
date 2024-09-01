@@ -1,6 +1,8 @@
+import { Service } from "typedi";
 import { INotification } from "../models/notification";
 import NotificationRepository from "../repositories/NotificationRepository";
 
+@Service()
 class NotificationService {
   private notificationRepo: NotificationRepository;
 

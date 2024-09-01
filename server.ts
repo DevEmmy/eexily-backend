@@ -5,6 +5,7 @@ import corsOptions from './src/config/cors';
 require("dotenv").config()
 import userRouter from "./src/router/UserRouter"
 import gasRouter from "./src/router/gasRoutes"
+import notificationRouter from "./src/router/notificationRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
 
@@ -54,6 +55,7 @@ connection.once('open', () => { console.log('Database running Successfully') });
 
 app.use("/auth", userRouter)
 app.use("/gas", gasRouter)
+app.use("/notifications", notificationRouter)
 
 //render the html file
 app.get('/', (req, res) => {

@@ -2,7 +2,9 @@ import { Types } from "mongoose";
 import Notification, { INotification } from "../models/notification";
 import User from "../models/user";
 import { BaseRepository } from "./BaseRepository";
+import { Service } from "typedi";
 
+@Service()
 class NotificationRepository extends BaseRepository<INotification>{
     constructor(){
         super(Notification)
