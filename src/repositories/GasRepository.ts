@@ -1,7 +1,8 @@
 import { Service } from "typedi";
-import Gas from "../models/gas";
+import Gas, { IGas } from "../models/gas";
 import { GasDto, UpdateGasDto } from "../interfaces/gas";
 import "reflect-metadata";
+import { Types } from "mongoose";
 
 @Service()
 class GasRepository {
@@ -67,6 +68,66 @@ class GasRepository {
     ]);
 
     return gas;
+  }
+  
+  // Get daily usage within a specific month
+  async getDailyUsage(userId: Types.ObjectId | string, month: number, year: number): Promise<IGas[]> {
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0, 23, 59, 59, 999);
+
+    return this.model.aggregate([
+      { $match: { ownedBy:new Types.ObjectId(userId), 'usage.usedAt': { $gte: startOfMonth, $lte: endOfMonth } } },
+      { $unwind: '$usage' },
+      { $match: { 'usage.usedAt': { $gte: startOfMonth, $lte: endOfMonth } } },
+      { $sort: { 'usage.usedAt': 1 } },
+      {
+        $group: {
+          _id: { day: { $dayOfMonth: '$usage.usedAt' }, month: { $month: '$usage.usedAt' }, year: { $year: '$usage.usedAt' } },
+          usage: { $push: '$usage' },
+        },
+      },
+      { $sort: { '_id.day': 1 } },
+    ]);
+  }
+
+  // Get weekly usage within a specific month
+  async getWeeklyUsage(userId: Types.ObjectId | string, month: number, year: number): Promise<IGas[]> {
+    const startOfMonth = new Date(year, month - 1, 1);
+    const endOfMonth = new Date(year, month, 0, 23, 59, 59, 999);
+
+    return this.model.aggregate([
+      { $match: { ownedBy:new Types.ObjectId(userId), 'usage.usedAt': { $gte: startOfMonth, $lte: endOfMonth } } },
+      { $unwind: '$usage' },
+      { $match: { 'usage.usedAt': { $gte: startOfMonth, $lte: endOfMonth } } },
+      { $sort: { 'usage.usedAt': 1 } },
+      {
+        $group: {
+          _id: { week: { $week: '$usage.usedAt' }, year: { $year: '$usage.usedAt' } },
+          usage: { $push: '$usage' },
+        },
+      },
+      { $sort: { '_id.week': 1 } },
+    ]);
+  }
+
+  // Get monthly usage within a specific year
+  async getMonthlyUsage(userId: Types.ObjectId | string, year: number): Promise<IGas[]> {
+    const startOfYear = new Date(year, 0, 1);
+    const endOfYear = new Date(year, 11, 31, 23, 59, 59, 999);
+
+    return this.model.aggregate([
+      { $match: { ownedBy: new Types.ObjectId(userId), 'usage.usedAt': { $gte: startOfYear, $lte: endOfYear } } },
+      { $unwind: '$usage' },
+      { $match: { 'usage.usedAt': { $gte: startOfYear, $lte: endOfYear } } },
+      { $sort: { 'usage.usedAt': 1 } },
+      {
+        $group: {
+          _id: { month: { $month: '$usage.usedAt' }, year: { $year: '$usage.usedAt' } },
+          usage: { $push: '$usage' },
+        },
+      },
+      { $sort: { '_id.month': 1 } },
+    ]);
   }
 }
 
