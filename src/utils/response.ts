@@ -1,8 +1,8 @@
 import { Response } from "express";
 
-export const success = (payload: any, res: Response)=>{
+export const success = (payload: any, res: Response, message? : string )=>{
     return res.status(200).json({
-        message: "Success",
+        message: message ||  "Success",
         payload
     })
 }

@@ -13,3 +13,9 @@ export interface UpdateGasDto {
     primaryCookingAppliance?: string;
     ownedBy?: string;
 }
+
+export interface GasUsageInterface{
+    amountUsed: number;
+    usedAt: Date;
+    description: string;
+}

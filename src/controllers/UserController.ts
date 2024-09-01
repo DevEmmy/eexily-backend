@@ -57,12 +57,27 @@ export class UserController{
         }
     }
 
-   
     async getLoggedInUser(req: Request, res: Response){
         try{
             const {user} = req.body;
             
             // return success(payload, res);
+        }   
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
+
+    async completeRegistration(req: Request, res: Response){
+        try{
+            const body  = req.body;
+            const {type, email, _id} = req.body.user;
+            let {payload, message} = await this.service.completeProfile(_id, body)
+            
+            if(!payload && message){
+                return error(message, res, 400)
+            }
+            return success(payload, res, message);
         }   
         catch(err: any){
             error(err.message, res, err.status||400);

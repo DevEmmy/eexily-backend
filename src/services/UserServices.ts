@@ -15,6 +15,7 @@ import CustomerServiceServices from "./CustomerServiceServices";
 import GasStationServices from "./GasStationServices";
 import IndividualServices from "./IndividualServices";
 import RiderServices from "./RiderServices";
+import { BusinessInterface } from "../interfaces/business";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
@@ -159,5 +160,40 @@ export class UserServices {
     }
 
 
+    async completeProfile(userId : string, data: any){
+        let user = await this.repo.findById(userId);
+        data.user = user
+        
+        let result : any;
+        switch (user?.type) {
+            case UserType.BUSINESS:
+                result = await this.businessServices.createBusiness(data)
+                break;
+
+            case UserType.CUSTOMER_SERVICE:
+                    result = await this.csServices.create(data)
+                    break;
+
+            case UserType.GAS_STATION:
+                     result = await this.gsServices.create(data)
+                     break;
+
+            case UserType.INDIVIDUAL:
+                    result = await this.individualServices.create(data)
+                    break;
+
+            case UserType.RIDER:
+                    result = await this.riderServices.create(data)
+                    break;
+        
+            default:
+                result = null;
+        }
+
+        return {
+            payload: result,
+            message: "Completed Successfully"
+        }
+    }
 
 }
