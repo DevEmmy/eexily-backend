@@ -1,7 +1,7 @@
 import { Model, Document, FilterQuery, UpdateQuery } from 'mongoose';
 
 export class BaseRepository<T extends Document> {
-  private model: Model<T>;
+  public model: Model<T>;
 
   constructor(model: Model<T>) {
     this.model = model;

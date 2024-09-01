@@ -1,5 +1,8 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
+import NotificationRepository from '../repositories/NotificationRepository';
 
+
+let notificationRepo = new NotificationRepository();
 // Define an interface for the Usage model
 export interface IUsage extends Document {
   amountUsed: number;
@@ -34,6 +37,22 @@ const GasSchema = new Schema<IGas>({
   usage: { type: [UsageSchema], default: [] }  // Initialize usage as an empty array
 }, {
   timestamps: true
+});
+
+GasSchema.post('save', async function (doc: IGas) {
+  if (doc.level <= 20) {
+    console.log(`Gas level low: ${doc.level}%`);
+    // Trigger notification for low gas level
+    await notificationRepo.sendNotification(doc.ownedBy, 'low');
+  } else if (doc.level <= 50) {
+    console.log(`Gas level at average: ${doc.level}%`);
+    // Trigger notification for average gas level
+    await notificationRepo.sendNotification(doc.ownedBy, 'average');
+  } else if (doc.level === 100) {
+    console.log(`Gas filled up: ${doc.level}%`);
+    // Trigger notification for gas filled up
+    await notificationRepo.sendNotification(doc.ownedBy, 'full');
+  }
 });
 
 // Create the Gas model
