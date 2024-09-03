@@ -2,10 +2,22 @@ import { Service } from "typedi";
 import RSServices from "../services/RefillScheduleServices";
 import { Request, Response } from "express";
 import { error, success } from "../utils/response";
+import { IRefillSchedule } from "../models/refillSchedule";
 
 @Service()
 class RSController{
     constructor(private readonly service : RSServices){}
+
+    async create(req: Request, res: Response){
+        try{
+            let data : IRefillSchedule = req.body;
+            let {payload} = await this.service.create(data);
+            return success(payload, res);
+        }
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
 
     async getByUser(req: Request, res: Response){
         try{
@@ -51,7 +63,6 @@ class RSController{
             error(err.message, res, err.status||400);
         }
     }
-
 }
 
 export default RSController

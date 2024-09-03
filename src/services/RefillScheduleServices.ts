@@ -2,10 +2,26 @@ import { Service } from "typedi";
 import RefillScheduleRepository from "../repositories/RefillScheduleRepository";
 import { Types } from "mongoose";
 import { RefillStatus } from "../enum/refillStatus";
+import { IRefillSchedule } from "../models/refillSchedule";
 
 @Service()
 class RSServices {
     constructor(private readonly repo: RefillScheduleRepository) { }
+
+    async create(data: Partial<IRefillSchedule>){
+        try {
+            let payload = await this.repo.create(data)
+
+            return {
+                payload
+            }
+        }
+        catch (err: any) {
+            return {
+                message: "Schedule not found"
+            }
+        }
+    }
 
     async getByGcode(gcode: string) {
         try {

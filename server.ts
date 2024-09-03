@@ -6,8 +6,10 @@ require("dotenv").config()
 import userRouter from "./src/router/UserRouter"
 import gasRouter from "./src/router/gasRoutes"
 import notificationRouter from "./src/router/notificationRouter"
+import refillScheduleRouter from "./src/router/rsRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
+
 
 const app = express();
 const port = String(process.env.PORT) || 3030;
@@ -56,6 +58,7 @@ connection.once('open', () => { console.log('Database running Successfully') });
 app.use("/auth", userRouter)
 app.use("/gas", gasRouter)
 app.use("/notifications", notificationRouter)
+app.use("/refill-schedule", )
 
 //render the html file
 app.get('/', (req, res) => {
