@@ -10,7 +10,9 @@ router.post("/", verifyAuth, (req, res) => gasController.createGas(req, res));
 router.get("/:id", verifyAuth, (req, res) => gasController.getGasById(req, res));
 router.get("/", verifyAuth, (req, res) => gasController.getAllGas(req, res));
 router.put("/:id", verifyAuth, (req, res) => gasController.updateGas(req, res));
+router.patch("/update-level/:id", verifyAuth, (req, res) => gasController.updateGasLevel(req, res));
 router.delete("/:id", verifyAuth, (req, res) => gasController.deleteGasById(req, res));
 router.get("/appliance/:appliance", verifyAuth, (req, res) => gasController.findGasByAppliance(req, res));
+router.get("/get-usage", verifyAuth, (req, res) => gasController.getGasUsage(req, res))
 
 export default router;

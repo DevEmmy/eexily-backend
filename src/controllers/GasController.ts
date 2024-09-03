@@ -1,9 +1,10 @@
 import { Service } from "typedi";
 import "reflect-metadata";
-import { GasServices } from "../services/GasServices";
+import { GasServices, UsageParams } from "../services/GasServices";
 import { Request, Response } from "express";
-import { GasDto, UpdateGasDto } from "../interfaces/gas";
+import { GasDto, GasUsageInterface, UpdateGasDto } from "../interfaces/gas";
 import { error, success } from "../utils/response";
+import { IGas } from "../models/gas";
 
 @Service()
 export class GasController {
@@ -52,7 +53,7 @@ export class GasController {
     async updateGas(req: Request, res: Response) {
         try {
             const { id } = req.params;
-            const body: UpdateGasDto = req.body;
+            const body: Partial<IGas> = req.body;
             const { payload, message } = await this.service.updateGas(id, body);
             if (!payload && message) {
                 return error(message, res, 400);
@@ -88,6 +89,37 @@ export class GasController {
             error(err.message, res, err.status || 400);
         }
     }
+
+    async updateGasLevel(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            const body: GasUsageInterface = req.body;
+            const { payload, message } = await this.service.updateGasLevel(id, body);
+            if (!payload && message) {
+                return error(message, res, 400);
+            }
+            return success(payload, res);
+        } catch (err: any) {
+            error(err.message, res, err.status || 400);
+        }
+    }
+
+    async getGasUsage(req: Request, res: Response) {
+        try {
+            const body: UsageParams = req.body;
+            const { payload, message, pdfBuffer } = await this.service.getUsageData(body);
+
+            if (!payload && message) {
+                return error(message, res, 400);
+            }
+
+            return res.json({message, payload, pdfBuffer})
+
+        } catch (err: any) {
+            error(err.message, res, err.status || 400);
+        }
+    }
+
 }
 
 export default GasController;

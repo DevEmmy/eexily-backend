@@ -25,7 +25,7 @@ class GasRepository {
         return result;
     }
 
-    async update(id: string, data: UpdateGasDto) {
+    async update(id: string, data: Partial<IGas>) {
         const result = await this.model.findByIdAndUpdate(id, data, { new: true });
         return result;
     }
@@ -128,6 +128,10 @@ class GasRepository {
       },
       { $sort: { '_id.month': 1 } },
     ]);
+  }
+
+  async updateGasLevel(id: string, level: number){
+    return await this.model.findByIdAndUpdate(id, {level}, {new: true})
   }
 }
 

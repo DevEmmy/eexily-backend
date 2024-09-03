@@ -21,6 +21,8 @@ class NotificationController{
             error(err.message, res, err.status||400);
         }
     }
+
+    
 }
 
 export default NotificationController
