@@ -7,6 +7,10 @@ class GasStationRepository extends BaseRepository<IGasStation>{
     constructor(){
             super(GasStation)
     }
+
+    async getByRegCode(regCode: string){
+        return await this.model.findOne({regCode})
+    }
 }
 
 export default GasStationRepository

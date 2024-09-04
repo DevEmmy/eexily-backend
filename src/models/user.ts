@@ -3,8 +3,8 @@ import { UserType } from '../enum/userTypes';
 
 // Define an interface for the User model
 export interface IUser extends Document {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
   isVerified: boolean;
@@ -15,8 +15,8 @@ export interface IUser extends Document {
 
 // Define the User schema
 const UserSchema = new Schema<IUser>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstName: { type: String, required: false },
+  lastName: { type: String, required: false },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   

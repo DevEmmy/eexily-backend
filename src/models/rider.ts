@@ -7,6 +7,12 @@ export interface IRider extends Document {
   expiryDate?: Date;
   workPlaceAddress?: string;
   profilePicture?: string;
+  riderType: RiderType
+}
+
+export enum RiderType{
+  DRIVER = "DRIVER",
+  RIDER = "RIDER"
 }
 
 // Define the Rider schema
@@ -16,6 +22,7 @@ const RiderSchema = new Schema<IRider>({
   expiryDate: { type: Date },
   workPlaceAddress: { type: String },
   profilePicture: { type: String },
+  riderType: {type: String, enum: Object.values(RiderType), default: RiderType.DRIVER}
 }, {
   timestamps: true
 });

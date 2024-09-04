@@ -8,11 +8,13 @@ class RiderServices{
     constructor(private readonly repository : RiderRepository){}
 
     async create(data: RiderInterface){
-        return this.repository.create(data);
+        let payload = await this.repository.create(data);
+        return {payload}
     }
 
     async getAll(){
-        return this.repository.find()
+        let payload = await this.repository.find()
+        return {payload}
     }
 }
 
