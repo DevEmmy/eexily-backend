@@ -8,4 +8,6 @@ export interface RiderInterface{
     riderType: RiderType;
     workPlaceAddress?: string;
     profilePicture?: string;
+    gasStation: any
+    gasStationCode: string
 }

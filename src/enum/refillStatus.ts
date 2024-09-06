@@ -1,4 +1,6 @@
 export enum RefillStatus{
+    PENDING = "PENDING",
+    MATCHED = "MATCHED",
     PICK_UP="PICK_UP",
     REFILL = "REFILL",
     DISPATCHED = "DISPATCHED",
