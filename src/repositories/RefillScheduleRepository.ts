@@ -17,7 +17,10 @@ class RefillScheduleRepository extends BaseRepository<IRefillSchedule>{
         return await this.model.find({user})
     }
 
-    async getRefillScheduleByStatus(status: string){
+    async getRefillScheduleByStatus(status: string, user : string | void){
+        if(user){
+            return await this.model.find({status, user})
+        }
         return await this.model.find({status})
     }
 }

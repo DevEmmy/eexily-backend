@@ -7,7 +7,7 @@ export interface ICustomerService extends Document {
 
 // Define the CustomerService schema
 const CustomerServiceSchema = new Schema<ICustomerService>({
-  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 }, {
   timestamps: true
 });

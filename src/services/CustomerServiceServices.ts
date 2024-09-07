@@ -15,6 +15,32 @@ class CustomerServiceServices{
     async getAllCustomers(){
         return this.repository.find()
     }
+
+    async updateCustomer(user: string, data: Partial<ICustomerService>){
+        try{
+            let customer = await this.repository.findOne({user})
+            if(!customer){
+                return {
+                    message: "Customer Service not Found"
+                }
+            }
+
+            let updatedData = await this.repository.update({user}, data)
+            return {
+                payload: updatedData,
+                message: "Updated"
+            }
+        }
+        catch(err: any){
+            throw new Error(err)
+        }
+    }
+
+    async getByUser(user: string){
+        return {
+            payload: await this.repository.findOne({user})
+        }
+    }
 }
 
 export default CustomerServiceServices

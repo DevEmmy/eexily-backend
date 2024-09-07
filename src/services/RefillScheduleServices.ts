@@ -63,9 +63,9 @@ class RSServices {
         }
     }
 
-    async getRefillScheduleByStatus(status: string) {
+    async getRefillScheduleByStatus(status: string, user: string | void) {
         try {
-            let payload = await this.repo.getRefillScheduleByStatus(status)
+            let payload = await this.repo.getRefillScheduleByStatus(status, user)
             return { payload };
         }
         catch (err: any) {
@@ -172,7 +172,6 @@ class RSServices {
             throw new Error(err)
         }
     }
-
 }
 
 export default RSServices
