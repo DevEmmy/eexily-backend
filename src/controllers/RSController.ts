@@ -53,6 +53,18 @@ class RSController{
         }
     }
 
+    async updateRefillStatus(req: Request, res: Response){
+        try{
+            let body = req.body;
+            let {id} = req.params
+            let {payload} = await this.service.updateStatusByStation(body.editor, body.status ,body.status);
+            return success(payload, res);
+        }
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
+
     async getRefillScheduleByStatus(req: Request, res: Response){
         try{
             let {status} = req.params

@@ -7,6 +7,8 @@ import userRouter from "./src/router/UserRouter"
 import gasRouter from "./src/router/gasRoutes"
 import notificationRouter from "./src/router/notificationRouter"
 import refillScheduleRouter from "./src/router/rsRouter"
+import individualRouter from "./src/router/individualRouter"
+import riderRouter  from "./src/router/riderRoute"
 import gasStationRouter from "./src/router/GasStationRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
@@ -61,6 +63,8 @@ app.use("/gas", gasRouter)
 app.use("/notifications", notificationRouter)
 app.use("/refill-schedule", refillScheduleRouter)
 app.use("/gas-station", gasStationRouter)
+app.use("/individual", individualRouter)
+app.use("/rider", riderRouter)
 
 //render the html file
 app.get('/', (req, res) => {

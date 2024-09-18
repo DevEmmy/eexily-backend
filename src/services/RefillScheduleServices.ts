@@ -6,6 +6,12 @@ import RefillSchedule, { IRefillSchedule } from "../models/refillSchedule";
 import GasStationRepository from "../repositories/GasStationRepository";
 import RiderRepository from "../repositories/RiderRepository";
 
+export interface Editor {
+    gasStation?: string,
+    user?: string,
+    rider?: string
+}
+
 @Service()
 class RSServices {
     constructor(private readonly repo: RefillScheduleRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository) { }
@@ -146,8 +152,9 @@ class RSServices {
         }
     }
 
-    async updateStatusByStation(gasStation: string, gcode: string, status: RefillStatus){
+    async updateStatusByStation(editor: Editor, gcode: string, status: RefillStatus){
         try{
+            const {gasStation, user, rider} = editor
             let schedule = await this.repo.findOne({gcode});
             if(!schedule){
                 return {
@@ -155,7 +162,25 @@ class RSServices {
                 }
             }
 
-            if(String(schedule.gasStation) != String(gasStation)){
+            if(gasStation && (String(schedule.gasStation) != String(gasStation))){
+                return {
+                    message: "You cannot edit this status"
+                }
+            }
+
+            if(user && (String(schedule.user) != String(user))){
+                return {
+                    message: "You cannot edit this status"
+                }
+            }
+
+            if(rider && (String(schedule.rider) != String(rider))){
+                return {
+                    message: "You cannot edit this status"
+                }
+            }
+
+            if(!user || !gasStation || !rider){
                 return {
                     message: "You cannot edit this status"
                 }
@@ -172,6 +197,7 @@ class RSServices {
             throw new Error(err)
         }
     }
+
 }
 
 export default RSServices

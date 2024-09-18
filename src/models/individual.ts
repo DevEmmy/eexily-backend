@@ -4,8 +4,6 @@ import mongoose, { Schema, Document, Types } from 'mongoose';
 export interface IIndividual extends Document {
   user: Types.ObjectId;
   address?: string;
-  houseHoldSize?: number;
-  primaryCookingAppliance?: string;
   gas?: Types.ObjectId;
 }
 
@@ -13,8 +11,6 @@ export interface IIndividual extends Document {
 const IndividualSchema = new Schema<IIndividual>({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   address: { type: String, required: true },
-  houseHoldSize: { type: Number },
-  primaryCookingAppliance: { type: String },
   gas: { type: Schema.Types.ObjectId, ref: 'Gas' },
 }, {
   timestamps: true

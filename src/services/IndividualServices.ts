@@ -9,11 +9,24 @@ class IndividualServices{
     constructor(private readonly repository : IndividualRepository){}
 
     async create(data: IIndividual){
-        return this.repository.create(data);
+        return {payload: await this.repository.create(data)};
     }
 
     async getAll(){
-        return this.repository.find()
+        return {payload : await this.repository.find()}
+    }
+
+    async getById(_id: string){
+        return {payload : await this.repository.findOne({_id})}
+    }
+
+    async getByUser(user: string){
+        return {payload: await this.repository.find({user})}
+    }
+
+    async update(_id: string, data: Partial<IIndividual>){
+        let payload = await this.repository.update({_id}, data);
+        return {payload};
     }
 }
 
