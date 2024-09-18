@@ -188,6 +188,7 @@ export class UserServices {
         
             default:
                 result = null;
+                break;
         }
 
         return {
