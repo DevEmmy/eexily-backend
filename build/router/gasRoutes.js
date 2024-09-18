@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const typedi_1 = require("typedi");
+const GasController_1 = __importDefault(require("../controllers/GasController"));
+const verifyAuth_1 = require("../middleware/verifyAuth");
+const router = (0, express_1.Router)();
+const gasController = typedi_1.Container.get(GasController_1.default);
+router.post("/", verifyAuth_1.verifyAuth, (req, res) => gasController.createGas(req, res));
+router.get("/:id", verifyAuth_1.verifyAuth, (req, res) => gasController.getGasById(req, res));
+router.get("/", verifyAuth_1.verifyAuth, (req, res) => gasController.getAllGas(req, res));
+router.put("/:id", verifyAuth_1.verifyAuth, (req, res) => gasController.updateGas(req, res));
+router.patch("/update-level/:id", verifyAuth_1.verifyAuth, (req, res) => gasController.updateGasLevel(req, res));
+router.delete("/:id", verifyAuth_1.verifyAuth, (req, res) => gasController.deleteGasById(req, res));
+router.get("/appliance/:appliance", verifyAuth_1.verifyAuth, (req, res) => gasController.findGasByAppliance(req, res));
+router.get("/get-usage", verifyAuth_1.verifyAuth, (req, res) => gasController.getGasUsage(req, res));
+exports.default = router;

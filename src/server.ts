@@ -1,15 +1,15 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import corsOptions from './src/config/cors';
+import corsOptions from './config/cors';
 require("dotenv").config()
-import userRouter from "./src/router/UserRouter"
-import gasRouter from "./src/router/gasRoutes"
-import notificationRouter from "./src/router/notificationRouter"
-import refillScheduleRouter from "./src/router/rsRouter"
-import individualRouter from "./src/router/individualRouter"
-import riderRouter  from "./src/router/riderRoute"
-import gasStationRouter from "./src/router/GasStationRouter"
+import userRouter from "./router/UserRouter"
+import gasRouter from "./router/gasRoutes"
+import notificationRouter from "./router/notificationRouter"
+import refillScheduleRouter from "./router/rsRouter"
+import individualRouter from "./router/individualRouter"
+import riderRouter  from "./router/riderRoute"
+import gasStationRouter from "./router/GasStationRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
 
@@ -40,7 +40,7 @@ const options = {
       },
     ],
   },
-  apis: ["./src/docs/*.ts"],
+  apis: ["./docs/*.ts"],
 };
 
 const specs = swaggerJSDoc(options);
@@ -67,9 +67,9 @@ app.use("/individual", individualRouter)
 app.use("/rider", riderRouter)
 
 //render the html file
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/public/index.html');
+// });
 
 app.get('/test-hardware', (req, res) => {
     res.json({message: "Test Successfull"})

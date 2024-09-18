@@ -4,8 +4,8 @@
     "main": "server.js",
     "scripts": {
         "test": "echo 'Error: no test specified' && exit 1",
-        "start": "ts-node server.ts",
-        "dev": "ts-node-dev server.ts --expose-gc"
+        "start": "tsc && node ./build/server.js",
+        "dev": "ts-node-dev ./src/server.ts --expose-gc"
     },
     "keywords": [],
     "author": "",
