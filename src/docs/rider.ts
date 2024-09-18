@@ -70,8 +70,7 @@
  *         description: Bad request
  *       500:
  *         description: Some server error
- *
- * /rider:
+ *   
  *   get:
  *     summary: Get all riders
  *     tags: [Rider]

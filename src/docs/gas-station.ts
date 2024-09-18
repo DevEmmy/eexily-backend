@@ -71,6 +71,23 @@
  *       500:
  *         description: Some server error
  *
+ *   get:
+ *     summary: Get all gas stations
+ *     tags: [GasStation]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of all gas stations
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/GasStation'
+ *       500:
+ *         description: Some server error
+ *
  * /gas-stations/{id}:
  *   get:
  *     summary: Get a gas station by ID
@@ -98,25 +115,6 @@
  *       500:
  *         description: Some server error
  *
- * /gas-stations:
- *   get:
- *     summary: Get all gas stations
- *     tags: [GasStation]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: List of all gas stations
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/GasStation'
- *       500:
- *         description: Some server error
- *
- * /gas-stations/{id}:
  *   put:
  *     summary: Update a gas station by ID
  *     tags: [GasStation]
@@ -149,7 +147,6 @@
  *       500:
  *         description: Some server error
  *
- * /gas-stations/{id}:
  *   delete:
  *     summary: Delete a gas station by ID
  *     tags: [GasStation]

@@ -141,7 +141,7 @@
  *       500:
  *         description: Some server error
  *
- * /individual/{id}:
+ * /individual/{id}/update:
  *   patch:
  *     summary: Update individual entry by ID
  *     tags: [Individual]
