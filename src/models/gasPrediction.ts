@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document, Mongoose, Types } from 'mongoose';
 
 // Define enums
 export enum AmountValue {
@@ -69,6 +69,7 @@ export interface IGasPrediction extends Document {
     isOvenUsage: boolean;
     frequentRefillPerMonth: FrequentRefillPerMonth;
     lastRefill: Date;
+    user: Types.ObjectId
 }
 
 // Define the schema
@@ -84,7 +85,8 @@ const gasPredictionSchema = new Schema<IGasPrediction>({
     usageAsideCooking: { type: Boolean, required: true },
     isOvenUsage: { type: Boolean, required: true },
     frequentRefillPerMonth: { type: String, enum: Object.values(FrequentRefillPerMonth), required: true },
-    lastRefill: { type: Date, required: true }
+    lastRefill: { type: Date, required: true },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
 // Define the model

@@ -17,8 +17,6 @@ import swaggerUI from "swagger-ui-express"
 const app = express();
 const port = String(process.env.PORT) || 3030;
 
-// Set up your routes and middleware here
-// Set up your routes and middleware here
 app.use(cors({
   origin: "*"
 }));

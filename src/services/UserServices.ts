@@ -159,7 +159,6 @@ export class UserServices {
 
     }
 
-
     async completeProfile(userId : string, data: any){
         let user = await this.repo.findById(userId);
         data.user = user

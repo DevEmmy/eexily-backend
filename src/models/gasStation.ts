@@ -24,9 +24,9 @@ function generateRegCode(): string {
 
 // Define the GasStation schema
 const GasStationSchema = new Schema<IGasStation>({
-  user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  gasStationName: { type: String, required: true },
-  address: { type: String, required: true },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  gasStationName: { type: String },
+  address: { type: String, required: false },
   phoneNumber: String,
   accountNumber: String,
   accountName: String,

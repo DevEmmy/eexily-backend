@@ -16,7 +16,6 @@ export enum RiderType{
   RIDER = "RIDER"
 }
 
-// Define the Rider schema
 const RiderSchema = new Schema<IRider>({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   driverLicense: { type: String },

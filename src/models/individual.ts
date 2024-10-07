@@ -10,7 +10,7 @@ export interface IIndividual extends Document {
 // Define the Individual schema
 const IndividualSchema = new Schema<IIndividual>({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  address: { type: String, required: true },
+  address: { type: String },
   gas: { type: Schema.Types.ObjectId, ref: 'Gas' },
 }, {
   timestamps: true
