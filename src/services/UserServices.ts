@@ -16,12 +16,17 @@ import GasStationServices from "./GasStationServices";
 import IndividualServices from "./IndividualServices";
 import RiderServices from "./RiderServices";
 import { BusinessInterface } from "../interfaces/business";
+import BusinessRepository from "../repositories/BusinessRepository";
+import CustomerServiceRepository from "../repositories/CustomerServiceRepository";
+import IndividualRepository from "../repositories/IndividualRepository";
+import GasStationRepository from "../repositories/GasStationRepository";
+import RiderRepository from "../repositories/RiderRepository";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
 @Service()
 export class UserServices {
-    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices,private readonly csServices : CustomerServiceServices,private readonly gsServices: GasStationServices,private readonly individualServices: IndividualServices,private readonly riderServices: RiderServices) { };
+    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices,private readonly csServices : CustomerServiceServices,private readonly gsServices: GasStationServices,private readonly individualServices: IndividualServices,private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository) { };
 
     generateToken(id: string) {
         let token = jwt.sign({ id }, jwtSecret)
@@ -145,8 +150,24 @@ export class UserServices {
                 return { message: "Incorrect Password" }
             }
             let token = this.generateToken(String(user._id))
+
+            let typeObject;
+
+            switch(user.type){
+                case UserType.BUSINESS:
+                    typeObject = await this.businessRepo.findOne({user: user._id})
+                case UserType.CUSTOMER_SERVICE:
+                    typeObject  = await this.csRepo.findOne({user: user._id})
+                case UserType.GAS_STATION:
+                    typeObject =  await this.gasStationRepo.findOne({user: user._id})
+                case UserType.INDIVIDUAL:
+                    typeObject  = await this.individualRepo.findOne({user: user._id})
+                case UserType.RIDER:
+                    typeObject  = await this.riderRepo.findOne({user: user._id})
+            }
+
             return {
-                payload: { user, token }
+                payload: { user, token, typeObject }
             }
         }
 
