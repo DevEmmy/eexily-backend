@@ -12,6 +12,7 @@ import riderRouter  from "./router/riderRoute"
 import gasStationRouter from "./router/GasStationRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
+import predictionRouter from "./router/gasPredictionRouter"
 
 
 const app = express();
@@ -63,6 +64,7 @@ app.use("/refill-schedule", refillScheduleRouter)
 app.use("/gas-station", gasStationRouter)
 app.use("/individual", individualRouter)
 app.use("/rider", riderRouter)
+app.use("/prediction", predictionRouter)
 
 //render the html file
 // app.get('/', (req, res) => {

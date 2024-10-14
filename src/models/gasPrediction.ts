@@ -1,5 +1,11 @@
 import mongoose, { Schema, Document, Mongoose, Types } from 'mongoose';
 
+// Define refill history type
+interface RefillEntry {
+    refillDate: Date;
+    amountFilled: number;
+}
+
 // Define enums
 export enum AmountValue {
     ONE = 1,
@@ -55,7 +61,6 @@ export enum FrequentRefillPerMonth {
     FOUR_TIMES_OR_MORE = "4 times or more"
 }
 
-// Define the interface
 export interface IGasPrediction extends Document {
     amountValue: AmountValue;
     daysofUse: number;
@@ -69,12 +74,12 @@ export interface IGasPrediction extends Document {
     isOvenUsage: boolean;
     frequentRefillPerMonth: FrequentRefillPerMonth;
     lastRefill: Date;
-    user: Types.ObjectId
+    refillHistory: RefillEntry[];  // New field to track refills
+    user: Types.ObjectId;
 }
 
-// Define the schema
 const gasPredictionSchema = new Schema<IGasPrediction>({
-    amountValue: { type: Number, enum: Object.values(AmountValue), required: true },
+    amountValue: { type: Number, required: true },
     daysofUse: { type: Number, required: true },
     frequentUsage: { type: String, enum: Object.values(FrequentUsage), required: true },
     dailyMeals: { type: String, enum: Object.values(DailyMeals), required: true },
@@ -86,10 +91,15 @@ const gasPredictionSchema = new Schema<IGasPrediction>({
     isOvenUsage: { type: Boolean, required: true },
     frequentRefillPerMonth: { type: String, enum: Object.values(FrequentRefillPerMonth), required: true },
     lastRefill: { type: Date, required: true },
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    refillHistory: [
+        {
+            refillDate: { type: Date, required: true },
+            amountFilled: { type: Number, required: true }
+        }
+    ],  // New refill history array
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true, unique: true },
 });
 
-// Define the model
 const GasPrediction = mongoose.model<IGasPrediction>('GasPrediction', gasPredictionSchema);
 
 export default GasPrediction;

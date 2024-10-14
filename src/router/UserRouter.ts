@@ -8,7 +8,7 @@ const userController = Container.get(UserController);
 router.post("/sign-in", (req: Request, res: Response) => userController.signIn(req, res))
 router.post("/verify-user", (req: Request, res: Response) => userController.verifyOtp(req, res))
 router.post("/sign-up", (req: Request, res: Response) => userController.signUp(req, res))
-router.post("/complete-registration", verifyAuth,(req: Request, res: Response) => userController.signUp(req, res)) //add middleware
+router.post("/complete-registration", verifyAuth,(req: Request, res: Response) => userController.completeRegistration(req, res)) //add middleware
 
 
 export default router;

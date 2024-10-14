@@ -22,7 +22,7 @@ const UserSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   
-  isVerified: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: true },
   generatedOtp: { type: String },
   generatedOtpExpiration: { type: Date },
   
