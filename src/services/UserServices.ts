@@ -83,9 +83,11 @@ export class UserServices {
             // let gasObject: GasDto = { size, houseHoldSize, primaryCookingAppliance, ownedBy: String(user._id) };
 
             // let gas = await this.gasRepo.create(gasObject)
+
+            let token = this.generateToken(String(user._id))
             
             return {
-                payload: { user }
+                payload: { user, token }
             }
         }
         catch (err: any) {
