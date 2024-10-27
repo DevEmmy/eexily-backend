@@ -1,4 +1,4 @@
-import express from 'express'
+import express,  { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import corsOptions from './config/cors';
@@ -13,10 +13,45 @@ import gasStationRouter from "./router/GasStationRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
 import predictionRouter from "./router/gasPredictionRouter"
-
+import { requestLogger } from './requestLogger';
+import fs from 'fs';
+import path from 'path';
 
 const app = express();
 const port = String(process.env.PORT) || 3030;
+
+app.use(requestLogger);
+
+// Route to serve logs as HTML
+app.get('/logs', (req: Request, res: Response) => {
+  const logFilePath = path.join(__dirname ,'logs.txt');
+  
+  fs.readFile(logFilePath, 'utf-8', (err, data) => {
+      if (err) {
+          return res.status(500).send("Error reading log file.");
+      }
+      
+      // Format the logs into HTML
+      const htmlContent = `
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>${data}</pre>
+      </body>
+      </html>
+      `;
+      
+      res.send(htmlContent);
+  });
+});
+
 
 app.use(cors({
   origin: "*"

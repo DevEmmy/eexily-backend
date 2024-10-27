@@ -1,0 +1,12 @@
+
+        Timestamp: 2024-10-27T15:41:59.445Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 13.25ms
+        -----------------------------------------------------------
+        

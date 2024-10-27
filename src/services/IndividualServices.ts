@@ -24,8 +24,10 @@ class IndividualServices{
         return {payload: await this.repository.find({user})}
     }
 
-    async update(_id: string, data: Partial<IIndividual>){
-        let payload = await this.repository.update({_id}, data);
+    async update(user: string, data: Partial<IIndividual>){
+        console.log(user)
+        let payload = await this.repository.update({user}, data);
+        
         return {payload};
     }
 }

@@ -50,7 +50,7 @@ export enum TypeOfHouseHold {
 }
 
 export enum GenderComposition {
-    ALL_FAMILY = "All Family",
+    ALL_FEMALE = "All Female",
     ALL_MALE = "All Male",
     MIXED = "Mixed"
 }
@@ -62,8 +62,9 @@ export enum FrequentRefillPerMonth {
 }
 
 export interface IGasPrediction extends Document {
+    usualAmountValue: AmountValue;
     amountValue: AmountValue;
-    daysofUse: number;
+    daysofUse: string;
     frequentUsage: FrequentUsage;
     dailyMeals: DailyMeals;
     typeOfCooking: TypeOfCooking;
@@ -79,8 +80,9 @@ export interface IGasPrediction extends Document {
 }
 
 const gasPredictionSchema = new Schema<IGasPrediction>({
+    usualAmountValue: { type: Number, required: true },
     amountValue: { type: Number, required: true },
-    daysofUse: { type: Number, required: true },
+    daysofUse: { type: String, required: true },
     frequentUsage: { type: String, enum: Object.values(FrequentUsage), required: true },
     dailyMeals: { type: String, enum: Object.values(DailyMeals), required: true },
     typeOfCooking: { type: String, enum: Object.values(TypeOfCooking), required: true },

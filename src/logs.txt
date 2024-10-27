@@ -1,0 +1,750 @@
+
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:45:03.913Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 3.08ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:56:07.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDU2N30.jHVWpqg1uvq0NA83gWugfRNsJbFDkfYwnXuzEgs5n9Q","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 181.01ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:57:16.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDYzNn0.xFR5RIIl--GkHBZwaPnZehEIHmyC7lwvfBBN9AoMyfM","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 142.06ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T16:00:27.679Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:45:03.913Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 3.08ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:56:07.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDU2N30.jHVWpqg1uvq0NA83gWugfRNsJbFDkfYwnXuzEgs5n9Q","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 181.01ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:57:16.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDYzNn0.xFR5RIIl--GkHBZwaPnZehEIHmyC7lwvfBBN9AoMyfM","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 142.06ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 13.52ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T16:21:46.041Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NjEwNn0.N-YOyT_CSWi3DeXaHedqw4dCKWiXEhRnBikp_andt3Q","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 1078.05ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T16:58:16.491Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:45:03.913Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 3.08ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:56:07.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDU2N30.jHVWpqg1uvq0NA83gWugfRNsJbFDkfYwnXuzEgs5n9Q","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 181.01ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:57:16.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDYzNn0.xFR5RIIl--GkHBZwaPnZehEIHmyC7lwvfBBN9AoMyfM","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 142.06ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T16:00:27.679Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:45:03.913Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:42:58.890Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: 
+      <html>
+      <head>
+          <title>Logs</title>
+          <style>
+              body { font-family: Arial, sans-serif; }
+              pre { background-color: #f4f4f4; padding: 10px; border: 1px solid #ddd; }
+          </style>
+      </head>
+      <body>
+          <h1>Application Logs</h1>
+          <pre>
+        Timestamp: 2024-10-27T15:42:55.375Z
+        Method: GET
+        Route: /logs
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: Error reading log file.
+        Time Taken: 21.58ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 7.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:43:34.044Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0MzgxNH0.es_su3JSah2GI6Pfv-WSuWQ0e8ginEmaX16PF2oio1Y","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 393.46ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 3.08ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:56:07.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDU2N30.jHVWpqg1uvq0NA83gWugfRNsJbFDkfYwnXuzEgs5n9Q","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 181.01ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T15:57:16.092Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NDYzNn0.xFR5RIIl--GkHBZwaPnZehEIHmyC7lwvfBBN9AoMyfM","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 142.06ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 13.52ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-10-27T16:21:46.041Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"671e5a8bf7554c2c5fb7b187","phoneNumber":"51349797378","email":"y@m","password":"$2b$08$rhQlkpsmtex.t00T8gnlAejEnOh448PozAEKcWWy6FCtnp7KQ.QwG","isVerified":true,"generatedOtp":"$2b$08$f.Lu54.Av1MVVfxy4TKlKeLtvb19f/cJGvgsAOEEnxV86efY7QLmi","generatedOtpExpiration":"2024-10-27T20:21:47.350Z","type":"INDIVIDUAL","createdAt":"2024-10-27T15:21:47.575Z","updatedAt":"2024-10-27T15:21:47.575Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWU1YThiZjc1NTRjMmM1ZmI3YjE4NyIsImlhdCI6MTczMDA0NjEwNn0.N-YOyT_CSWi3DeXaHedqw4dCKWiXEhRnBikp_andt3Q","typeObject":{"_id":"671e5a8bf7554c2c5fb7b189","user":"671e5a8bf7554c2c5fb7b187","createdAt":"2024-10-27T15:21:47.769Z","updatedAt":"2024-10-27T15:22:00.859Z","__v":0,"address":"jdjsjs","firstName":"hsj","lastName":"jsjsj"},"isGas":false}}
+        Time Taken: 1078.05ms
+        -----------------------------------------------------------
+        </pre>
+      </body>
+      </html>
+      
+        Time Taken: 32.67ms
+        -----------------------------------------------------------
+        

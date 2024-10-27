@@ -15,6 +15,8 @@ export class UserController{
         try{
             const body : createUserDto = req.body;
             let {payload, message} = await this.service.signUp(body);
+            console.log(body)
+            console.log(payload)
             if(!payload && message){
                 return error(message, res, 400)
             }
@@ -28,9 +30,9 @@ export class UserController{
     async signIn(req: Request, res: Response){
         try{
             const body : UserLoginDto = req.body;
-            console.log(body)
-            let {payload, message} = await this.service.signIn(body);
             
+            let {payload, message} = await this.service.signIn(body);
+            console.log(payload);
             if(!payload && message){
                 return error(message, res, 400)
             }

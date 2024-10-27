@@ -21,12 +21,13 @@ import CustomerServiceRepository from "../repositories/CustomerServiceRepository
 import IndividualRepository from "../repositories/IndividualRepository";
 import GasStationRepository from "../repositories/GasStationRepository";
 import RiderRepository from "../repositories/RiderRepository";
+import GasPredictionRepository from "../repositories/GasPrediction";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
 @Service()
 export class UserServices {
-    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices,private readonly csServices : CustomerServiceServices,private readonly gsServices: GasStationServices,private readonly individualServices: IndividualServices,private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository) { };
+    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices,private readonly csServices : CustomerServiceServices,private readonly gsServices: GasStationServices,private readonly individualServices: IndividualServices,private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository, private gasPredictionRepository: GasPredictionRepository) { };
 
     generateToken(id: string) {
         let token = jwt.sign({ id }, jwtSecret)
@@ -62,21 +63,23 @@ export class UserServices {
             let typeData : any= {
                 user
             }
+
+            let typeObject;
             switch (type) {
                 case  UserType.BUSINESS:
-                    await this.businessServices.createBusiness(typeData);
+                   typeObject = await this.businessServices.createBusiness(typeData);
+                   break;
                 case UserType.RIDER:
-                    await this.riderServices.create(typeData)
-                case UserType.CUSTOMER_SERVICE:
-                    await this.csServices.create(typeData);
-                case UserType.GAS_STATION:
-                    await this.gsServices.create(typeData)
-                case UserType.INDIVIDUAL:
-                    await this.individualServices.create(typeData)
+                    typeObject = await this.riderServices.create(typeData)
                     break;
-            
-                default:
-                    await this.individualServices.create(typeData)
+                case UserType.CUSTOMER_SERVICE:
+                    typeObject = await this.csServices.create(typeData);
+                    break;
+                case UserType.GAS_STATION:
+                    typeObject = await this.gsServices.create(typeData)
+                    break;
+                case UserType.INDIVIDUAL:
+                    typeObject = await this.individualServices.create(typeData)
                     break;
             }
 
@@ -87,7 +90,7 @@ export class UserServices {
             let token = this.generateToken(String(user._id))
             
             return {
-                payload: { user, token }
+                payload: { user, token, typeObject }
             }
         }
         catch (err: any) {
@@ -154,22 +157,29 @@ export class UserServices {
             let token = this.generateToken(String(user._id))
 
             let typeObject;
-
+            
             switch(user.type){
                 case UserType.BUSINESS:
                     typeObject = await this.businessRepo.findOne({user: user._id})
+                    break;
                 case UserType.CUSTOMER_SERVICE:
                     typeObject  = await this.csRepo.findOne({user: user._id})
+                    break;
                 case UserType.GAS_STATION:
                     typeObject =  await this.gasStationRepo.findOne({user: user._id})
+                    break;
                 case UserType.INDIVIDUAL:
                     typeObject  = await this.individualRepo.findOne({user: user._id})
+                    break;
                 case UserType.RIDER:
                     typeObject  = await this.riderRepo.findOne({user: user._id})
+                    break;
             }
 
+            let gasPrediction = await this.gasPredictionRepository.findByUser(user._id as string);
+            let isGas = gasPrediction ? true : false
             return {
-                payload: { user, token, typeObject }
+                payload: { user, token, typeObject, isGas }
             }
         }
 
