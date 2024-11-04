@@ -21,8 +21,8 @@ class RSController{
 
     async getByUser(req: Request, res: Response){
         try{
-            let {userId} = req.params
-            let {payload} = await this.service.getByUser(userId);
+            let user = req.body.user
+            let {payload} = await this.service.getByUser(user);
             return success(payload, res);
         }
         catch(err: any){

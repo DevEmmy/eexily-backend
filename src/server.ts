@@ -16,6 +16,8 @@ import predictionRouter from "./router/gasPredictionRouter"
 import { requestLogger } from './requestLogger';
 import fs from 'fs';
 import path from 'path';
+import merchantRouter from "./router/merchantRoutes"
+import expressRefillRouter from "./router/expressRefillRouter"
 
 const app = express();
 const port = String(process.env.PORT) || 3030;
@@ -100,6 +102,8 @@ app.use("/gas-station", gasStationRouter)
 app.use("/individual", individualRouter)
 app.use("/rider", riderRouter)
 app.use("/prediction", predictionRouter)
+app.use("/merchant", merchantRouter)
+app.use("/express-refill", expressRefillRouter)
 
 //render the html file
 // app.get('/', (req, res) => {

@@ -18,9 +18,10 @@ class RSServices {
 
     async create(data: Partial<IRefillSchedule>) {
         try {
-            let payload = await this.repo.create(data)
+            data.gasStation = "6720bc03ac29369c29eb53ab"
+            let payload = await this.repo.create(data);
 
-            this.processSchedule(data).catch(err => {
+            this.processSchedule(payload).catch(err => {
                 console.error("Error in processSchedule:", err);
             });
 
@@ -85,17 +86,19 @@ class RSServices {
             let schedule = await this.repo.findOne({ _id: data._id });
             //dont forget to filter by the time 
             if (!schedule) {
+                console.log("message")
                 return { message: "schedule not found" }
+                
             }
 
             //fetch all drivers
             let drivers = await this.riderRepo.find({ gasStation: schedule?.gasStation })
-
+            console.log(drivers)
             let status: boolean = false;
 
             for (let i = 0; i <= drivers.length; i++) {
                 let driver = drivers[i]
-                const createdTime = new Date(String(data.timeScheduled));
+                const createdTime = new Date(String(data.pickedUpTime));
                 const day = createdTime.getDate();
                 const month = createdTime.getMonth() + 1; // Months are zero-indexed in JavaScript
                 const year = createdTime.getFullYear();
@@ -117,6 +120,8 @@ class RSServices {
                         $match: { pickedUpTime: data["pickedUpTime"] }  // Match the pickedUpTime if needed
                     }
                 ]);
+
+                console.log(schedulesForDriver)
 
                 if (schedulesForDriver.length < 20) {
                     schedule.rider = driver._id as string

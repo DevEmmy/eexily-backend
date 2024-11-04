@@ -40,7 +40,7 @@ export class RiderController {
             let { payload } = await this.service.getRiderByGasStation(gasStation);
             return success(payload, res);
         } catch (err: any) {
-            error(err.message, res, err.status || 400);
+            error(err.message, res, err.status || 400)
         }
     }
 
@@ -57,8 +57,9 @@ export class RiderController {
     async updateRider(req: Request, res: Response) {
         try {
             const { riderId } = req.params;
+            let user = req.body.user;
             const body = req.body;
-            let { payload } = await this.service.update(riderId, body);
+            let { payload } = await this.service.update(user, body);
             return success(payload, res);
         } catch (err: any) {
             error(err.message, res, err.status || 400);

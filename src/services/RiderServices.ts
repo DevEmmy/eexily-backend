@@ -12,14 +12,12 @@ class RiderServices{
     async create(data: RiderInterface){
         let gasStation = await this.gasStationRepo.getByRegCode(data.gasStationCode);
 
-        if(!gasStation){
-            return {
-                message: "Gas Station Not Found"
-            }
+        if(gasStation){
+            data.gasStation = gasStation._id
         }
-        data.gasStation = gasStation._id
+        
         let payload = await this.repository.create(data);
-        return {payload}
+        return {payload, message: "Successful"}
     }
 
     async getAll(){
@@ -33,12 +31,19 @@ class RiderServices{
     }
 
     async getRiderSchedule(_id: string){
-        let schedules = await this.refillScheduleRepo.find({rider: _id});
+        let schedules = await this.repository.find({rider: _id});
         return {payload: schedules}
     }
 
-    async update(_id: string, data: Partial<IRider>){
-        let payload = await this.refillScheduleRepo.update({_id}, data);
+    async update(user: string, data: Partial<RiderInterface>){
+        let gasStation = await this.gasStationRepo.getByRegCode(data.gasStationCode as string);
+
+        if(gasStation){
+            data.gasStation = gasStation._id
+        }
+
+        let payload = await this.repository.update({user}, data);
+        console.log(payload)
         return {payload}
     }
 }

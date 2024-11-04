@@ -11,6 +11,6 @@ router.post("/", verifyAuth, (req, res) => riderController.createRider(req, res)
 router.get("/", verifyAuth, (req, res) => riderController.getAllRiders(req, res));
 router.get("/by-gasstation/:gasStation", verifyAuth, (req, res) => riderController.getRidersByGasStation(req, res));
 router.get("/schedule/:riderId", verifyAuth, (req, res) => riderController.getRiderSchedule(req, res));
-router.patch("/update/:riderId", verifyAuth, (req, res) => riderController.getRiderSchedule(req, res));
+router.patch("/update/:riderId", verifyAuth, (req, res) => riderController.updateRider(req, res));
 
 export default router;

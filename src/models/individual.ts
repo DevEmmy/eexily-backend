@@ -4,16 +4,16 @@ import mongoose, { Schema, Document, Types } from 'mongoose';
 export interface IIndividual extends Document {
   user: Types.ObjectId;
   address?: string;
-  gas?: Types.ObjectId;
+  gasSize?: number;
   firstName?:string;
   lastName?: string
 }
 
-// Define the Individual schema
+// Define the Individual schem
 const IndividualSchema = new Schema<IIndividual>({
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   address: { type: String },
-  gas: { type: Schema.Types.ObjectId, ref: 'Gas' },
+  gasSize: {type: Number},
   firstName: String,
   lastName: String
 }, {

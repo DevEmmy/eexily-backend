@@ -22,12 +22,14 @@ import IndividualRepository from "../repositories/IndividualRepository";
 import GasStationRepository from "../repositories/GasStationRepository";
 import RiderRepository from "../repositories/RiderRepository";
 import GasPredictionRepository from "../repositories/GasPrediction";
+import GasPredictionService from "./GasPredictionServices";
+import MerchantRepository from "../repositories/MerchantRepository";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
 @Service()
 export class UserServices {
-    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices,private readonly csServices : CustomerServiceServices,private readonly gsServices: GasStationServices,private readonly individualServices: IndividualServices,private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository, private gasPredictionRepository: GasPredictionRepository) { };
+    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices, private readonly csServices: CustomerServiceServices, private readonly gsServices: GasStationServices, private readonly individualServices: IndividualServices, private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository, private gasPredictionRepository: GasPredictionRepository, private readonly gasPredictionService: GasPredictionService, private readonly merchantRepository : MerchantRepository) { };
 
     generateToken(id: string) {
         let token = jwt.sign({ id }, jwtSecret)
@@ -60,15 +62,15 @@ export class UserServices {
             //send otp
             await this.otpService.sendCreateUserOTP(otp, email);
 
-            let typeData : any= {
+            let typeData: any = {
                 user
             }
 
             let typeObject;
             switch (type) {
-                case  UserType.BUSINESS:
-                   typeObject = await this.businessServices.createBusiness(typeData);
-                   break;
+                case UserType.BUSINESS:
+                    typeObject = await this.businessServices.createBusiness(typeData);
+                    break;
                 case UserType.RIDER:
                     typeObject = await this.riderServices.create(typeData)
                     break;
@@ -81,6 +83,9 @@ export class UserServices {
                 case UserType.INDIVIDUAL:
                     typeObject = await this.individualServices.create(typeData)
                     break;
+                case UserType.MERCHANT:
+                    typeObject = await this.merchantRepository.create(typeData)
+                    break;
             }
 
             // let gasObject: GasDto = { size, houseHoldSize, primaryCookingAppliance, ownedBy: String(user._id) };
@@ -88,7 +93,7 @@ export class UserServices {
             // let gas = await this.gasRepo.create(gasObject)
 
             let token = this.generateToken(String(user._id))
-            
+
             return {
                 payload: { user, token, typeObject }
             }
@@ -146,8 +151,8 @@ export class UserServices {
                 return { message: "User with this email does not exist" }
             }
 
-            if(user.isVerified !== true){
-                return {payload: null, message: "You're not verified yet!"}
+            if (user.isVerified !== true) {
+                return { payload: null, message: "You're not verified yet!" }
             }
 
             let doMatch = await bcrypt.compare(password, user.password);
@@ -157,29 +162,36 @@ export class UserServices {
             let token = this.generateToken(String(user._id))
 
             let typeObject;
-            
-            switch(user.type){
+
+            switch (user.type) {
                 case UserType.BUSINESS:
-                    typeObject = await this.businessRepo.findOne({user: user._id})
+                    typeObject = await this.businessRepo.findOne({ user: user._id })
                     break;
                 case UserType.CUSTOMER_SERVICE:
-                    typeObject  = await this.csRepo.findOne({user: user._id})
+                    typeObject = await this.csRepo.findOne({ user: user._id })
                     break;
                 case UserType.GAS_STATION:
-                    typeObject =  await this.gasStationRepo.findOne({user: user._id})
+                    typeObject = await this.gasStationRepo.findOne({ user: user._id })
                     break;
                 case UserType.INDIVIDUAL:
-                    typeObject  = await this.individualRepo.findOne({user: user._id})
+                    typeObject = await this.individualRepo.findOne({ user: user._id })
                     break;
                 case UserType.RIDER:
-                    typeObject  = await this.riderRepo.findOne({user: user._id})
+                    typeObject = await this.riderRepo.findOne({ user: user._id })
                     break;
+                    case UserType.MERCHANT:
+                        typeObject = await this.merchantRepository.findOne({ user: user._id })
+                        break;
             }
 
             let gasPrediction = await this.gasPredictionRepository.findByUser(user._id as string);
             let isGas = gasPrediction ? true : false
+            let gasPredictionData;
+            if (isGas) {
+                gasPredictionData = await this.gasPredictionService.predictGasCompletion(user._id as string)
+            }
             return {
-                payload: { user, token, typeObject, isGas }
+                payload: { user, token, typeObject, isGas, gasPredictionData }
             }
         }
 
@@ -192,32 +204,32 @@ export class UserServices {
 
     }
 
-    async completeProfile(userId : string, data: any){
+    async completeProfile(userId: string, data: any) {
         let user = await this.repo.findById(userId);
         data.user = user
-        
-        let result : any;
+
+        let result: any;
         switch (user?.type) {
             case UserType.BUSINESS:
                 result = await this.businessServices.createBusiness(data)
                 break;
 
             case UserType.CUSTOMER_SERVICE:
-                    result = await this.csServices.create(data)
-                    break;
+                result = await this.csServices.create(data)
+                break;
 
             case UserType.GAS_STATION:
-                     result = await this.gsServices.create(data)
-                     break;
+                result = await this.gsServices.create(data)
+                break;
 
             case UserType.INDIVIDUAL:
-                    result = await this.individualServices.create(data)
-                    break;
+                result = await this.individualServices.create(data)
+                break;
 
             case UserType.RIDER:
-                    result = await this.riderServices.create(data)
-                    break;
-        
+                result = await this.riderServices.create(data)
+                break;
+
             default:
                 result = null;
                 break;
