@@ -28,6 +28,7 @@ class GasPredictionController {
      // Create gas prediction record
      async createGasPrediction(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
+            console.log(req.body)
             const gasPrediction = await this.gasPredictionService.createGasPrediction(req.body);
             res.status(201).json(gasPrediction);
         } catch (error) {

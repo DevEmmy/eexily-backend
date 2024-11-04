@@ -12040,3 +12040,58 @@
         Time Taken: 57.36ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-04T14:39:28.910Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 400
+        Response: {"message":"User with this email does not exist"}
+        Time Taken: 1985.54ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-04T14:40:18.025Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"phoneNumber":"51349797679","email":"ni@m","password":"$2b$08$MeezPrqFaBqUO49KiwWJbuU9lGdjxv4kEoOpsQ8zh460bphAt8Ge2","isVerified":true,"generatedOtp":"$2b$08$tIGtBrQZKEAOQi55BUjeweuUrqObCITKEJtSdMhGSczoj4I7zUbZq","generatedOtpExpiration":"2024-11-04T19:40:18.293Z","type":"INDIVIDUAL","_id":"6728dcd2ce3b663f65798cd3","createdAt":"2024-11-04T14:40:18.337Z","updatedAt":"2024-11-04T14:40:18.337Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MjhkY2QyY2UzYjY2M2Y2NTc5OGNkMyIsImlhdCI6MTczMDczMTIyMH0.PL-uG6E1X_43KLvPEjRJWKwT5QCQRNN7FRw6jiHfyb4","typeObject":{"payload":{"user":{"phoneNumber":"51349797679","email":"ni@m","password":"$2b$08$MeezPrqFaBqUO49KiwWJbuU9lGdjxv4kEoOpsQ8zh460bphAt8Ge2","isVerified":true,"generatedOtp":"$2b$08$tIGtBrQZKEAOQi55BUjeweuUrqObCITKEJtSdMhGSczoj4I7zUbZq","generatedOtpExpiration":"2024-11-04T19:40:18.293Z","type":"INDIVIDUAL","_id":"6728dcd2ce3b663f65798cd3","createdAt":"2024-11-04T14:40:18.337Z","updatedAt":"2024-11-04T14:40:18.337Z","__v":0},"_id":"6728dcd2ce3b663f65798cd5","createdAt":"2024-11-04T14:40:18.629Z","updatedAt":"2024-11-04T14:40:18.629Z","__v":0}}}}
+        Time Taken: 2155.84ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-04T14:40:28.507Z
+        Method: PATCH
+        Route: /individual/6728dcd2ce3b663f65798cd3
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"_id":"6728dcd2ce3b663f65798cd5","user":"6728dcd2ce3b663f65798cd3","createdAt":"2024-11-04T14:40:18.629Z","updatedAt":"2024-11-04T14:40:28.536Z","__v":0,"address":"jsjsjsn","firstName":"nssjj","gasSize":5,"lastName":"sjsjdj"}}
+        Time Taken: 102.05ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-04T14:40:47.397Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"6728dcd2ce3b663f65798cd3","phoneNumber":"51349797679","email":"ni@m","password":"$2b$08$MeezPrqFaBqUO49KiwWJbuU9lGdjxv4kEoOpsQ8zh460bphAt8Ge2","isVerified":true,"generatedOtp":"$2b$08$tIGtBrQZKEAOQi55BUjeweuUrqObCITKEJtSdMhGSczoj4I7zUbZq","generatedOtpExpiration":"2024-11-04T19:40:18.293Z","type":"INDIVIDUAL","createdAt":"2024-11-04T14:40:18.337Z","updatedAt":"2024-11-04T14:40:18.337Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MjhkY2QyY2UzYjY2M2Y2NTc5OGNkMyIsImlhdCI6MTczMDczMTI0N30.AjxDjYjhivgY8hFW4y5Fz04iZSpB55PDjQrAKahNar4","typeObject":{"_id":"6728dcd2ce3b663f65798cd5","user":"6728dcd2ce3b663f65798cd3","createdAt":"2024-11-04T14:40:18.629Z","updatedAt":"2024-11-04T14:40:28.536Z","__v":0,"address":"jsjsjsn","firstName":"nssjj","gasSize":5,"lastName":"sjsjdj"},"isGas":false}}
+        Time Taken: 236.03ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-04T14:41:21.607Z
+        Method: POST
+        Route: /prediction
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"daysLeft":20,"completionDate":"2024-11-20T23:00:00.000Z","estimatedGasRemaining":5.1}}
+        Time Taken: 334.84ms
+        -----------------------------------------------------------
+        
