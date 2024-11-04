@@ -10,7 +10,7 @@ class GasPredictionService {
 
     // Create a new gas prediction record
     async createGasPrediction(gasPredictionData: Partial<IGasPrediction>) {
-        
+        console.log(gasPredictionData)
         let data = await this.gasPredictionRepository.create(gasPredictionData)
         return {
             payload: await this.predictGasCompletion(String(data.user._id))
