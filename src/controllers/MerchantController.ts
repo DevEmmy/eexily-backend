@@ -62,10 +62,13 @@ class MerchantController {
 
     // Update a merchant's information
     async updateMerchant(req: Request, res: Response) {
+        console.log(req.body)
         try {
             let user = req.body.user
             const data: Partial<IMerchant> = req.body;
+            console.log(data)
             let merchant: any = await this.merchantService.getByUser(user)
+            console.log(merchant)
             const result = await this.merchantService.updateMerchant(merchant.payload._id, data);
             return res.status(200).json(result);
         } catch (err: any) {

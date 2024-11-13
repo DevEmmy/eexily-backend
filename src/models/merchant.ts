@@ -12,6 +12,7 @@ export interface IMerchant extends Document {
     accountNumber: string;
     bankName: string;
     accountName: string;
+    user: Types.ObjectId;
 }
 
 const merchantSchema = new Schema<IMerchant>(
@@ -26,7 +27,8 @@ const merchantSchema = new Schema<IMerchant>(
         regularPrice: { type: Number, required: false },
         accountNumber: String,
         bankName: String,
-        accountName: String
+        accountName: String,
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
     },
     {
         timestamps: true

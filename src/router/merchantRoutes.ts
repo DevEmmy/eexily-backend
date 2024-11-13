@@ -22,7 +22,7 @@ router.get("/store/:storeName", verifyAuth, (req, res) => merchantController.get
 router.get("/open", verifyAuth, (req, res) => merchantController.getOpenMerchants(req, res));
 
 // Update a merchant's information
-router.patch("/:id", verifyAuth, (req, res) => merchantController.updateMerchant(req, res));
+router.patch("/", verifyAuth, (req, res) => merchantController.updateMerchant(req, res));
 
 // Update merchant's open status
 router.put("/:id/open", verifyAuth, (req, res) => merchantController.updateOpenStatus(req, res));

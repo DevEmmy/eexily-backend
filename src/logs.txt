@@ -12095,3 +12095,113 @@
         Time Taken: 334.84ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-12T14:45:47.639Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"phoneNumber":"09048988583","email":"test@mail.com","password":"$2b$08$/VinnCNBHw1PhMWQ8njp4u1FTrHDbJyLc5ORZhkuuWiG0ux5iGDCa","isVerified":true,"generatedOtp":"$2b$08$GWyrWcgfi3pe.N4Re0o88u2sodikXRanb1G8bH4Jd89qoEbbdHw4C","generatedOtpExpiration":"2024-11-12T19:45:48.395Z","type":"MERCHANT","_id":"67336a1c3d0dae1a738f4cd1","createdAt":"2024-11-12T14:45:48.445Z","updatedAt":"2024-11-12T14:45:48.445Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzM2YTFjM2QwZGFlMWE3MzhmNGNkMSIsImlhdCI6MTczMTQyMjc0OX0.y6UByiZM2dLGLEXqBL1ia74S0LR0LBZ8C4Bb2r_e-6A","typeObject":{"isOpened":true,"_id":"67336a1c3d0dae1a738f4cd3","createdAt":"2024-11-12T14:45:48.766Z","updatedAt":"2024-11-12T14:45:48.766Z","__v":0}}}
+        Time Taken: 1484.88ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-12T14:48:42.080Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"phoneNumber":"09048988583","email":"test2@mail.com","password":"$2b$08$Rm9ccmsuqIEDmADLYDxhEeQ/KlHopbU3woxxpZSYfnjPNJ0B1wZzW","isVerified":true,"generatedOtp":"$2b$08$eN95VRGRr6NFh6NIYXwPDeYOw5.KzR3xM37AGV2zHEws/RunnUk4K","generatedOtpExpiration":"2024-11-12T19:48:42.633Z","type":"MERCHANT","_id":"67336aca9d4d174b10673c31","createdAt":"2024-11-12T14:48:42.717Z","updatedAt":"2024-11-12T14:48:42.717Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzM2YWNhOWQ0ZDE3NGIxMDY3M2MzMSIsImlhdCI6MTczMTQyMjkyM30.1pCIR2R04zzzQfE5x51oGamxePm-GxJJMToCtx30n_c","typeObject":{"isOpened":true,"_id":"67336aca9d4d174b10673c33","createdAt":"2024-11-12T14:48:42.999Z","updatedAt":"2024-11-12T14:48:42.999Z","__v":0}}}
+        Time Taken: 1187.31ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-12T15:00:56.286Z
+        Method: PATCH
+        Route: /merchant
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Cannot read properties of null (reading '_id')"}
+        Time Taken: 393.89ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-12T15:02:02.731Z
+        Method: PATCH
+        Route: /merchant
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Cannot read properties of null (reading '_id')"}
+        Time Taken: 447.19ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-13T12:38:29.441Z
+        Method: PATCH
+        Route: /merchant
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Cannot read properties of null (reading '_id')"}
+        Time Taken: 491.85ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-13T12:39:51.749Z
+        Method: PATCH
+        Route: /merchant
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Cast to ObjectId failed for value \"6728c46a2b4612b8860670b\" (type string) at path \"_id\" for model \"Merchant\""}
+        Time Taken: 269.74ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-13T19:49:53.969Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"email":"o@mail.com","password":"$2b$08$aUESwf99UisGFqFHgdVrYe.mxR3MhaxmBikg93ORQn7AjjEWsOEem","isVerified":true,"generatedOtp":"$2b$08$L5z1oP0Grv/NGwaJb1liLefXSSzmnmyAuV3TaLXhvC2vs.JCmrHXG","generatedOtpExpiration":"2024-11-14T00:49:55.630Z","type":"MERCHANT","_id":"673502e3788a0d149e25cd10","createdAt":"2024-11-13T19:49:55.679Z","updatedAt":"2024-11-13T19:49:55.679Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzUwMmUzNzg4YTBkMTQ5ZTI1Y2QxMCIsImlhdCI6MTczMTUyNzM5N30.z8ka9jF59B3xnOVlDqKBVBNKTYRaQ4X-9mths4UeXRU","typeObject":{"isOpened":true,"_id":"673502e4788a0d149e25cd12","createdAt":"2024-11-13T19:49:56.261Z","updatedAt":"2024-11-13T19:49:56.261Z","__v":0}}}
+        Time Taken: 3872.33ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-13T19:50:40.735Z
+        Method: PATCH
+        Route: /merchant
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Cannot read properties of null (reading '_id')"}
+        Time Taken: 98.19ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-13T20:09:35.971Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"email":"emmy@mail.com","password":"$2b$08$xTxzlE7EA1BoAUVJN33RQ.AvM12ASVgn56MUU/Eb8/YCzF/8XYJhW","isVerified":true,"generatedOtp":"$2b$08$RTvl5iZNJEdZoNNr4LqrYu1JUPxmE683OrIlSPqyzH.tY829Hf9OS","generatedOtpExpiration":"2024-11-14T01:09:36.485Z","type":"MERCHANT","_id":"67350780a20a7e5c8d0f6e0a","createdAt":"2024-11-13T20:09:36.564Z","updatedAt":"2024-11-13T20:09:36.564Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MzUwNzgwYTIwYTdlNWM4ZDBmNmUwYSIsImlhdCI6MTczMTUyODU3Nn0._T4sP56tkfiogYvRjFxZQ-rYgI8c_vWMu4MugqYajx4","typeObject":{"isOpened":true,"user":{"email":"emmy@mail.com","password":"$2b$08$xTxzlE7EA1BoAUVJN33RQ.AvM12ASVgn56MUU/Eb8/YCzF/8XYJhW","isVerified":true,"generatedOtp":"$2b$08$RTvl5iZNJEdZoNNr4LqrYu1JUPxmE683OrIlSPqyzH.tY829Hf9OS","generatedOtpExpiration":"2024-11-14T01:09:36.485Z","type":"MERCHANT","_id":"67350780a20a7e5c8d0f6e0a","createdAt":"2024-11-13T20:09:36.564Z","updatedAt":"2024-11-13T20:09:36.564Z","__v":0},"_id":"67350780a20a7e5c8d0f6e0c","createdAt":"2024-11-13T20:09:36.686Z","updatedAt":"2024-11-13T20:09:36.686Z","__v":0}}}
+        Time Taken: 891.30ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-13T20:17:45.496Z
+        Method: PATCH
+        Route: /merchant
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Merchant updated successfully","payload":{"_id":"67350780a20a7e5c8d0f6e0c","isOpened":true,"user":"67350780a20a7e5c8d0f6e0a","createdAt":"2024-11-13T20:09:36.686Z","updatedAt":"2024-11-13T20:17:45.611Z","__v":0,"firstName":"Emmy"}}
+        Time Taken: 1058.27ms
+        -----------------------------------------------------------
+        

@@ -32,7 +32,7 @@ export class UserController{
             const body : UserLoginDto = req.body;
             
             let {payload, message} = await this.service.signIn(body);
-            console.log(payload);
+            
             if(!payload && message){
                 return error(message, res, 400)
             }

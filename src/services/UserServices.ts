@@ -179,7 +179,7 @@ export class UserServices {
                 case UserType.RIDER:
                     typeObject = await this.riderRepo.findOne({ user: user._id })
                     break;
-                    case UserType.MERCHANT:
+                case UserType.MERCHANT:
                         typeObject = await this.merchantRepository.findOne({ user: user._id })
                         break;
             }
