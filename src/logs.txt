@@ -12205,3 +12205,14 @@
         Time Taken: 1058.27ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-17T08:59:57.541Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 400
+        Response: {"message":"User with this email does not exist"}
+        Time Taken: 549.56ms
+        -----------------------------------------------------------
+        

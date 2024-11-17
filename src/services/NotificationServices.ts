@@ -1,16 +1,17 @@
 import { Service } from "typedi";
 import { INotification } from "../models/notification";
 import NotificationRepository from "../repositories/NotificationRepository";
+import SocketServices from "./SocketServices";
 
 @Service()
 class NotificationService {
-  private notificationRepo: NotificationRepository;
 
-  constructor(notificationRepo: NotificationRepository) {
-    this.notificationRepo = notificationRepo;
+
+  constructor(private readonly notificationRepo: NotificationRepository, private readonly socketServices : SocketServices) {
   }
 
   async sendNotification(notificationData: Partial<INotification>) {
+    this.socketServices.sendSocketNotification(String(notificationData.userId), notificationData)
     return this.notificationRepo.create(notificationData);
   }
 

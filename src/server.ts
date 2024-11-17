@@ -18,6 +18,11 @@ import fs from 'fs';
 import path from 'path';
 import merchantRouter from "./router/merchantRoutes"
 import expressRefillRouter from "./router/expressRefillRouter"
+import { configureSocket } from './config/socket';
+import { createServer } from "http";
+import { Socket } from 'socket.io';
+import GasPredictionCron from './services/GasPredictionCron';
+import Container from 'typedi';
 
 const app = express();
 const port = String(process.env.PORT) || 3030;
@@ -89,6 +94,15 @@ app.use(
   })
 );
 
+// Create HTTP server
+const httpServer = createServer(app);
+
+// Configure Socket.IO
+const io = configureSocket(httpServer);
+io.on("connection", (socket: Socket) => {
+  console.log(`Socket connected: ${socket.id}`);
+});
+
 // Run MongoDB
 mongoose.connect(process.env.MONGODB_URI as string)
 const connection = mongoose.connection
@@ -109,6 +123,9 @@ app.use("/express-refill", expressRefillRouter)
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/public/index.html');
 // });
+
+const gasPredictionCron = Container.get(GasPredictionCron);
+gasPredictionCron.start();
 
 app.get('/test-hardware', (req, res) => {
     res.json({message: "Test Successfull"})
