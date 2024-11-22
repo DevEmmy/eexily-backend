@@ -27,14 +27,18 @@ const expressRefillSchema = new Schema<IExpressRefill>(
     deliveryFee: { type: Number, required: true },
     paymentMethod: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    status: { type: String, default: RefillStatus.PENDING, enum: Object.values(RefillStatus) },
+    status: {
+      type: String,
+      default: RefillStatus.PENDING,
+      enum: Object.values(RefillStatus),
+    },
     gcode: { type: String },
     merchant: { type: Schema.Types.ObjectId, ref: "Merchant", required: true },
     rider: { type: Schema.Types.ObjectId, ref: "Rider" },
-    timeScheduled: { type: Date, default: new Date() }
+    timeScheduled: { type: Date, default: new Date() },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
@@ -42,7 +46,10 @@ const expressRefillSchema = new Schema<IExpressRefill>(
 expressRefillSchema.pre("save", function (next) {
   if (!this.gcode) {
     // Generate a gcode like "G382B"
-    const randomPart = Math.floor(Math.random() * 0xffff).toString(16).toUpperCase().padStart(4, '0');
+    const randomPart = Math.floor(Math.random() * 0xffff)
+      .toString(16)
+      .toUpperCase()
+      .padStart(4, "0");
     this.gcode = `G${randomPart}`;
   }
   if (!this.timeScheduled) {
@@ -52,5 +59,8 @@ expressRefillSchema.pre("save", function (next) {
 });
 
 // Create the ExpressRefill model
-const ExpressRefill = mongoose.model<IExpressRefill>("ExpressRefill", expressRefillSchema);
+const ExpressRefill = mongoose.model<IExpressRefill>(
+  "ExpressRefill",
+  expressRefillSchema
+);
 export default ExpressRefill;
