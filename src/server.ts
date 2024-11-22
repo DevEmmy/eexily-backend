@@ -25,7 +25,7 @@ import GasPredictionCron from './services/GasPredictionCron';
 import Container from 'typedi';
 
 const app = express();
-const port = String(process.env.PORT) || 3030;
+const port =  7030;
 
 app.use(requestLogger);
 
@@ -120,9 +120,9 @@ app.use("/merchant", merchantRouter)
 app.use("/express-refill", expressRefillRouter)
 
 //render the html file
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/public/index.html');
-// });
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html');
+});
 
 const gasPredictionCron = Container.get(GasPredictionCron);
 gasPredictionCron.start();

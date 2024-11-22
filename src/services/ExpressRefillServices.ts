@@ -6,6 +6,7 @@ import Individual, { IIndividual } from "../models/individual";  // Assuming the
 import { Types } from "mongoose";
 import { RefillStatus } from "../enum/refillStatus";
 import ExpressRefill, { IExpressRefill } from "../models/expressRefill";  // Update to the correct model
+import IndividualRepository from "../repositories/IndividualRepository";
 
 export interface Editor {
     merchant?: string;  
@@ -18,7 +19,8 @@ class ExpressRefillServices {
     constructor(
         private readonly repo: ExpressRefillRepository,
         private readonly merchantRepo: MerchantRepository,  // Using MerchantRepository
-        private readonly riderRepo: RiderRepository
+        private readonly riderRepo: RiderRepository,
+        private readonly individualRepo : IndividualRepository
     ) { }
 
     async create(data: Partial<IExpressRefill>) {
@@ -30,6 +32,7 @@ class ExpressRefillServices {
 
             // Find a merchant with a matching address
             const merchant = await this.merchantRepo.findOne({ address: individual.address });
+            console.log(merchant)
             if (!merchant) {
                 throw new Error("No matching merchant found");
             }
@@ -57,10 +60,11 @@ class ExpressRefillServices {
             if (!schedule) {
                 return { message: "Schedule not found" };
             }
-
+            
             // Find the individual to retrieve the address for matching
-            const individual = await Individual.findById(schedule.user);
-            if (!individual || !individual.address) {
+            const individual = await this.individualRepo.findOne({user: schedule.user})
+            console.log(individual)
+            if (!individual) {
                 throw new Error("Individual address not available for matching");
             }
 

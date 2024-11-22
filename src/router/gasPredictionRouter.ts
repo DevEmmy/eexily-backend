@@ -11,7 +11,7 @@ router.post("/user/:userId/refill", (req, res, next) => gasPredictionController.
 
 // Other routes remain unchanged
 router.post("/",verifyAuth ,(req, res, next) => gasPredictionController.createGasPrediction(req, res, next));
-router.get("/user/:userId", (req, res, next) => gasPredictionController.getUserGasPredictions(req, res, next));
+router.get("/user", verifyAuth, (req, res, next) => gasPredictionController.getUserGasPredictions(req, res, next));
 
 
 export default router;

@@ -39,7 +39,7 @@ class GasPredictionController {
     // Get predictions for a specific user
     async getUserGasPredictions(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const userId = req.params.userId;
+            const userId = req.body.user
             const predictions = await this.gasPredictionService.getGasPredictionsByUser(userId);
             res.status(200).json(predictions);
         } catch (error) {

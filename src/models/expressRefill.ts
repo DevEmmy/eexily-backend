@@ -19,7 +19,7 @@ export interface IExpressRefill extends Document {
 
 const expressRefillSchema = new Schema<IExpressRefill>(
   {
-    gas: { type: Schema.Types.ObjectId, ref: "Gas", required: true },
+    gas: { type: Schema.Types.ObjectId, ref: "Gas", required: false },
     pickupDate: { type: Date, required: true }, // Changed to Date type
     quantity: { type: Number, required: true },
     address: { type: String, required: true },
