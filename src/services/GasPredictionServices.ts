@@ -41,12 +41,12 @@ class GasPredictionService {
 
         return gasPrediction.save();
     }
-
 // Predict gas completion details
 async predictGasCompletion(userId: string): Promise<{ 
     daysLeft: number; 
     completionDate: Date; 
-    estimatedGasRemaining: number 
+    estimatedGasRemaining: number; 
+    isPause: boolean;
 }> {
     const gasData = await this.gasPredictionRepository.findOne({ user: userId });
     if (!gasData) {
@@ -55,31 +55,40 @@ async predictGasCompletion(userId: string): Promise<{
 
     const averageDailyUsage = this.calculateDailyUsage(gasData);
     const remainingGas = gasData.amountValue; // Gas remaining in kg
-    const predictedDaysLeft = Math.floor(remainingGas / averageDailyUsage);
 
-    // Calculate the completion date
-    const lastRefillDate = new Date(gasData.lastRefill);
-
-    // Calculate the estimated gas remaining
+    // Handle paused state
     const currentDate = new Date();
-    const daysSinceLastRefill = Math.floor(
+    const lastRefillDate = new Date(gasData.lastRefill);
+    let daysSinceLastRefill = Math.floor(
         (currentDate.getTime() - lastRefillDate.getTime()) / (1000 * 60 * 60 * 24)
     );
-    // Calculate the estimated gas remaining
-const estimatedGasRemaining = Math.max(
-    remainingGas - averageDailyUsage * Math.min(daysSinceLastRefill, Math.floor(remainingGas / averageDailyUsage)),
-    0
-);
 
-const realisticPredictedDaysLeft = Math.floor(estimatedGasRemaining / averageDailyUsage);
-const completionDate = new Date(currentDate);
-completionDate.setDate(currentDate.getDate() + realisticPredictedDaysLeft);
-    // const estimatedGasRemaining = remainingGas - averageDailyUsage * daysSinceLastRefill;
+    if (gasData.isPause && gasData.isPausedDate) {
+        const pausedDate = new Date(gasData.isPausedDate);
+        if (currentDate > pausedDate) {
+            const pausedDays = Math.floor(
+                (currentDate.getTime() - pausedDate.getTime()) / (1000 * 60 * 60 * 24)
+            );
+            daysSinceLastRefill -= pausedDays;
+        }
+    }
+
+    // Calculate the estimated gas remaining
+    const estimatedGasRemaining = Math.max(
+        remainingGas - averageDailyUsage * Math.min(daysSinceLastRefill, Math.floor(remainingGas / averageDailyUsage)),
+        0
+    );
+
+    // Calculate realistic predicted days left and completion date
+    const realisticPredictedDaysLeft = Math.floor(estimatedGasRemaining / averageDailyUsage);
+    const completionDate = new Date(currentDate);
+    completionDate.setDate(currentDate.getDate() + realisticPredictedDaysLeft);
 
     return {
-        daysLeft: Math.max(predictedDaysLeft, 0),
+        daysLeft: Math.max(realisticPredictedDaysLeft, 0),
         completionDate,
-        estimatedGasRemaining
+        estimatedGasRemaining,
+        isPause: gasData.isPause
     };
 }
 
@@ -138,9 +147,35 @@ private estimateUsageFallback(gasData: IGasPrediction): number {
     return baseUsage * dailyMealsFactor * cookingTypeFactor;
 }
 
+async togglePausePrediction(userId: string){
+    let prediction = await this.gasPredictionRepository.findByUser(userId);
+    if(!prediction){
+         throw new Error("Prediction not found")
+    }
+
+    if(!prediction.isPause){
+        prediction.isPause = true;
+    }
+    else{
+        prediction.isPause = false;
+    }
+
+    return   {payload: await this.gasPredictionRepository.update({_id: prediction._id}, prediction), message: "Paused Successfully"}
+}
+
 
     async findAll(){
         return await this.gasPredictionRepository.find()
+    }
+
+    async update(userId: string, data: Partial<IGasPrediction>){
+        let prediction = await this.gasPredictionRepository.findByUser(userId);
+        if(!prediction){
+            throw new Error("Prediction Data Not Found");
+        }
+
+        let updatedData = await this.gasPredictionRepository.update({_id: prediction._id}, data);
+        return {payload: updatedData, message: "Updated Prediction Data"}
     }
 }
 

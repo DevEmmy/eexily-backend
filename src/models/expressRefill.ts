@@ -1,6 +1,16 @@
 import mongoose, { Schema, Types, Document } from "mongoose";
 import { RefillStatus } from "../enum/refillStatus";
 
+export enum SellerType {
+  GAS_STATION = "GAS_STATION",
+  MERCHANT = "MERCHANT",
+}
+
+export interface IStatusHistory {
+  status: string;
+  updatedAt: Date;
+}
+
 export interface IExpressRefill extends Document {
   gas: Types.ObjectId | string;
   pickupDate: Date;
@@ -14,13 +24,17 @@ export interface IExpressRefill extends Document {
   status: string;
   gcode: string;
   rider: Types.ObjectId | string;
+  gasStation: Types.ObjectId | string;
   timeScheduled: Date;
+  sellerType: string;
+  statusHistory: IStatusHistory[];
 }
 
 const expressRefillSchema = new Schema<IExpressRefill>(
   {
+    sellerType: { type: String, enum: Object.values(SellerType), default: SellerType.MERCHANT },
     gas: { type: Schema.Types.ObjectId, ref: "Gas", required: false },
-    pickupDate: { type: Date, required: true }, // Changed to Date type
+    pickupDate: { type: Date, required: true },
     quantity: { type: Number, required: true },
     address: { type: String, required: true },
     price: { type: Number, required: true },
@@ -36,6 +50,13 @@ const expressRefillSchema = new Schema<IExpressRefill>(
     merchant: { type: Schema.Types.ObjectId, ref: "Merchant", required: true },
     rider: { type: Schema.Types.ObjectId, ref: "Rider" },
     timeScheduled: { type: Date, default: new Date() },
+    gasStation: { type: Schema.Types.ObjectId, ref: "GasStation" },
+    statusHistory: [
+      {
+        status: { type: String, enum: Object.values(RefillStatus), required: true },
+        updatedAt: { type: Date, required: true, default: Date.now },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -45,7 +66,6 @@ const expressRefillSchema = new Schema<IExpressRefill>(
 // Pre-save middleware to generate the gcode and update the scheduled time
 expressRefillSchema.pre("save", function (next) {
   if (!this.gcode) {
-    // Generate a gcode like "G382B"
     const randomPart = Math.floor(Math.random() * 0xffff)
       .toString(16)
       .toUpperCase()
@@ -55,6 +75,31 @@ expressRefillSchema.pre("save", function (next) {
   if (!this.timeScheduled) {
     this.timeScheduled = new Date();
   }
+
+  // Add the initial status to the statusHistory
+  if (this.isNew && !this.statusHistory.length) {
+    this.statusHistory.push({ status: this.status, updatedAt: new Date() });
+  }
+
+  next();
+});
+
+// Middleware to add new status updates to statusHistory
+expressRefillSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate() as Partial<IExpressRefill>;
+
+  if (update.status) {
+    const statusHistoryUpdate = {
+      status: update.status,
+      updatedAt: new Date(),
+    };
+
+    this.setUpdate({
+      $push: { statusHistory: statusHistoryUpdate },
+      ...update,
+    });
+  }
+
   next();
 });
 

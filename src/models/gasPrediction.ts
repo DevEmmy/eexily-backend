@@ -77,9 +77,13 @@ export interface IGasPrediction extends Document {
     lastRefill: Date;
     refillHistory: RefillEntry[];  // New field to track refills
     user: Types.ObjectId;
+    isPause: boolean,
+    isPausedDate: Date
 }
 
 const gasPredictionSchema = new Schema<IGasPrediction>({
+    isPause: {type: Boolean,default: false},
+    isPausedDate: {type: Date},
     usualAmountValue: { type: Number, required: true },
     amountValue: { type: Number, required: true },
     daysofUse: { type: String, required: true },

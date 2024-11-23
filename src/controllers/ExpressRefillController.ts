@@ -37,11 +37,21 @@ class ExpressRefillController {
         }
     }
 
-    async updateStatusByMerchant(req: Request, res: Response) {
+    async getOrdersByGasStation(req: Request, res: Response) {
+        try {
+            const { id } = req.params;
+            const result = await this.expressRefillServices.getOrdersByGasStation(id);
+            return res.status(200).json(result);
+        } catch (err: any) {
+            return res.status(500).json({ message: err.message });
+        }
+    }
+
+    async updateStatus(req: Request, res: Response) {
         try {
             const { gcode } = req.params;
             const { editor, status } = req.body; // Expecting editor and status in the request body
-            const result = await this.expressRefillServices.updateStatusByMerchant(editor, gcode, status);
+            const result = await this.expressRefillServices.updateStatus(editor, gcode, status);
             return res.status(200).json(result);
         } catch (err: any) {
             return res.status(500).json({ message: err.message });

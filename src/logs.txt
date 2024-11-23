@@ -12546,3 +12546,47 @@
         Time Taken: 783.63ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-23T11:08:02.447Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"phoneNumber":"08012345678","email":"individual@mail.com","password":"$2b$08$P5gVtuiPEBiU5Fdl25xAVueaRNN/aqH9Gd1fOZJzmcqeXa3TE56bG","isVerified":true,"generatedOtp":"$2b$08$Iq9L1MYlY0xCCc7O2FpYNedXrzRQr8DWDrP.ulksidEpJII7TJutW","generatedOtpExpiration":"2024-11-23T16:08:03.123Z","type":"INDIVIDUAL","_id":"6741b793d7065cd56688c1c2","createdAt":"2024-11-23T11:08:03.147Z","updatedAt":"2024-11-23T11:08:03.147Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDFiNzkzZDcwNjVjZDU2Njg4YzFjMiIsImlhdCI6MTczMjM2MDA4M30.BWiGog11qeOuqvCaBLW1VVpddyJ7hIb4qRxE7szQngs","typeObject":{"payload":{"user":{"phoneNumber":"08012345678","email":"individual@mail.com","password":"$2b$08$P5gVtuiPEBiU5Fdl25xAVueaRNN/aqH9Gd1fOZJzmcqeXa3TE56bG","isVerified":true,"generatedOtp":"$2b$08$Iq9L1MYlY0xCCc7O2FpYNedXrzRQr8DWDrP.ulksidEpJII7TJutW","generatedOtpExpiration":"2024-11-23T16:08:03.123Z","type":"INDIVIDUAL","_id":"6741b793d7065cd56688c1c2","createdAt":"2024-11-23T11:08:03.147Z","updatedAt":"2024-11-23T11:08:03.147Z","__v":0},"_id":"6741b793d7065cd56688c1c4","createdAt":"2024-11-23T11:08:03.462Z","updatedAt":"2024-11-23T11:08:03.462Z","__v":0}}}}
+        Time Taken: 1293.69ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T11:08:22.860Z
+        Method: PATCH
+        Route: /individual/6741b793d7065cd56688c1c2
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"_id":"6741b793d7065cd56688c1c4","user":"6741b793d7065cd56688c1c2","createdAt":"2024-11-23T11:08:03.462Z","updatedAt":"2024-11-23T11:08:22.875Z","__v":0,"address":"Somewhere in the world","firstName":"Harry","gasSize":5,"lastName":"Potter"}}
+        Time Taken: 347.77ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T11:08:33.575Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"_id":"6741b793d7065cd56688c1c2","phoneNumber":"08012345678","email":"individual@mail.com","password":"$2b$08$P5gVtuiPEBiU5Fdl25xAVueaRNN/aqH9Gd1fOZJzmcqeXa3TE56bG","isVerified":true,"generatedOtp":"$2b$08$Iq9L1MYlY0xCCc7O2FpYNedXrzRQr8DWDrP.ulksidEpJII7TJutW","generatedOtpExpiration":"2024-11-23T16:08:03.123Z","type":"INDIVIDUAL","createdAt":"2024-11-23T11:08:03.147Z","updatedAt":"2024-11-23T11:08:03.147Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDFiNzkzZDcwNjVjZDU2Njg4YzFjMiIsImlhdCI6MTczMjM2MDExM30.NA1DTiZTep25Kwy4baphLj6hou61ojIj6GbPWFyiU9E","typeObject":{"_id":"6741b793d7065cd56688c1c4","user":"6741b793d7065cd56688c1c2","createdAt":"2024-11-23T11:08:03.462Z","updatedAt":"2024-11-23T11:08:22.875Z","__v":0,"address":"Somewhere in the world","firstName":"Harry","gasSize":5,"lastName":"Potter"},"isGas":false}}
+        Time Taken: 896.07ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T11:09:18.535Z
+        Method: POST
+        Route: /prediction
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"daysLeft":15,"completionDate":"2024-12-06T11:09:19.133Z","estimatedGasRemaining":2.6}}
+        Time Taken: 598.56ms
+        -----------------------------------------------------------
+        

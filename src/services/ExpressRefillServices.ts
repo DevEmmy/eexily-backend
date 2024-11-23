@@ -5,13 +5,15 @@ import RiderRepository from "../repositories/RiderRepository";
 import Individual, { IIndividual } from "../models/individual";  // Assuming the Individual model is in models folder
 import { Types } from "mongoose";
 import { RefillStatus } from "../enum/refillStatus";
-import ExpressRefill, { IExpressRefill } from "../models/expressRefill";  // Update to the correct model
+import ExpressRefill, { IExpressRefill, SellerType } from "../models/expressRefill";  // Update to the correct model
 import IndividualRepository from "../repositories/IndividualRepository";
+import GasStationRepository from "../repositories/GasStationRepository";
 
 export interface Editor {
     merchant?: string;  
     user?: string;
     rider?: string;
+    gasStation?: string
 }
 
 @Service()
@@ -20,7 +22,8 @@ class ExpressRefillServices {
         private readonly repo: ExpressRefillRepository,
         private readonly merchantRepo: MerchantRepository,  // Using MerchantRepository
         private readonly riderRepo: RiderRepository,
-        private readonly individualRepo : IndividualRepository
+        private readonly individualRepo : IndividualRepository,
+        private readonly gasStationRepo: GasStationRepository
     ) { }
 
     async create(data: Partial<IExpressRefill>) {
@@ -30,8 +33,15 @@ class ExpressRefillServices {
                 throw new Error("Individual not found");
             }
 
-            // Find a merchant with a matching address
-            const merchant = await this.merchantRepo.findOne({ address: individual.address });
+            if(data.sellerType === SellerType.GAS_STATION){
+                let gasStation : any = await this.gasStationRepo.findOne({address: individual.address});
+                if(!gasStation){
+                    throw new Error("No matching gas station found")
+                }
+                data.gasStation = gasStation._id as Types.ObjectId
+            }
+            else{
+                const merchant = await this.merchantRepo.findOne({ address: individual.address });
             console.log(merchant)
             if (!merchant) {
                 throw new Error("No matching merchant found");
@@ -39,6 +49,10 @@ class ExpressRefillServices {
 
             // Assign merchant to the express refill data
             data.merchant = merchant._id as Types.ObjectId; // Ensure this is correct if gasStation is a property of IExpressRefill
+            }
+
+            // Find a merchant with a matching address
+            
             const payload = await this.repo.create(data);
 
             // Trigger the schedule processing
@@ -113,13 +127,19 @@ class ExpressRefillServices {
 
     async getOrdersByMerchant(merchantId: string) {  // Renamed to reflect merchant context
         return {
-            payload: await this.repo.find({ gasStation: merchantId })  // gasStation refers to merchant
+            payload: await this.repo.find({ merchant: merchantId })  // gasStation refers to merchant
         };
     }
 
-    async updateStatusByMerchant(editor: Editor, gcode: string, status: RefillStatus) {  // Renamed to updateStatusByMerchant
+    async getOrdersByGasStation(gasStationId: string) {  // Renamed to reflect merchant context
+        return {
+            payload: await this.repo.find({ gasStation: gasStationId })  // gasStation refers to merchant
+        };
+    }
+
+    async updateStatus(editor: Editor, gcode: string, status: RefillStatus) {  // Renamed to updateStatusByMerchant
         try {
-            const { merchant, user, rider } = editor;
+            const { merchant, user, rider, gasStation } = editor;
             let schedule = await this.repo.findOne({ gcode });
 
             if (!schedule) {
@@ -128,6 +148,7 @@ class ExpressRefillServices {
 
             if ((merchant && String(schedule.merchant) !== String(merchant)) ||
                 (user && String(schedule.user) !== String(user)) ||
+                (gasStation && String(schedule.gasStation) !== String(gasStation)) ||
                 (rider && String(schedule.rider) !== String(rider))) {
                 return { message: "You cannot edit this status" };
             }

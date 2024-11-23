@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Service, Inject } from "typedi";
 import GasPredictionService from "../services/GasPredictionServices";
+import { error, success } from "../utils/response";
 
 
 @Service()
@@ -12,7 +13,7 @@ class GasPredictionController {
     // Update gas refill history and last refill date
     async updateGasRefill(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const userId = req.params.userId;
+            const userId = req.body.user
             const refillData = {
                 refillDate: req.body.refillDate,
                 amountFilled: req.body.amountFilled
@@ -47,22 +48,30 @@ class GasPredictionController {
         }
     }
 
-    // Predict gas usage (how many days left)
-    // async predictGasUsage(req: Request, res: Response, next: NextFunction): Promise<any> {
-    //     try {
-    //         const gasPredictionId = req.params.id;
-    //         const gasPrediction = await this.gasPredictionService.getGasPredictionsByUser(gasPredictionId);
-            
-    //         if (!gasPrediction) {
-    //             return res.status(404).json({ message: "Gas prediction not found" });
-    //         }
+    async togglePausePrediction(req: Request, res: Response){
+        try{
+            const userId = req.body.user;
+            let {payload, message} = await this.gasPredictionService.togglePausePrediction(userId);
 
-    //         const daysLeft = await this.gasPredictionService.predictGasUsage(gasPrediction);
-    //         res.status(200).json({ daysLeft });
-    //     } catch (error) {
-    //         next(error);
-    //     }
-    // }
+            return success(payload, res, message);
+        }
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
+
+    async update(req: Request, res: Response){
+        try{
+            const userId = req.body.user;
+            const data = req.body;
+            let {payload, message} = await this.gasPredictionService.update(userId, data);
+
+            return success(payload, res, message);
+        }
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
 }
 
 export default GasPredictionController;

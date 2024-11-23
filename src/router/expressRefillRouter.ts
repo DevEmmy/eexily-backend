@@ -15,7 +15,10 @@ router.get("/rider/:rider", verifyAuth, (req, res) => expressRefillController.ge
 // Route for getting orders by merchant
 router.get("/merchant/:merchantId", verifyAuth, (req, res) => expressRefillController.getOrdersByMerchant(req, res));
 
+// Route for getting orders by gas station
+router.get("/gasStation/:id", verifyAuth, (req, res) => expressRefillController.getOrdersByMerchant(req, res));
+
 // Route for updating status by merchant
-router.patch("/status/:gcode", verifyAuth, (req, res) => expressRefillController.updateStatusByMerchant(req, res));
+router.patch("/status/:gcode", verifyAuth, (req, res) => expressRefillController.updateStatus(req, res));
 
 export default router;
