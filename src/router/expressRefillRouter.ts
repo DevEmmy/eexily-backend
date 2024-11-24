@@ -12,6 +12,8 @@ router.post("/", verifyAuth, (req, res) => expressRefillController.create(req, r
 // Route for getting orders by rider
 router.get("/rider/:rider", verifyAuth, (req, res) => expressRefillController.getOrdersByRider(req, res));
 
+router.get("/user", verifyAuth, (req, res) => expressRefillController.getOrdersByUser(req, res));
+
 // Route for getting orders by merchant
 router.get("/merchant/:merchantId", verifyAuth, (req, res) => expressRefillController.getOrdersByMerchant(req, res));
 

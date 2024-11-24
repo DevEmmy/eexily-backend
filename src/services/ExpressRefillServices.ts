@@ -141,6 +141,12 @@ class ExpressRefillServices {
         };
     }
 
+    async getOrdersByUser(userId: string) { 
+        return {
+            payload: await this.repo.find({ user: userId })  // gasStation refers to merchant
+        };
+    }
+
     async getOrdersByGasStation(gasStationId: string) {  // Renamed to reflect merchant context
         return {
             payload: await this.repo.find({ gasStation: gasStationId })  // gasStation refers to merchant

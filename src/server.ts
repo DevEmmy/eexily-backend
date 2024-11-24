@@ -23,6 +23,9 @@ import { createServer } from "http";
 import { Socket } from 'socket.io';
 import GasPredictionCron from './services/GasPredictionCron';
 import Container from 'typedi';
+import ExpressRefill from './models/expressRefill';
+import { RefillStatus } from './enum/refillStatus';
+import crypto from "crypto";
 
 const app = express();
 const port =  7030;
@@ -122,6 +125,60 @@ app.use("/express-refill", expressRefillRouter)
 //render the html file
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
+});
+
+app.post("/verify", async (req: Request, res: Response) => {
+  try {
+    // Paystack secret key
+    const paystackSecret = process.env.PAYSTACK_SECRET_KEY || "sk_test_de08c04eb8b47c95d24fc8383fdcae573dbdb996";
+
+    // Verify the webhook signature
+    const hash = crypto
+      .createHmac("sha512", paystackSecret)
+      .update(JSON.stringify(req.body))
+      .digest("hex");
+
+    const paystackSignature = req.headers["x-paystack-signature"];
+    if (hash !== paystackSignature) {
+      return res.status(401).send("Unauthorized request.");
+    }
+
+    const event = req.body.event;
+
+    if (event === "charge.success") {
+      // Extract data from Paystack webhook payload
+      const { reference, metadata } = req.body.data;
+
+      // Ensure metadata contains your custom fields like refillId
+      const refillId = metadata?.refillId;
+      if (!refillId) {
+        return res.status(400).json({ message: "Missing refillId in metadata." });
+      }
+
+      // Update the refill status in the database
+      const updatedRefill = await ExpressRefill.findOneAndUpdate(
+        { _id: refillId },
+        { status: RefillStatus.MATCHED },
+        { new: true }
+      );
+
+      if (!updatedRefill) {
+        return res.status(404).json({ message: "Refill record not found." });
+      }
+
+      console.log(`Payment successful for refill: ${refillId}`);
+
+      // Send success response to Paystack
+      return res.status(200).send("Payment processed successfully.");
+    }
+
+    // For other events, you can log or handle them as needed
+    console.log(`Unhandled event: ${event}`);
+    res.status(200).send("Event received.");
+  } catch (error) {
+    console.error("Error processing webhook:", error);
+    res.status(500).send("Internal server error.");
+  }
 });
 
 const gasPredictionCron = Container.get(GasPredictionCron);

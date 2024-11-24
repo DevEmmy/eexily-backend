@@ -47,6 +47,16 @@ class ExpressRefillController {
         }
     }
 
+    async getOrdersByUser(req: Request, res: Response) {
+        try {
+            const userId = req.body.user
+            const result = await this.expressRefillServices.getOrdersByUser(userId);
+            return res.status(200).json(result);
+        } catch (err: any) {
+            return res.status(500).json({ message: err.message });
+        }
+    }
+
     async updateStatus(req: Request, res: Response) {
         try {
             const { gcode } = req.params;
