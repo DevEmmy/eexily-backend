@@ -8,6 +8,7 @@ import { RefillStatus } from "../enum/refillStatus";
 import ExpressRefill, { IExpressRefill, SellerType } from "../models/expressRefill";  // Update to the correct model
 import IndividualRepository from "../repositories/IndividualRepository";
 import GasStationRepository from "../repositories/GasStationRepository";
+import { TransactionService } from "./TransactionServices";
 
 export interface Editor {
     merchant?: string;  
@@ -23,7 +24,8 @@ class ExpressRefillServices {
         private readonly merchantRepo: MerchantRepository,  // Using MerchantRepository
         private readonly riderRepo: RiderRepository,
         private readonly individualRepo : IndividualRepository,
-        private readonly gasStationRepo: GasStationRepository
+        private readonly gasStationRepo: GasStationRepository,
+        private readonly transactionService: TransactionService
     ) { }
 
     async create(data: Partial<IExpressRefill>) {
@@ -42,7 +44,7 @@ class ExpressRefillServices {
             }
             else{
                 const merchant = await this.merchantRepo.findOne({ address: individual.address });
-            console.log(merchant)
+
             if (!merchant) {
                 throw new Error("No matching merchant found");
             }
@@ -53,14 +55,20 @@ class ExpressRefillServices {
 
             // Find a merchant with a matching address
             
-            const payload = await this.repo.create(data);
+            let payload = await this.repo.create(data);
 
             // Trigger the schedule processing
-            this.processSchedule(payload).catch(err => {
+            let schedule : any= await this.processSchedule(payload).catch(err => {
                 console.error("Error in processSchedule:", err);
             });
 
-            return { payload };
+            if(!schedule.assigned){
+                return {message: "Schedule not matched at the moment"}
+            }
+
+            let transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, schedule.schedule.merchant)
+
+            return { payload:schedule, transactionData };
         } catch (err: any) {
             return { message: "Schedule creation failed: " + err.message };
         }
@@ -70,7 +78,7 @@ class ExpressRefillServices {
         try {
             console.log("Assigning Schedule");
 
-            const schedule = await this.repo.findOne({ _id: data._id });
+            let schedule = await this.repo.findOne({ _id: data._id });
             if (!schedule) {
                 return { message: "Schedule not found" };
             }
@@ -105,7 +113,7 @@ class ExpressRefillServices {
                     schedule.status = RefillStatus.MATCHED;
                     console.log("Matched to Rider:", rider._id);
 
-                    await this.repo.update({ _id: schedule._id }, schedule);
+                    schedule = await this.repo.update({ _id: schedule._id }, schedule);
                     assigned = true;
                     break;
                 }
@@ -114,6 +122,8 @@ class ExpressRefillServices {
             if (!assigned) {
                 console.log("No available rider found");
             }
+
+            return {schedule, assigned}
         } catch (err: any) {
             throw new Error("Error processing schedule: " + err.message);
         }

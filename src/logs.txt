@@ -12590,3 +12590,124 @@
         Time Taken: 598.56ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-23T20:55:51.267Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"message":"Schedule creation failed: Individual not found"}
+        Time Taken: 746.62ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T20:56:14.102Z
+        Method: POST
+        Route: /auth/sign-in
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 400
+        Response: {"message":"User with this email does not exist"}
+        Time Taken: 145.14ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T20:56:23.825Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"email":"e@gmail.com","password":"$2b$08$2WQlY/cac/fA85YUFvuer.2FrJL46klrRcNlYHyhAkUrwGTmYHBGK","isVerified":true,"generatedOtp":"$2b$08$VII.ffmK5OQswtHzkio/8ugNNpXPHcIGwa58/WTFueJkZTy5MAf1m","generatedOtpExpiration":"2024-11-24T01:56:24.136Z","type":"INDIVIDUAL","_id":"67424178af1b450d35fc0d78","createdAt":"2024-11-23T20:56:24.149Z","updatedAt":"2024-11-23T20:56:24.149Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI0MTc4YWYxYjQ1MGQzNWZjMGQ3OCIsImlhdCI6MTczMjM5NTM4NH0.Ee8HDTD7HYHJYcBBqp9Uhj2yJI_Tm1u-yXybADEPqg0","typeObject":{"payload":{"user":{"email":"e@gmail.com","password":"$2b$08$2WQlY/cac/fA85YUFvuer.2FrJL46klrRcNlYHyhAkUrwGTmYHBGK","isVerified":true,"generatedOtp":"$2b$08$VII.ffmK5OQswtHzkio/8ugNNpXPHcIGwa58/WTFueJkZTy5MAf1m","generatedOtpExpiration":"2024-11-24T01:56:24.136Z","type":"INDIVIDUAL","_id":"67424178af1b450d35fc0d78","createdAt":"2024-11-23T20:56:24.149Z","updatedAt":"2024-11-23T20:56:24.149Z","__v":0},"_id":"67424178af1b450d35fc0d7a","createdAt":"2024-11-23T20:56:24.323Z","updatedAt":"2024-11-23T20:56:24.323Z","__v":0}}}}
+        Time Taken: 687.26ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T20:56:48.976Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"message":"Schedule creation failed: No matching merchant found"}
+        Time Taken: 326.23ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:01:35.100Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"email":"r@gmail.com","password":"$2b$08$iQznNWngA24XwqB4Rgpf5O63YJlnaY.3uN2dI5sZZyS3rmXO3Ytq6","isVerified":true,"generatedOtp":"$2b$08$mSpAMnhnohUzmuOLZMV/Q.uSsDKWsKm3eBx/s0gsyjUs8SfosGzfi","generatedOtpExpiration":"2024-11-24T02:01:35.342Z","type":"MERCHANT","_id":"674242af1b7b02690ced52d8","createdAt":"2024-11-23T21:01:35.355Z","updatedAt":"2024-11-23T21:01:35.355Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI0MmFmMWI3YjAyNjkwY2VkNTJkOCIsImlhdCI6MTczMjM5NTY5NX0.mr0xITiMMj4nyYA9rPoUjuoSpaTOoDzCLD3-624_qEw","typeObject":{"isOpened":true,"user":{"email":"r@gmail.com","password":"$2b$08$iQznNWngA24XwqB4Rgpf5O63YJlnaY.3uN2dI5sZZyS3rmXO3Ytq6","isVerified":true,"generatedOtp":"$2b$08$mSpAMnhnohUzmuOLZMV/Q.uSsDKWsKm3eBx/s0gsyjUs8SfosGzfi","generatedOtpExpiration":"2024-11-24T02:01:35.342Z","type":"MERCHANT","_id":"674242af1b7b02690ced52d8","createdAt":"2024-11-23T21:01:35.355Z","updatedAt":"2024-11-23T21:01:35.355Z","__v":0},"_id":"674242af1b7b02690ced52da","createdAt":"2024-11-23T21:01:35.545Z","updatedAt":"2024-11-23T21:01:35.545Z","__v":0}}}
+        Time Taken: 666.45ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:01:51.752Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"email":"t@gmail.com","password":"$2b$08$M9T5o7/vkUx90qhtX5PPvOvIaH/3Kk4SWYO9xouB0HiGhVeqvFNlC","isVerified":true,"generatedOtp":"$2b$08$YFeRsqPgX0i9KpECAPP6KO3k2/ftI68v3X51KzQHagDGbEkJz.yTq","generatedOtpExpiration":"2024-11-24T02:01:51.955Z","type":"RIDER","_id":"674242bf1b7b02690ced52dd","createdAt":"2024-11-23T21:01:51.957Z","updatedAt":"2024-11-23T21:01:51.957Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDI0MmJmMWI3YjAyNjkwY2VkNTJkZCIsImlhdCI6MTczMjM5NTcxMn0.V-TbxIuvoZ2F0UhvFIszrz9fAWso0kJs2NJQ3g8Dl9g","typeObject":{"payload":{"user":{"email":"t@gmail.com","password":"$2b$08$M9T5o7/vkUx90qhtX5PPvOvIaH/3Kk4SWYO9xouB0HiGhVeqvFNlC","isVerified":true,"generatedOtp":"$2b$08$YFeRsqPgX0i9KpECAPP6KO3k2/ftI68v3X51KzQHagDGbEkJz.yTq","generatedOtpExpiration":"2024-11-24T02:01:51.955Z","type":"RIDER","_id":"674242bf1b7b02690ced52dd","createdAt":"2024-11-23T21:01:51.957Z","updatedAt":"2024-11-23T21:01:51.957Z","__v":0},"riderType":"DRIVER","_id":"674242c01b7b02690ced52e0","createdAt":"2024-11-23T21:01:52.268Z","updatedAt":"2024-11-23T21:01:52.268Z","__v":0},"message":"Successful"}}}
+        Time Taken: 737.95ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:02:05.546Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {}
+        Time Taken: 2007.29ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:02:11.348Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {}
+        Time Taken: 2001.07ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:02:26.050Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {}
+        Time Taken: 3685.02ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:07:47.940Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"schedule":{"_id":"67424424ad98418e41dfcc7d","sellerType":"MERCHANT","pickupDate":"2024-11-24T14:00:00.000Z","quantity":3,"address":"123 Gas Street, Fuel City","price":1500,"deliveryFee":200,"paymentMethod":"Card","user":"67424178af1b450d35fc0d78","status":"MATCHED","merchant":"674242af1b7b02690ced52da","timeScheduled":"2024-11-23T21:07:38.132Z","statusHistory":[{"status":"PENDING","updatedAt":"2024-11-23T21:07:48.375Z","_id":"67424424ad98418e41dfcc7e"},{"status":"MATCHED","updatedAt":"2024-11-23T21:07:49.263Z","_id":"67424425ad98418e41dfcc85"}],"createdAt":"2024-11-23T21:07:48.373Z","updatedAt":"2024-11-23T21:07:49.255Z","gcode":"G7DBA","__v":0,"rider":"674242c01b7b02690ced52e0"},"assigned":true}}
+        Time Taken: 1490.59ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-23T21:29:39.445Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"schedule":{"_id":"6742494326bed92bf41f98ff","sellerType":"MERCHANT","pickupDate":"2024-11-24T14:00:00.000Z","quantity":3,"address":"123 Gas Street, Fuel City","price":1500,"deliveryFee":200,"paymentMethod":"Card","user":"67424178af1b450d35fc0d78","status":"MATCHED","merchant":"674242af1b7b02690ced52da","timeScheduled":"2024-11-23T21:29:10.682Z","statusHistory":[{"status":"PENDING","updatedAt":"2024-11-23T21:29:39.861Z","_id":"6742494326bed92bf41f9900"},{"status":"MATCHED","updatedAt":"2024-11-23T21:29:40.882Z","_id":"6742494426bed92bf41f9907"}],"createdAt":"2024-11-23T21:29:39.860Z","updatedAt":"2024-11-23T21:29:40.879Z","gcode":"G36A1","__v":0,"rider":"674242c01b7b02690ced52e0"},"assigned":true},"transactionData":{"paymentUrl":"https://checkout.paystack.com/g9jnx9gfduh1u2s","reference":"ref_1732397381105"}}
+        Time Taken: 2745.93ms
+        -----------------------------------------------------------
+        

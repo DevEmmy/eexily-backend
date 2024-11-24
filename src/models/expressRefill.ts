@@ -94,14 +94,20 @@ expressRefillSchema.pre("findOneAndUpdate", async function (next) {
       updatedAt: new Date(),
     };
 
+    // Remove statusHistory updates from the current operation
+    delete update.statusHistory;
+
+    // Apply the new updates
     this.setUpdate({
-      $push: { statusHistory: statusHistoryUpdate },
       ...update,
+      $push: { statusHistory: statusHistoryUpdate },
     });
   }
 
   next();
 });
+
+
 
 // Create the ExpressRefill model
 const ExpressRefill = mongoose.model<IExpressRefill>(

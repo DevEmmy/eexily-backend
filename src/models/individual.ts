@@ -6,7 +6,8 @@ export interface IIndividual extends Document {
   address?: string;
   gasSize?: number;
   firstName?:string;
-  lastName?: string
+  lastName?: string,
+  location?: string,
 }
 
 // Define the Individual schem
@@ -15,7 +16,8 @@ const IndividualSchema = new Schema<IIndividual>({
   address: { type: String },
   gasSize: {type: Number},
   firstName: String,
-  lastName: String
+  lastName: String,
+  location: String
 }, {
   timestamps: true
 });

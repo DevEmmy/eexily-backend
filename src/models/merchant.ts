@@ -13,6 +13,7 @@ export interface IMerchant extends Document {
     bankName: string;
     accountName: string;
     user: Types.ObjectId;
+    location: string
 }
 
 const merchantSchema = new Schema<IMerchant>(
@@ -29,6 +30,7 @@ const merchantSchema = new Schema<IMerchant>(
         bankName: String,
         accountName: String,
         user: { type: Schema.Types.ObjectId, ref: 'User' },
+        location: String
     },
     {
         timestamps: true

@@ -10,6 +10,7 @@ export interface IGasStation extends Document {
   accountName?: string;
   bankName?: string;
   regCode?: string;
+  location: string
 }
 
 // Utility function to generate a 5-character alphanumeric string
@@ -31,6 +32,7 @@ const GasStationSchema = new Schema<IGasStation>({
   accountNumber: String,
   accountName: String,
   bankName: String,
+  location: String,
   regCode: { type: String, unique: true, index: true },  // Ensure regCode is unique and indexed
 }, {
   timestamps: true

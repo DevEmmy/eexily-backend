@@ -16,6 +16,7 @@ export interface IRider extends Document {
   accountNumber: string;
   bankName: string;
   accountName: string;
+  location: string
 }
 
 export enum RiderType {
@@ -37,7 +38,8 @@ const RiderSchema = new Schema<IRider>({
   gasStation: { type: Schema.Types.ObjectId, ref: "GasStation" },
   accountNumber: String,
   bankName: String,
-  accountName: String
+  accountName: String,
+  location: String
 }, {
   timestamps: true
 });

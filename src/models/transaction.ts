@@ -4,6 +4,7 @@ export interface ITransaction extends Document {
   user: Types.ObjectId | string;
   merchant: Types.ObjectId | string;
   rider?: Types.ObjectId | string;
+  expressRefill?: Types.ObjectId | string;
   amount: number;
   status: "pending" | "success" | "failed";
   reference: string;
@@ -15,6 +16,7 @@ export interface ITransaction extends Document {
 const transactionSchema = new Schema<ITransaction>(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    expressRefill: {type: Schema.Types.ObjectId, ref: "ExpressRefill"},
     merchant: { type: Schema.Types.ObjectId, ref: "Merchant", required: true },
     rider: { type: Schema.Types.ObjectId, ref: "Rider" },
     amount: { type: Number, required: true },
