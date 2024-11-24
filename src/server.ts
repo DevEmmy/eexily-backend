@@ -18,7 +18,6 @@ import fs from 'fs';
 import path from 'path';
 import merchantRouter from "./router/merchantRoutes"
 import expressRefillRouter from "./router/expressRefillRouter"
-import { configureSocket } from './config/socket';
 import { createServer } from "http";
 import { Socket } from 'socket.io';
 import GasPredictionCron from './services/GasPredictionCron';
@@ -28,6 +27,8 @@ import { RefillStatus } from './enum/refillStatus';
 import crypto from "crypto";
 import NotificationService from './services/NotificationServices';
 import { INotification } from './models/notification';
+import SocketServices from './services/SocketServices';
+import { initSocket } from './config/socket';
 
 const app = express();
 const port =  process.env.PORT || 10000;
@@ -103,10 +104,11 @@ app.use(
 const httpServer = createServer(app);
 
 // Configure Socket.IO
-const io = configureSocket(httpServer);
-io.on("connection", (socket: Socket) => {
-  console.log(`Socket connected: ${socket.id}`);
-});
+initSocket(httpServer); // Initialize Socket.IO with the server
+
+// Initialize SocketServices after Socket.IO
+const socketServices = Container.get(SocketServices)
+socketServices.initialize();
 
 // Run MongoDB
 mongoose.connect(process.env.MONGODB_URI as string)
@@ -204,6 +206,6 @@ app.get('/test-hardware', (req, res) => {
 });
 
 // Run Server
-app.listen(port, () => {
+httpServer.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

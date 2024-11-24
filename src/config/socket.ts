@@ -1,50 +1,66 @@
-import { Server, Socket } from "socket.io";
+// src/config/socket.ts
 
-let io: Server;
+import { Server } from "http";
+import { Server as SocketIOServer, Socket } from "socket.io";
 
-interface ActiveUsers{
-    userId: string,
-    socketId: string
-  };
+// This map will hold userId as key and socketId as value
+const connectedUsers: Map<string, string> = new Map();
 
-  const activeUsers : ActiveUsers[] = [
+let io: SocketIOServer | null = null;
 
-  ]
-
-export const configureSocket = (httpServer: any): Server => {
-  io = new Server(httpServer, {
-    cors: {
-      origin: "*", // Adjust based on your client
-      methods: ["GET", "POST"],
-    },
-  });
+// Initialize Socket.IO
+const initSocket = (server: Server): void => {
+  io = new SocketIOServer(server);
+  console.log("Socket.IO server initialized");
 
   io.on("connection", (socket: Socket) => {
-    console.log(`Socket connected: ${socket.id}`);
+    console.log("New client connected:", socket.id);
 
-    socket.on("init", (userId)=>{
-        activeUsers.push({userId, socketId: socket.id});
-        console.log(activeUsers);
-    })
+    // Listen for user identification event
+    socket.on("init", (userId: string) => {
+      console.log(`User identified: ${userId}`);
+      connectedUsers.set(userId, socket.id);
 
-    // Handle disconnection
+      // Notify other clients of the user's online status
+      io?.emit("userOnline", userId);
+    });
+
+    // Handle client disconnection
     socket.on("disconnect", () => {
-      console.log(`Socket disconnected: ${socket.id}`);
+      console.log("Client disconnected:", socket.id);
+
+      // Find userId based on socketId and remove from the map
+      for (const [userId, socketId] of connectedUsers.entries()) {
+        if (socketId === socket.id) {
+          connectedUsers.delete(userId);
+          // Notify others of the user's offline status
+          io?.emit("userOffline", userId);
+          break;
+        }
+      }
     });
   });
+};
 
+export const emitSocketEvent = (event: string, data: any, userId: string): void => {
+  if (io) {
+    const socketId = connectedUsers.get(userId); // Get the socketId from the map
+    if (socketId) {
+      io.to(socketId).emit(event, data); // Emit event to the specific socketId
+    } else {
+      console.log("socketId not found for userId:", userId);
+    }
+  } else {
+    console.log("Socket.IO is not initialized");
+  }
+};
+
+// Get the initialized Socket.IO instance
+const getIo = (): SocketIOServer => {
+  if (!io) {
+    throw new Error("Socket.IO not initialized");
+  }
   return io;
 };
 
-// Helper function to emit events
-export const emitSocketEvent = (event: string, data: any, userId: string) => {
-  if (io) {
-    let socketId = (activeUsers.find(item => item.userId == userId))?.socketId
-    if(socketId){
-        io.to(socketId).emit(event, data);
-    }
-    else{
-        console.log("socketId not found")
-    }
-  }
-};
+export { initSocket, getIo, connectedUsers };
