@@ -67,7 +67,7 @@ class ExpressRefillServices {
             }
 
 
-            return { payload:schedule, transactionData };
+            return { payload:schedule, transactionData: data.transactionData };
         } catch (err: any) {
             return { message: "Schedule creation failed: " + err.message };
         }
