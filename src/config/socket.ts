@@ -46,6 +46,7 @@ export const emitSocketEvent = (event: string, data: any, userId: string): void 
   if (io) {
     const socketId = connectedUsers.get(userId); // Get the socketId from the map
     if (socketId) {
+      console.log("sent")
       io.to(socketId).emit(event, data); // Emit event to the specific socketId
     } else {
       console.log("socketId not found for userId:", userId);
