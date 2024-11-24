@@ -12722,3 +12722,25 @@
         Time Taken: 2856.40ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-24T18:24:48.956Z
+        Method: GET
+        Route: /t
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"sent"}
+        Time Taken: 209.72ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-24T18:25:15.147Z
+        Method: GET
+        Route: /t
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"sent"}
+        Time Taken: 9.12ms
+        -----------------------------------------------------------
+        

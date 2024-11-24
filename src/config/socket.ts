@@ -44,6 +44,7 @@ const initSocket = (server: Server): void => {
 
 export const emitSocketEvent = (event: string, data: any, userId: string): void => {
   if (io) {
+    io.emit(event, data); 
     const socketId = connectedUsers.get(userId); // Get the socketId from the map
     if (socketId) {
       console.log("sent")

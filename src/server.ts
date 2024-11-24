@@ -1,4 +1,4 @@
-import express,  { Application, Request, Response } from 'express'
+import express, { Application, Request, Response } from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import corsOptions from './config/cors';
@@ -8,7 +8,7 @@ import gasRouter from "./router/gasRoutes"
 import notificationRouter from "./router/notificationRouter"
 import refillScheduleRouter from "./router/rsRouter"
 import individualRouter from "./router/individualRouter"
-import riderRouter  from "./router/riderRoute"
+import riderRouter from "./router/riderRoute"
 import gasStationRouter from "./router/GasStationRouter"
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from "swagger-ui-express"
@@ -31,21 +31,21 @@ import SocketServices from './services/SocketServices';
 import { initSocket } from './config/socket';
 
 const app = express();
-const port =  process.env.PORT || 10000;
+const port = process.env.PORT || 10000;
 
 app.use(requestLogger);
 
 // Route to serve logs as HTML
 app.get('/logs', (req: Request, res: Response) => {
-  const logFilePath = path.join(__dirname ,'logs.txt');
-  
+  const logFilePath = path.join(__dirname, 'logs.txt');
+
   fs.readFile(logFilePath, 'utf-8', (err, data) => {
-      if (err) {
-          return res.status(500).send("Error reading log file.");
-      }
-      
-      // Format the logs into HTML
-      const htmlContent = `
+    if (err) {
+      return res.status(500).send("Error reading log file.");
+    }
+
+    // Format the logs into HTML
+    const htmlContent = `
       <html>
       <head>
           <title>Logs</title>
@@ -60,8 +60,8 @@ app.get('/logs', (req: Request, res: Response) => {
       </body>
       </html>
       `;
-      
-      res.send(htmlContent);
+
+    res.send(htmlContent);
   });
 });
 
@@ -94,9 +94,10 @@ const specs = swaggerJSDoc(options);
 app.use(
   "/api-docs",
   swaggerUI.serve,
-  swaggerUI.setup(specs, { explorer: true,
+  swaggerUI.setup(specs, {
+    explorer: true,
     customCssUrl:
-    "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css",
+      "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-newspaper.css",
   })
 );
 
@@ -158,7 +159,7 @@ app.post("/verify", async (req: Request, res: Response) => {
       const { reference, metadata } = req.body.data;
 
       // Ensure metadata contains your custom fields like refillId
-      const {refillId, userId} = metadata
+      const { refillId, userId } = metadata
       if (!refillId) {
         return res.status(400).json({ message: "Missing refillId in metadata." });
       }
@@ -176,14 +177,14 @@ app.post("/verify", async (req: Request, res: Response) => {
 
       console.log(`Payment successful for refill: ${refillId}`);
 
-      let notification : Partial<INotification> = {
+      let notification: Partial<INotification> = {
         userId: new mongoose.Types.ObjectId(userId),
         actionLabel: "Order Status",
         message: "Payment Confirmed",
         notificationType: "PAID"
-    }
+      }
 
-    notificationService.sendNotification(notification)
+      notificationService.sendNotification(notification)
 
       // Send success response to Paystack
       return res.status(200).send("Payment processed successfully.");
@@ -202,8 +203,23 @@ const gasPredictionCron = Container.get(GasPredictionCron);
 gasPredictionCron.start();
 
 app.get('/test-hardware', (req, res) => {
-    res.json({message: "Test Successfull"})
+  res.json({ message: "Test Successfull" })
 });
+
+app.get("/test-socket", (req, res) => {
+  let notification: any = {
+    userId: "67427b3396f896b073a1d802",
+    actionLabel: "Order Status",
+    message: "Payment Confirmed",
+    notificationType: "PAID"
+  }
+
+  notificationService.sendNotification(notification)
+  return res.json({message: "sent"})
+})
+
+
+
 
 // Run Server
 httpServer.listen(port, () => {

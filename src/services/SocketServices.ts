@@ -24,7 +24,6 @@ class SocketServices {
   sendSocketNotification(userId: string, notifcation: Partial<INotification>){
     emitSocketEvent("notification", notifcation, userId);
 }
-
 }
 
 
