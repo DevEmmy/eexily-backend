@@ -11,8 +11,9 @@ class NotificationService {
   }
 
   async sendNotification(notificationData: Partial<INotification>) {
-    this.socketServices.sendSocketNotification(String(notificationData.userId), notificationData)
-    return this.notificationRepo.create(notificationData);
+    let notification = await this.notificationRepo.create(notificationData);
+    this.socketServices.sendSocketNotification(String(notification.userId), notification)
+    return notification
   }
 
   async markNotificationAsRead(notificationId: string) {
