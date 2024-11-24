@@ -8,7 +8,7 @@ export class BaseRepository<T extends Document> {
   }
 
   async find(query: FilterQuery<T> = {}): Promise<T[]> {
-    return this.model.find(query).exec();
+    return await this.model.find(query).sort({createdAt: -1}).exec();
   }
 
   async findOne(query: FilterQuery<T>): Promise<T | null> {

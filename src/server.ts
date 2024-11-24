@@ -158,9 +158,9 @@ app.post("/verify", async (req: Request, res: Response) => {
       // Update the refill status in the database
       const updatedRefill = await ExpressRefill.findOneAndUpdate(
         { _id: refillId },
-        { status: RefillStatus.MATCHED },
+        { status: RefillStatus.PAID },
         { new: true }
-      );
+      )
 
       if (!updatedRefill) {
         return res.status(404).json({ message: "Refill record not found." });
