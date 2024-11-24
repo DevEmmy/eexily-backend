@@ -144,6 +144,7 @@ app.post("/verify", async (req: Request, res: Response) => {
     }
 
     const event = req.body.event;
+    console.log(event)
 
     if (event === "charge.success") {
       // Extract data from Paystack webhook payload
