@@ -53,11 +53,11 @@ class ExpressRefillServices {
             data.merchant = merchant._id as Types.ObjectId; // Ensure this is correct if gasStation is a property of IExpressRefill
             }
 
-            // Find a merchant with a matching address
             
+            data.transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, data.merchant as string)
+
             let payload = await this.repo.create(data);
 
-            // Trigger the schedule processing
             let schedule : any= await this.processSchedule(payload).catch(err => {
                 console.error("Error in processSchedule:", err);
             });
@@ -66,7 +66,6 @@ class ExpressRefillServices {
                 return {message: "Schedule not matched at the moment"}
             }
 
-            let transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, schedule.schedule.merchant)
 
             return { payload:schedule, transactionData };
         } catch (err: any) {

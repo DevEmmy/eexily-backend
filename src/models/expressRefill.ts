@@ -28,10 +28,12 @@ export interface IExpressRefill extends Document {
   timeScheduled: Date;
   sellerType: string;
   statusHistory: IStatusHistory[];
+  transactionData: any
 }
 
 const expressRefillSchema = new Schema<IExpressRefill>(
   {
+    transactionData: {type: Schema.Types.Mixed},
     sellerType: { type: String, enum: Object.values(SellerType), default: SellerType.MERCHANT },
     gas: { type: Schema.Types.ObjectId, ref: "Gas", required: false },
     pickupDate: { type: Date, required: true },
