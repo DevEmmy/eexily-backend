@@ -37,18 +37,21 @@ class GasPredictionCron {
                     if (daysLeft === 3) {
                         const notification = {
                             userId: gasPrediction.user,
-                            message: `🚨 Critical: You have 3 days left before your gas runs out. Please plan ahead!`,
+                            actionLabel: "🚨 Critical",
+                            message: `You have 3 days left before your gas runs out. Please plan ahead!`,
                         };
                         await this.notificationService.sendNotification(notification);
                     } else if (daysLeft === 1) {
                         const notification = {
                             userId: gasPrediction.user,
-                            message: `⚠️ Urgent: Your gas is almost finished. Only 1 day left!`,
+                            actionLabel: "⚠️ Urgent",
+                            message: `Your gas is almost finished. Only 1 day left!`,
                         };
                         await this.notificationService.sendNotification(notification);
                     } else if (daysLeft === 0) {
                         const notification = {
                             userId: gasPrediction.user,
+                            actionLabel: "⚠️ Urgent",
                             message: `⏳ Today is the estimated day your gas should run out. Did it finish? Please update your gas refill data.`,
                         };
                         await this.notificationService.sendNotification(notification);
@@ -56,7 +59,8 @@ class GasPredictionCron {
                         const overdueDays = Math.abs(daysLeft);
                         const notification = {
                             userId: gasPrediction.user,
-                            message: `⛽ Reminder: Your gas ran out ${overdueDays} days ago. Please refill and update your gas history.`,
+                            actionLabel: "⛽ Reminder",
+                            message: `Your gas ran out ${overdueDays} days ago. Please refill and update your gas history.`,
                         };
                         await this.notificationService.sendNotification(notification);
                     }
