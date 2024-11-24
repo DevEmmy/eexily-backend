@@ -43,7 +43,7 @@ class ExpressRefillServices {
                 data.gasStation = gasStation._id as Types.ObjectId
             }
             else{
-                const merchant = await this.merchantRepo.findOne({ address: individual.address });
+                const merchant = await this.merchantRepo.findOne({});
 
             if (!merchant) {
                 throw new Error("No matching merchant found");
