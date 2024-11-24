@@ -14,7 +14,7 @@ class GasPredictionCron {
 
     public start() {
         // Schedule the job to run every day at noon
-        cron.schedule("0 12 * * *", async () => {
+        cron.schedule("* * * * *", async () => {
             console.log("[Cron Job] Starting gas prediction updates...");
 
             try {
