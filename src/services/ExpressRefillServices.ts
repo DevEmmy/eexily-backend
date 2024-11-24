@@ -52,11 +52,12 @@ class ExpressRefillServices {
             // Assign merchant to the express refill data
             data.merchant = merchant._id as Types.ObjectId; // Ensure this is correct if gasStation is a property of IExpressRefill
             }
+            
+            let payload : any = await this.repo.create(data);
+            
+            payload.transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, data.merchant as string, payload._id as string);
 
             
-            data.transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, data.merchant as string)
-
-            let payload = await this.repo.create(data);
 
             let schedule : any= await this.processSchedule(payload).catch(err => {
                 console.error("Error in processSchedule:", err);
@@ -66,7 +67,7 @@ class ExpressRefillServices {
                 return {message: "Schedule not matched at the moment"}
             }
 
-
+            payload = await this.repo.update({_id: payload._id}, payload)
             return { payload:schedule, transactionData: data.transactionData };
         } catch (err: any) {
             return { message: "Schedule creation failed: " + err.message };

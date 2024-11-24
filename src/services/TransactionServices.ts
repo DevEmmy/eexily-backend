@@ -10,7 +10,7 @@ export class TransactionService {
 
   constructor(private readonly transactionRepository: TransactionRepository) {}
 
-  async initializePayment(amount: number, userId: string, merchantId: string): Promise<any> {
+  async initializePayment(amount: number, userId: string, merchantId: string, refillId: string): Promise<any> {
     const reference = `ref_${Date.now()}`;
     const transaction = await this.transactionRepository.create({
       user: userId,
@@ -22,7 +22,7 @@ export class TransactionService {
 console.log(transaction)
     const response = await axios.post(
       `${this.paystackApiUrl}/transaction/initialize`,
-      { amount: amount * 100, email: "user@example.com", reference },
+      { amount: amount * 100, email: "user@example.com", reference, metadata: { refillId }},
       { headers: { Authorization: `Bearer ${this.paystackSecretKey}` } }
     );
 
