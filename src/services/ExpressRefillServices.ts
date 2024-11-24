@@ -68,7 +68,7 @@ class ExpressRefillServices {
             }
 
             payload = await this.repo.update({_id: payload._id}, payload)
-            return { payload:schedule, transactionData: data.transactionData };
+            return { payload, transactionData: data.transactionData };
         } catch (err: any) {
             return { message: "Schedule creation failed: " + err.message };
         }
