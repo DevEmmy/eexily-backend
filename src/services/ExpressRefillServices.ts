@@ -54,10 +54,6 @@ class ExpressRefillServices {
             }
             
             let payload : any = await this.repo.create(data);
-            
-            payload.transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, data.merchant as string, payload._id as string);
-
-            
 
             let schedule : any= await this.processSchedule(payload).catch(err => {
                 console.error("Error in processSchedule:", err);
@@ -67,7 +63,8 @@ class ExpressRefillServices {
                 return {message: "Schedule not matched at the moment"}
             }
 
-            payload = await this.repo.update({_id: payload._id}, payload)
+            payload = schedule.schedule
+            
             return { payload};
         } catch (err: any) {
             return { message: "Schedule creation failed: " + err.message };
@@ -112,6 +109,8 @@ class ExpressRefillServices {
                     schedule.rider = rider._id as string;
                     schedule.status = RefillStatus.MATCHED;
                     console.log("Matched to Rider:", rider._id);
+
+                    schedule.transactionData = await this.transactionService.initializePayment(data.price as number, data.user as string, data.merchant as string, data._id as string);
 
                     schedule = await this.repo.update({ _id: schedule._id }, schedule);
                     assigned = true;
