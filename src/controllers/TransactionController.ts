@@ -6,13 +6,13 @@ import { TransactionService } from "../services/TransactionServices";
 export class TransactionController {
   constructor(private readonly transactionService: TransactionService) {}
 
-  async initializePayment(req: Request, res: Response): Promise<void> {
-    const { amount, merchantId } = req.body;
-    const userId = req.body.user;
+  // async initializePayment(req: Request, res: Response): Promise<void> {
+  //   const { amount, merchantId } = req.body;
+  //   const userId = req.body.user;
 
-    const result = await this.transactionService.initializePayment(amount, userId, merchantId);
-    res.status(200).json(result);
-  }
+  //   const result = await this.transactionService.initializePayment(amount, userId, merchantId);
+  //   res.status(200).json(result);
+  // }
 
   async verifyPayment(req: Request, res: Response): Promise<void> {
     const { reference } = req.query;
