@@ -26,6 +26,8 @@ import Container from 'typedi';
 import ExpressRefill from './models/expressRefill';
 import { RefillStatus } from './enum/refillStatus';
 import crypto from "crypto";
+import NotificationService from './services/NotificationServices';
+import { INotification } from './models/notification';
 
 const app = express();
 const port =  process.env.PORT || 10000;
@@ -127,6 +129,8 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
+const notificationService = Container.get(NotificationService)
+
 app.post("/verify", async (req: Request, res: Response) => {
   try {
     // Paystack secret key
@@ -145,14 +149,14 @@ app.post("/verify", async (req: Request, res: Response) => {
 
     const event = req.body.event;
     console.log(event)
-    
+    console.log(req.body);
 
     if (event === "charge.success") {
       // Extract data from Paystack webhook payload
       const { reference, metadata } = req.body.data;
 
       // Ensure metadata contains your custom fields like refillId
-      const refillId = metadata?.refillId;
+      const {refillId, userId} = metadata
       if (!refillId) {
         return res.status(400).json({ message: "Missing refillId in metadata." });
       }
@@ -169,6 +173,15 @@ app.post("/verify", async (req: Request, res: Response) => {
       }
 
       console.log(`Payment successful for refill: ${refillId}`);
+
+      let notification : Partial<INotification> = {
+        userId: new mongoose.Types.ObjectId(userId),
+        actionLabel: "Order Status",
+        message: "Payment Confirmed",
+        notificationType: "PAID"
+    }
+
+    notificationService.sendNotification(notification)
 
       // Send success response to Paystack
       return res.status(200).send("Payment processed successfully.");

@@ -22,7 +22,7 @@ export class TransactionService {
 console.log(transaction)
     const response = await axios.post(
       `${this.paystackApiUrl}/transaction/initialize`,
-      { amount: amount * 100, email: "user@example.com", reference, metadata: { refillId }},
+      { amount: amount * 100, email: "user@example.com", reference, metadata: { refillId, userId }},
       { headers: { Authorization: `Bearer ${this.paystackSecretKey}` } }
     );
 

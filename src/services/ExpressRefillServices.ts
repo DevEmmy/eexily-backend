@@ -3,12 +3,14 @@ import ExpressRefillRepository from "../repositories/ExpressRefillRepository";  
 import MerchantRepository from "../repositories/MerchantRepository";  // Updated to use MerchantRepository
 import RiderRepository from "../repositories/RiderRepository";
 import Individual, { IIndividual } from "../models/individual";  // Assuming the Individual model is in models folder
-import { Types } from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { RefillStatus } from "../enum/refillStatus";
 import ExpressRefill, { IExpressRefill, SellerType } from "../models/expressRefill";  // Update to the correct model
 import IndividualRepository from "../repositories/IndividualRepository";
 import GasStationRepository from "../repositories/GasStationRepository";
 import { TransactionService } from "./TransactionServices";
+import { INotification } from "../models/notification";
+import NotificationService from "./NotificationServices";
 
 export interface Editor {
     merchant?: string;  
@@ -25,7 +27,8 @@ class ExpressRefillServices {
         private readonly riderRepo: RiderRepository,
         private readonly individualRepo : IndividualRepository,
         private readonly gasStationRepo: GasStationRepository,
-        private readonly transactionService: TransactionService
+        private readonly transactionService: TransactionService,
+        private readonly notificationService: NotificationService
     ) { }
 
     async create(data: Partial<IExpressRefill>) {
@@ -64,7 +67,7 @@ class ExpressRefillServices {
             }
 
             payload = schedule.schedule
-            
+
             return { payload};
         } catch (err: any) {
             return { message: "Schedule creation failed: " + err.message };
@@ -169,6 +172,32 @@ class ExpressRefillServices {
             }
 
             schedule.status = status;
+
+            let notification : Partial<INotification> = {
+                userId: new mongoose.Types.ObjectId(schedule.user),
+                actionLabel: "Order Status"
+            }
+
+            switch (status) {
+                case RefillStatus.PICK_UP:
+                    notification.message = "Your gas cylinder has been picked up!";
+                    notification.notificationType = "PICK_UP"
+                    break;
+                case RefillStatus.REFILL:
+                    notification.message = "Your gas cylinder has been refilled!";
+                    notification.notificationType = "REFILL"
+                    break;
+                 case RefillStatus.DELIVERED:
+                    notification.message = "Your gas cylinder has been delivered!";
+                    notification.notificationType = "DELIVERED"
+                    break;
+            
+                default:
+                    break;
+            }
+
+            this.notificationService.sendNotification(notification)
+
             schedule = await this.repo.update({ gcode }, schedule);
             return { payload: schedule, message: "Status Updated" };
         } catch (err: any) {
