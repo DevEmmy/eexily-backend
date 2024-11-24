@@ -28,7 +28,7 @@ import { RefillStatus } from './enum/refillStatus';
 import crypto from "crypto";
 
 const app = express();
-const port =  7030;
+const port =  process.env.PORT || 10000;
 
 app.use(requestLogger);
 
