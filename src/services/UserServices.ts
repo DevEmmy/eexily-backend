@@ -251,7 +251,7 @@ export class UserServices {
             }
 
             let otp = this.otpService.generateOTP();
-            user.resetToken = await bcrypt.hash(String(otp), 8);
+            user.resetToken = String(otp);
             // this.emailService.sendResetToken(user.email, user.resetToken)
             user.resetTokenExpiration = new Date(new Date().setHours(new Date().getHours() + 5))
             this.repo.update(String(user._id), user)
@@ -267,9 +267,7 @@ export class UserServices {
 
     async updatePassword(token: string, newPassword: string){
         try{
-            let hashOtp = await bcrypt.hash(String(token), 8);
-            console.log(hashOtp)
-            let user = await this.repo.findByToken(hashOtp);
+            let user = await this.repo.findByToken(token);
 
             if(!user){
                 return {
