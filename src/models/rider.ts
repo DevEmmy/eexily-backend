@@ -34,7 +34,7 @@ const RiderSchema = new Schema<IRider>({
   expiryDate: { type: Date },
   workPlaceAddress: { type: String },
   profilePicture: { type: String },
-  riderType: { type: String, enum: Object.values(RiderType), default: RiderType.DRIVER },
+  riderType: { type: String, enum: Object.values(RiderType), default: RiderType.RIDER },
   gasStation: { type: Schema.Types.ObjectId, ref: "GasStation" },
   accountNumber: String,
   bankName: String,

@@ -11,6 +11,7 @@ import GasStationRepository from "../repositories/GasStationRepository";
 import { TransactionService } from "./TransactionServices";
 import { INotification } from "../models/notification";
 import NotificationService from "./NotificationServices";
+import { RiderType } from "../models/rider";
 
 export interface Editor {
     merchant?: string;  
@@ -99,6 +100,7 @@ class ExpressRefillServices {
                 const ordersForToday = await ExpressRefill.aggregate([
                     {
                         $match: {
+                            riderType: RiderType.RIDER,
                             rider: rider._id,
                             createdAt: {
                                 $gte: new Date(new Date().setHours(0, 0, 0, 0)),
