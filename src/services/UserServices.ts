@@ -268,6 +268,7 @@ export class UserServices {
     async updatePassword(token: string, newPassword: string){
         try{
             let hashOtp = await bcrypt.hash(String(token), 8);
+            console.log(hashOtp)
             let user = await this.repo.findByToken(hashOtp);
 
             if(!user){
@@ -283,7 +284,7 @@ export class UserServices {
             user = await this.repo.update(String(user._id), user);
 
             return {
-                
+                payload: user,
                 message: "Password Updated!"
             }
         }
