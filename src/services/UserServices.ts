@@ -269,7 +269,7 @@ export class UserServices {
         try{
             let hashOtp = await bcrypt.hash(String(token), 8);
             let user = await this.repo.findByToken(hashOtp);
-            
+
             if(!user){
                 return {
                     payload: null,
@@ -280,8 +280,10 @@ export class UserServices {
 
            user.password = await bcrypt.hash(newPassword, 8)
            user.resetToken = null;
-            user = await this.repo.update(String(user._id), user)
+            user = await this.repo.update(String(user._id), user);
+
             return {
+                
                 message: "Password Updated!"
             }
         }

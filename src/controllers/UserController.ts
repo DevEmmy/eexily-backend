@@ -63,12 +63,9 @@ export class UserController{
         try{
             const {email} = req.body;
             
-            let {payload, message} = await this.service.forgotPassword(email);
+            let { message} = await this.service.forgotPassword(email);
             
-            if(!payload && message){
-                return error(message, res, 400)
-            }
-            return success(payload, res);
+            return res.json({message})
         }   
         catch(err: any){
             error(err.message, res, err.status||400);
@@ -79,12 +76,9 @@ export class UserController{
         try{
             const {otp, newPassword} = req.body;
             
-            let {payload, message} = await this.service.verifyOtp(otp, newPassword);
+            let {message} = await this.service.updatePassword(otp, newPassword);
             
-            if(!payload && message){
-                return error(message, res, 400)
-            }
-            return success(payload, res);
+            return res.json({message})
         }   
         catch(err: any){
             error(err.message, res, err.status||400);
