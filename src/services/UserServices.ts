@@ -24,12 +24,13 @@ import RiderRepository from "../repositories/RiderRepository";
 import GasPredictionRepository from "../repositories/GasPrediction";
 import GasPredictionService from "./GasPredictionServices";
 import MerchantRepository from "../repositories/MerchantRepository";
+import EmailService from "./EmailServices";
 
 let jwtSecret = process.env.JWT_SECRET as string;
 
 @Service()
 export class UserServices {
-    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices, private readonly csServices: CustomerServiceServices, private readonly gsServices: GasStationServices, private readonly individualServices: IndividualServices, private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository, private gasPredictionRepository: GasPredictionRepository, private readonly gasPredictionService: GasPredictionService, private readonly merchantRepository : MerchantRepository) { };
+    constructor(private readonly repo: UserRepository, private readonly gasRepo: GasRepository, private readonly otpService: OTPServices, private readonly businessServices: BusinessServices, private readonly csServices: CustomerServiceServices, private readonly gsServices: GasStationServices, private readonly individualServices: IndividualServices, private readonly riderServices: RiderServices, private readonly businessRepo: BusinessRepository, private readonly csRepo: CustomerServiceRepository, private readonly individualRepo: IndividualRepository, private readonly gasStationRepo: GasStationRepository, private readonly riderRepo: RiderRepository, private gasPredictionRepository: GasPredictionRepository, private readonly gasPredictionService: GasPredictionService, private readonly merchantRepository : MerchantRepository, private readonly emailService: EmailService) { };
 
     generateToken(id: string) {
         let token = jwt.sign({ id }, jwtSecret)
@@ -53,10 +54,7 @@ export class UserServices {
 
             //set date
             const currentDate = new Date();
-
             data.generatedOtpExpiration = new Date(currentDate.getTime() + 5 * 60 * 60 * 1000);
-
-
             let user = await this.repo.create(data);
 
             //send otp
@@ -241,4 +239,54 @@ export class UserServices {
         }
     }
 
+    async forgotPassword(email: string){
+        try{
+            let user = await this.repo.findByEmail(email);
+            if(!user){
+                return {
+                    payload: null,
+                    message: "There is no user with this Email",
+                    status: 400
+                }
+            }
+
+            let otp = this.otpService.generateOTP();
+            user.resetToken = await bcrypt.hash(String(otp), 8);
+            // this.emailService.sendResetToken(user.email, user.resetToken)
+            user.resetTokenExpiration = new Date(new Date().setHours(new Date().getHours() + 5))
+            this.repo.update(String(user._id), user)
+            await this.otpService.sendCreateUserOTP(otp, user.email);
+            return {
+                message: "Check your Email"
+            }
+        }
+        catch (err: any) {
+            throw Error(err.message);
+        }
+    }
+
+    async updatePassword(token: string, newPassword: string){
+        try{
+            let hashOtp = await bcrypt.hash(String(token), 8);
+            let user = await this.repo.findByToken(hashOtp);
+            
+            if(!user){
+                return {
+                    payload: null,
+                    message: "Invalid Token",
+                    status: 400
+                }
+            }
+
+           user.password = await bcrypt.hash(newPassword, 8)
+           user.resetToken = null;
+            user = await this.repo.update(String(user._id), user)
+            return {
+                message: "Password Updated!"
+            }
+        }
+        catch (err: any) {
+            throw Error(err.message);
+        }
+    }
 }

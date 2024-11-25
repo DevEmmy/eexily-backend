@@ -12,6 +12,8 @@ export interface IUser extends Document {
   generatedOtp?: string;
   generatedOtpExpiration?: Date;
   type: UserType;
+  resetToken: string | null,
+  resetTokenExpiration: Date,
 }
 
 // Define the User schema
@@ -25,7 +27,8 @@ const UserSchema = new Schema<IUser>({
   isVerified: { type: Boolean, default: true },
   generatedOtp: { type: String },
   generatedOtpExpiration: { type: Date },
-  
+  resetToken: String,
+  resetTokenExpiration: Date,
   type: {
     type: String,
     enum: Object.values(UserType),

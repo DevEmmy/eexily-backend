@@ -34,6 +34,11 @@ class UserRepository{
         const result = await this.model.findByIdAndUpdate(id, data, {new: true});
         return result;
     }
+
+    async findByToken(token: string){
+        const user = await this.model.findOne({resetToken: token});
+        return user
+    }
 }
 
 export default UserRepository;

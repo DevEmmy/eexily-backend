@@ -72,9 +72,10 @@ class EmailService{
     }
 
     async sendSignUpOTP(email: string, otp: number){
-        
         this.mail(email, "Emmy", "OTP - Confirm your Eexily User verification!", registerHtml(otp))
     }
+
+    
 }
 
 export default EmailService

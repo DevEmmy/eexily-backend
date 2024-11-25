@@ -59,6 +59,38 @@ export class UserController{
         }
     }
 
+    async forgotPassword(req: Request, res: Response){
+        try{
+            const {email} = req.body;
+            
+            let {payload, message} = await this.service.forgotPassword(email);
+            
+            if(!payload && message){
+                return error(message, res, 400)
+            }
+            return success(payload, res);
+        }   
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
+
+    async updatePassword(req: Request, res: Response){
+        try{
+            const {otp, newPassword} = req.body;
+            
+            let {payload, message} = await this.service.verifyOtp(otp, newPassword);
+            
+            if(!payload && message){
+                return error(message, res, 400)
+            }
+            return success(payload, res);
+        }   
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
+
     async getLoggedInUser(req: Request, res: Response){
         try{
             const {user} = req.body;
