@@ -37,7 +37,7 @@ class GasPredictionService {
 
         gasPrediction.refillHistory.push(newRefill);
         gasPrediction.lastRefill = refillData.refillDate;
-        gasPrediction.amountValue += refillData.amountFilled;
+        gasPrediction.amountValue = refillData.amountFilled;
 
         return gasPrediction.save();
     }
