@@ -12744,3 +12744,58 @@
         Time Taken: 9.12ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-28T00:08:16.075Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"_id":"6747b471923068d4f38ac3ba","sellerType":"MERCHANT","pickupDate":"2024-11-24T14:00:00.000Z","quantity":3,"address":"123 Gas Street, Fuel City","price":1500,"deliveryFee":200,"paymentMethod":"Card","user":"67424178af1b450d35fc0d78","status":"MATCHED","merchant":"674242af1b7b02690ced52da","metaData":{"riderName":"ibrahim ibrahim"},"timeScheduled":"2024-11-28T00:08:17.076Z","statusHistory":[{"status":"PENDING","updatedAt":"2024-11-28T00:08:17.091Z","_id":"6747b471923068d4f38ac3bb"},{"status":"MATCHED","updatedAt":"2024-11-28T00:08:20.801Z","_id":"6747b474923068d4f38ac3c4"}],"createdAt":"2024-11-28T00:08:17.085Z","updatedAt":"2024-11-28T00:08:20.798Z","gcode":"G7496","__v":0,"rider":"6744ccd2793c1828909eab2e","transactionData":{"paymentUrl":"https://checkout.paystack.com/wt61399z3je8f7b","reference":"ref_1732752498503"}}}
+        Time Taken: 5004.63ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T00:09:55.021Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"_id":"6747b4d300339c98756ab3d3","sellerType":"MERCHANT","pickupDate":"2024-11-24T14:00:00.000Z","quantity":3,"address":"123 Gas Street, Fuel City","price":1500,"deliveryFee":200,"paymentMethod":"Card","user":"67424178af1b450d35fc0d78","status":"MATCHED","merchant":"674242af1b7b02690ced52da","metaData":{"userName":"undefined undefined","merchantName":"undefined undefined","riderName":"ibrahim ibrahim"},"timeScheduled":"2024-11-28T00:09:55.896Z","statusHistory":[{"status":"PENDING","updatedAt":"2024-11-28T00:09:55.911Z","_id":"6747b4d300339c98756ab3d4"},{"status":"MATCHED","updatedAt":"2024-11-28T00:09:58.342Z","_id":"6747b4d600339c98756ab3dd"}],"createdAt":"2024-11-28T00:09:55.910Z","updatedAt":"2024-11-28T00:09:58.340Z","gcode":"GB8E4","__v":0,"rider":"6744ccd2793c1828909eab2e","transactionData":{"paymentUrl":"https://checkout.paystack.com/7a5zwzb7jfw4o3e","reference":"ref_1732752597279"}}}
+        Time Taken: 3608.79ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T00:12:50.677Z
+        Method: POST
+        Route: /auth/sign-up
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"user":{"phoneNumber":"09048988583","email":"emmyemmie6@gmail.com","password":"$2b$08$I.DA6rOEPUAFYXPOfP9hCOAbxlK1/n7zAAriMaNuVUEpSo876QBQq","isVerified":true,"generatedOtp":"$2b$08$Hwv3IQIO4nDk8CnCYyEP5OeMezQtm3Fh0d88U/OJiqtq2JqtT8azW","generatedOtpExpiration":"2024-11-28T05:12:51.043Z","type":"INDIVIDUAL","_id":"6747b58300339c98756ab409","createdAt":"2024-11-28T00:12:51.045Z","updatedAt":"2024-11-28T00:12:51.045Z","__v":0},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDdiNTgzMDAzMzljOTg3NTZhYjQwOSIsImlhdCI6MTczMjc1Mjc3MX0.hiJcLmJ6tg36TB8i8y7Cipnoxihi6Sd4EKKg4vPbuJE","typeObject":{"payload":{"user":{"phoneNumber":"09048988583","email":"emmyemmie6@gmail.com","password":"$2b$08$I.DA6rOEPUAFYXPOfP9hCOAbxlK1/n7zAAriMaNuVUEpSo876QBQq","isVerified":true,"generatedOtp":"$2b$08$Hwv3IQIO4nDk8CnCYyEP5OeMezQtm3Fh0d88U/OJiqtq2JqtT8azW","generatedOtpExpiration":"2024-11-28T05:12:51.043Z","type":"INDIVIDUAL","_id":"6747b58300339c98756ab409","createdAt":"2024-11-28T00:12:51.045Z","updatedAt":"2024-11-28T00:12:51.045Z","__v":0},"_id":"6747b58300339c98756ab40b","createdAt":"2024-11-28T00:12:51.335Z","updatedAt":"2024-11-28T00:12:51.335Z","__v":0}}}}
+        Time Taken: 951.12ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T00:16:01.719Z
+        Method: PATCH
+        Route: /individual
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"Success","payload":{"_id":"6747b58300339c98756ab40b","user":"6747b58300339c98756ab409","createdAt":"2024-11-28T00:12:51.335Z","updatedAt":"2024-11-28T00:16:01.755Z","__v":0,"address":"Grace Hostel, Harmony","firstName":"Emmanuel","lastName":"Olaosebikan","location":"Harmony"}}
+        Time Taken: 1677.67ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T00:16:50.764Z
+        Method: POST
+        Route: /express-refill
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 201
+        Response: {"payload":{"_id":"6747b6738f7e4cf34054330f","sellerType":"MERCHANT","pickupDate":"2024-11-24T14:00:00.000Z","quantity":3,"address":"123 Gas Street, Fuel City","price":1500,"deliveryFee":200,"paymentMethod":"Card","user":"6747b58300339c98756ab409","status":"MATCHED","merchant":"674242af1b7b02690ced52da","metaData":{"userName":"Emmanuel Olaosebikan","userPhoneNumber":"09048988583","pickUpLocation":"Harmony","pickUpAddress":"Grace Hostel, Harmony","merchantName":"undefined undefined","riderName":"ibrahim ibrahim"},"timeScheduled":"2024-11-28T00:16:51.634Z","statusHistory":[{"status":"PENDING","updatedAt":"2024-11-28T00:16:51.649Z","_id":"6747b6738f7e4cf340543310"},{"status":"MATCHED","updatedAt":"2024-11-28T00:16:54.082Z","_id":"6747b6768f7e4cf340543319"}],"createdAt":"2024-11-28T00:16:51.647Z","updatedAt":"2024-11-28T00:16:54.081Z","gcode":"GABCC","__v":0,"rider":"6744ccd2793c1828909eab2e","transactionData":{"paymentUrl":"https://checkout.paystack.com/jg0sig0a35zj3yn","reference":"ref_1732753013026"}}}
+        Time Taken: 3595.54ms
+        -----------------------------------------------------------
+        

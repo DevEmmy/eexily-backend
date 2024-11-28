@@ -52,7 +52,6 @@ export class IndividualController {
 
     async update(req: Request, res: Response) {
         try {
-            const { id } = req.params;
             let user = req.body.user
             const body: Partial<IIndividual> = req.body;
             let { payload } = await this.service.update(user, body);

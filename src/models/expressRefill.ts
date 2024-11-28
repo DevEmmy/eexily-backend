@@ -11,6 +11,21 @@ export interface IStatusHistory {
   updatedAt: Date;
 }
 
+export interface IMetaData {
+  pickUpLocation?: string;
+  userName?: string;
+  userPhoneNumber?: string;
+  riderName?: string;
+  riderPhoneNumber?: string;
+  gasStationName?:string;
+  gasStationAddress?: string;
+  gasStationLocation?: string;
+  merchantName?: string;
+  merchantAddress?: string;
+  merchantPhoneNumber?: string;
+  pickUpAddress?: string;
+}
+
 export interface IExpressRefill extends Document {
   gas: Types.ObjectId | string;
   pickupDate: Date;
@@ -28,14 +43,19 @@ export interface IExpressRefill extends Document {
   timeScheduled: Date;
   sellerType: string;
   statusHistory: IStatusHistory[];
-  transactionData: any
+  transactionData: any;
+  metaData: IMetaData;
 }
 
 const expressRefillSchema = new Schema<IExpressRefill>(
   {
-    transactionData: {type: Schema.Types.Mixed},
-    sellerType: { type: String, enum: Object.values(SellerType), default: SellerType.MERCHANT },
-    gas: { type: Schema.Types.ObjectId, ref: "Gas", required: false },
+    transactionData: { type: Schema.Types.Mixed },
+    sellerType: {
+      type: String,
+      enum: Object.values(SellerType),
+      default: SellerType.MERCHANT,
+    },
+    gas: { type: Schema.Types.ObjectId, ref: "Gas" },
     pickupDate: { type: Date, required: true },
     quantity: { type: Number, required: true },
     address: { type: String, required: true },
@@ -45,24 +65,30 @@ const expressRefillSchema = new Schema<IExpressRefill>(
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     status: {
       type: String,
-      default: RefillStatus.PENDING,
       enum: Object.values(RefillStatus),
+      default: RefillStatus.PENDING,
     },
     gcode: { type: String },
     merchant: { type: Schema.Types.ObjectId, ref: "Merchant", required: true },
     rider: { type: Schema.Types.ObjectId, ref: "Rider" },
-    timeScheduled: { type: Date, default: new Date() },
+    timeScheduled: { type: Date, default: () => new Date() },
     gasStation: { type: Schema.Types.ObjectId, ref: "GasStation" },
+    metaData: {
+      type: Object,
+      required: false,
+    },
     statusHistory: [
       {
-        status: { type: String, enum: Object.values(RefillStatus), required: true },
+        status: {
+          type: String,
+          enum: Object.values(RefillStatus),
+          required: true,
+        },
         updatedAt: { type: Date, required: true, default: Date.now },
       },
     ],
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 // Pre-save middleware to generate the gcode and update the scheduled time
@@ -74,12 +100,12 @@ expressRefillSchema.pre("save", function (next) {
       .padStart(4, "0");
     this.gcode = `G${randomPart}`;
   }
+
   if (!this.timeScheduled) {
     this.timeScheduled = new Date();
   }
 
-  // Add the initial status to the statusHistory
-  if (this.isNew && !this.statusHistory.length) {
+  if (this.isNew && this.statusHistory.length === 0) {
     this.statusHistory.push({ status: this.status, updatedAt: new Date() });
   }
 
@@ -87,7 +113,7 @@ expressRefillSchema.pre("save", function (next) {
 });
 
 // Middleware to add new status updates to statusHistory
-expressRefillSchema.pre("findOneAndUpdate", async function (next) {
+expressRefillSchema.pre("findOneAndUpdate", function (next) {
   const update = this.getUpdate() as Partial<IExpressRefill>;
 
   if (update.status) {
@@ -109,11 +135,10 @@ expressRefillSchema.pre("findOneAndUpdate", async function (next) {
   next();
 });
 
-
-
 // Create the ExpressRefill model
 const ExpressRefill = mongoose.model<IExpressRefill>(
   "ExpressRefill",
   expressRefillSchema
 );
+
 export default ExpressRefill;

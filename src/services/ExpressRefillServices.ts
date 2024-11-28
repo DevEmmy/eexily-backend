@@ -34,9 +34,16 @@ class ExpressRefillServices {
 
     async create(data: Partial<IExpressRefill>) {
         try {
-            const individual = await Individual.findOne({ user: data.user });
+            const individual : any= await Individual.findOne({ user: data.user }).populate("user");
             if (!individual) {
                 throw new Error("Individual not found");
+            }
+
+            data.metaData = {
+                userName : individual.firstName + " "+ individual.lastName,
+                userPhoneNumber : individual.user.phoneNumber,
+                pickUpLocation: individual.location,
+                pickUpAddress: individual.address
             }
 
             if(data.sellerType === SellerType.GAS_STATION){
@@ -45,6 +52,12 @@ class ExpressRefillServices {
                     throw new Error("No matching gas station found")
                 }
                 data.gasStation = gasStation._id as Types.ObjectId
+                data.metaData ={
+                    ...data.metaData,
+                    gasStationName: gasStation.gasStationName,
+                    gasStationAddress: gasStation.address,
+                    gasStationLocation: gasStation.location
+                }
             }
             else{
                 const merchant = await this.merchantRepo.findOne({});
@@ -55,6 +68,12 @@ class ExpressRefillServices {
 
             // Assign merchant to the express refill data
             data.merchant = merchant._id as Types.ObjectId; // Ensure this is correct if gasStation is a property of IExpressRefill
+            data.metaData ={
+                ...data.metaData,
+                merchantName: merchant.firstName + " " + merchant.lastName,
+                merchantPhoneNumber: merchant.phoneNumber,
+                merchantAddress: merchant.address
+            }
             }
             
             let payload : any = await this.repo.create(data);
@@ -112,6 +131,11 @@ class ExpressRefillServices {
 
                 if (ordersForToday.length < 20) {
                     schedule.rider = rider._id as string;
+                    schedule.metaData={
+                        ...schedule.metaData,
+                        riderName: rider.firstName + " " + rider.lastName,
+                        riderPhoneNumber: rider.phoneNumber
+                    }
                     schedule.status = RefillStatus.MATCHED;
                     console.log("Matched to Rider:", rider._id);
 
