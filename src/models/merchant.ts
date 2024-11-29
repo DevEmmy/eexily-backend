@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document, Types } from 'mongoose';
-import { gasPrices } from '../server';
 
 export interface IMerchant extends Document {
     firstName: string;
@@ -27,7 +26,7 @@ const merchantSchema = new Schema<IMerchant>(
         storeName: { type: String, required: false },
         isOpened: { type: Boolean, default: true },
         retailPrice: { type: Number, required: false },
-        regularPrice: { type: Number, required: false, default: gasPrices.merchantGasPrice },
+        regularPrice: { type: Number, required: false, default: 1500 },
         accountNumber: String,
         bankName: String,
         bankCode: String,
