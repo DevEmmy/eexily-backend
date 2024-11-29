@@ -184,6 +184,22 @@ app.post("/verify", async (req: Request, res: Response) => {
         notificationType: "PAID"
       }
 
+      let riderNotification: Partial<INotification> = {
+        message: "You have a paid order waiting for pick up! Check your incoming orders.",
+        actionLabel: "Order Status",
+        notificationType: "PAID",
+        userId: new mongoose.Types.ObjectId(updatedRefill.rider)
+    }
+
+    let merchantNotification: Partial<INotification> = {
+      message: "You have a paid order, the rider will come and drop the cylinder soon! Check your incoming orders.",
+      actionLabel: "Order Status",
+      notificationType: "PAID",
+      userId: new mongoose.Types.ObjectId(updatedRefill.merchant)
+  }
+
+      notificationService.sendNotification(merchantNotification)
+      notificationService.sendNotification(riderNotification)
       notificationService.sendNotification(notification)
 
       // Send success response to Paystack
