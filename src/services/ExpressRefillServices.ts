@@ -12,6 +12,7 @@ import { TransactionService } from "./TransactionServices";
 import { INotification } from "../models/notification";
 import NotificationService from "./NotificationServices";
 import { RiderType } from "../models/rider";
+import { gasPrices } from "../server";
 
 export interface Editor {
     merchant?: string;
@@ -207,6 +208,24 @@ class ExpressRefillServices {
                 actionLabel: "Order Status",
             };
 
+            const merchantDetails = await this.merchantRepo.findOne({ _id: schedule.merchant });
+            const riderDetails = await this.riderRepo.findOne({ _id: schedule.rider });
+
+            if (!riderDetails) {
+                return { message: "Rider not found" }
+            }
+
+            if (!merchantDetails) {
+                return { message: "Merchant not found" }
+            }
+
+            const gasPrice = merchantDetails.regularPrice; // Price of 1kg
+            const deliveryFee = gasPrices.expressDeliveryFee; // Fixed delivery fee
+            const profit = gasPrice - 1000; // Profit margin for the merchant
+            const platformShare = 0.2 * profit + 0.3 * deliveryFee;
+            const merchantPayment = gasPrice - platformShare; // Merchant's share
+            const riderPayment = deliveryFee - 0.3 * deliveryFee; // Rider's share
+
             switch (status) {
                 case RefillStatus.PICK_UP:
                     notification.message = "Your gas cylinder has been picked up!";
@@ -223,49 +242,27 @@ class ExpressRefillServices {
                     break;
 
                 case RefillStatus.REFILL:
-                    const merchantDetails = await this.merchantRepo.findOne({ _id: schedule.merchant });
-                    const riderDetails = await this.riderRepo.findOne({ _id: schedule.rider });
+
 
                     if (!merchantDetails || !riderDetails) {
                         return { message: "Merchant or Rider details not found" };
                     }
 
-                    const gasPrice = merchantDetails.retailPrice; // Price of 1kg
-                    const deliveryFee = 1000; // Fixed delivery fee
-                    const profit = gasPrice - 1000; // Profit margin for the merchant
-                    const platformShare = 0.2 * profit + 0.3 * deliveryFee;
-                    const merchantPayment = gasPrice - platformShare; // Merchant's share
-                    const riderPayment = deliveryFee - 0.3 * deliveryFee; // Rider's share
-
                     // Create transfer recipients and initiate transfers
-                    // const merchantRecipientCode = await this.createTransferRecipient(
-                    //     merchantDetails.accountNumber,
-                    //     merchantDetails.bankCode,
-                    //     "Merchant"
-                    // );
-                    // await this.initiateTransfer(merchantRecipientCode, merchantPayment, "Merchant Payment");
+                    const merchantRecipientCode = await this.createTransferRecipient(
+                        merchantDetails.accountNumber,
+                        merchantDetails.bankCode,
+                        "Merchant"
+                    );
+                    await this.initiateTransfer(merchantRecipientCode, merchantPayment, "Merchant Payment", merchantDetails._id as string);
 
-                    // const riderRecipientCode = await this.createTransferRecipient(
-                    //     riderDetails.accountNumber,
-                    //     riderDetails.bankCode,
-                    //     "Rider"
-                    // );
-                    // await this.initiateTransfer(riderRecipientCode, riderPayment, "Rider Payment");
-
-                    // Notify merchant and rider
-                    // this.notificationService.sendNotification({
-                    //     userId: merchantDetails._id as Types.ObjectId,
-                    //     message: `You have been credited ₦${merchantPayment.toFixed(2)} for the refill.`,
-                    //     actionLabel: "Payment Received",
-                    //     notificationType: "PAYMENT",
-                    // });
-
-                    // this.notificationService.sendNotification({
-                    //     userId: riderDetails._id as Types.ObjectId,
-                    //     message: `You have been credited ₦${riderPayment.toFixed(2)} for the delivery.`,
-                    //     actionLabel: "Payment Received",
-                    //     notificationType: "PAYMENT",
-                    // });
+                    //Notify merchant and rider
+                    this.notificationService.sendNotification({
+                        userId: merchantDetails._id as Types.ObjectId,
+                        message: `You have been credited ₦${merchantPayment.toFixed(2)} for the refill.`,
+                        actionLabel: "Payment Received",
+                        notificationType: "PAYMENT",
+                    });
 
                     let riderNotification: Partial<INotification> = {
                         message: "The gas cylinder has been refilled!",
@@ -292,6 +289,21 @@ class ExpressRefillServices {
                     }
 
                     this.notificationService.sendNotification(anotherUserNotification)
+
+                    const riderRecipientCode = await this.createTransferRecipient(
+                        riderDetails.accountNumber,
+                        riderDetails.bankCode,
+                        "Rider"
+                    );
+                    await this.initiateTransfer(riderRecipientCode, riderPayment, "Rider Payment", riderDetails._id as string);
+
+                    this.notificationService.sendNotification({
+                        userId: riderDetails._id as Types.ObjectId,
+                        message: `You have been credited ₦${riderPayment.toFixed(2)} for the delivery.`,
+                        actionLabel: "Payment Received",
+                        notificationType: "PAYMENT",
+                    });
+
                     break;
 
                 default:
@@ -318,7 +330,7 @@ class ExpressRefillServices {
                 bankCode,
             );
 
-            if (recipientResponse.status !== "success") {
+            if (recipientResponse.status) {
                 throw new Error(`Failed to create transfer recipient for ${type}`);
             }
 
@@ -328,17 +340,18 @@ class ExpressRefillServices {
         }
     }
 
-    async initiateTransfer(recipientCode: string, amount: number, description: string): Promise<void> {
+    async initiateTransfer(recipientCode: string, amount: number, description: string, userId: string): Promise<void> {
         try {
             const transferResponse = await this.transactionService.initiateTransfer(
                 amount,
                 recipientCode,
                 description,
             );
-
-            if (transferResponse.status !== "success") {
+            if (!transferResponse.status) {
                 throw new Error(`Failed to initiate transfer: ${transferResponse.message}`);
             }
+
+            // this.notificationService.sendNotification(notification);
         } catch (err: any) {
             throw new Error(`Error initiating transfer: ${err.message}`);
         }

@@ -93,9 +93,9 @@ export class TransactionService {
         `${this.paystackApiUrl}/transferrecipient`,
         {
           type: "nuban",
-          name: "Emmanuel Olaosebikan",
-          account_number: "0567154759",
-          bank_code: "058",
+          name,
+          account_number: accountNumber,
+          bank_code:bankCode,
           currency: "NGN",
         },
         {
@@ -105,6 +105,7 @@ export class TransactionService {
           },
         }
       );
+      console.log(response.data)
       return response.data;
     } catch (error: any) {
       console.log(error.response.data)
@@ -137,6 +138,7 @@ export class TransactionService {
       );
       return response.data;
     } catch (error: any) {
+      console.log(error)
       console.error("Error initiating transfer:", error.response?.data || error.message);
       throw error;
     }

@@ -29,6 +29,7 @@ import NotificationService from './services/NotificationServices';
 import { INotification } from './models/notification';
 import SocketServices from './services/SocketServices';
 import { initSocket } from './config/socket';
+import ExpressRefillServices from './services/ExpressRefillServices';
 
 const app = express();
 const port = process.env.PORT || 10000;
@@ -234,7 +235,16 @@ app.get("/test-socket", (req, res) => {
   return res.json({message: "sent"})
 })
 
+export const gasPrices = {
+  expressDeliveryFee: 1000,
+  standardDeliveryFee: 500,
+  gasPrice: 1500,
+  merchantGasPrice: 1500
+}
 
+app.get("/prices", (req, res)=>{
+  res.json(gasPrices)
+})
 
 
 // Run Server
