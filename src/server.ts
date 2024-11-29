@@ -166,11 +166,11 @@ app.post("/verify", async (req: Request, res: Response) => {
       }
 
       // Update the refill status in the database
-      const updatedRefill = await ExpressRefill.findOneAndUpdate(
+      const updatedRefill : any= await ExpressRefill.findOneAndUpdate(
         { _id: refillId },
         { status: RefillStatus.PAID },
         { new: true }
-      )
+      ).populate("rider").populate("merchant")
 
       if (!updatedRefill) {
         return res.status(404).json({ message: "Refill record not found." });
@@ -189,14 +189,14 @@ app.post("/verify", async (req: Request, res: Response) => {
         message: "You have a paid order waiting for pick up! Check your incoming orders.",
         actionLabel: "Order Status",
         notificationType: "PAID",
-        userId: new mongoose.Types.ObjectId(updatedRefill.rider)
+        userId: new mongoose.Types.ObjectId(updatedRefill.rider.user)
     }
 
     let merchantNotification: Partial<INotification> = {
       message: "You have a paid order, the rider will come and drop the cylinder soon! Check your incoming orders.",
       actionLabel: "Order Status",
       notificationType: "PAID",
-      userId: new mongoose.Types.ObjectId(updatedRefill.merchant)
+      userId: new mongoose.Types.ObjectId(updatedRefill.merchant.user)
   }
 
       notificationService.sendNotification(merchantNotification)

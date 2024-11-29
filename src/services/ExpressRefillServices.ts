@@ -258,7 +258,7 @@ class ExpressRefillServices {
 
                     //Notify merchant and rider
                     this.notificationService.sendNotification({
-                        userId: merchantDetails._id as Types.ObjectId,
+                        userId: merchantDetails.user as Types.ObjectId,
                         message: `You have been credited ₦${merchantPayment.toFixed(2)} for the refill.`,
                         actionLabel: "Payment Received",
                         notificationType: "PAYMENT",
@@ -298,7 +298,7 @@ class ExpressRefillServices {
                     await this.initiateTransfer(riderRecipientCode, riderPayment, "Rider Payment", riderDetails._id as string);
 
                     this.notificationService.sendNotification({
-                        userId: riderDetails._id as Types.ObjectId,
+                        userId: riderDetails.user as Types.ObjectId,
                         message: `You have been credited ₦${riderPayment.toFixed(2)} for the delivery.`,
                         actionLabel: "Payment Received",
                         notificationType: "PAYMENT",
