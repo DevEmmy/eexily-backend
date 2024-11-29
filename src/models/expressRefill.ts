@@ -22,6 +22,7 @@ export interface IMetaData {
   gasStationLocation?: string;
   merchantName?: string;
   merchantAddress?: string;
+  merchantLocation?: string;
   merchantPhoneNumber?: string;
   pickUpAddress?: string;
 }

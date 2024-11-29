@@ -12799,3 +12799,80 @@
         Time Taken: 3595.54ms
         -----------------------------------------------------------
         
+        Timestamp: 2024-11-28T02:17:51.771Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Cannot destructure property 'merchant' of 'editor' as it is undefined."}
+        Time Taken: 250.82ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T02:21:52.332Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"You cannot edit this status"}
+        Time Taken: 960.70ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T02:23:15.761Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 200
+        Response: {"message":"You cannot edit this status"}
+        Time Taken: 1375.28ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T02:23:59.687Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Error creating transfer recipient: Request failed with status code 400"}
+        Time Taken: 2711.66ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T02:25:59.669Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Error creating transfer recipient: Failed to create transfer recipient for Merchant"}
+        Time Taken: 2114.56ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T02:27:42.590Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Error creating transfer recipient: Failed to create transfer recipient for Merchant"}
+        Time Taken: 3220.96ms
+        -----------------------------------------------------------
+        
+        Timestamp: 2024-11-28T02:29:30.834Z
+        Method: PATCH
+        Route: /express-refill/status/GABCC
+        Params: {}
+        Body: undefined
+        Query: {}
+        Response Status: 500
+        Response: {"message":"Error creating transfer recipient: Failed to create transfer recipient for Merchant"}
+        Time Taken: 5272.67ms
+        -----------------------------------------------------------
+        

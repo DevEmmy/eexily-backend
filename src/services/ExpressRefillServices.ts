@@ -72,7 +72,8 @@ class ExpressRefillServices {
                 ...data.metaData,
                 merchantName: merchant.firstName + " " + merchant.lastName,
                 merchantPhoneNumber: merchant.phoneNumber,
-                merchantAddress: merchant.address
+                merchantAddress: merchant.address,
+                merchantLocation: merchant.location
             }
             }
             
@@ -181,55 +182,141 @@ class ExpressRefillServices {
         };
     }
 
-    async updateStatus(editor: Editor, gcode: string, status: RefillStatus) {  // Renamed to updateStatusByMerchant
+    async updateStatus(editor: Editor, gcode: string, status: RefillStatus) {
         try {
             const { merchant, user, rider, gasStation } = editor;
             let schedule = await this.repo.findOne({ gcode });
-
+    
             if (!schedule) {
                 return { message: "Schedule Not Found" };
             }
-
-            if ((merchant && String(schedule.merchant) !== String(merchant)) ||
-                (user && String(schedule.user) !== String(user)) ||
-                (gasStation && String(schedule.gasStation) !== String(gasStation)) ||
-                (rider && String(schedule.rider) !== String(rider))) {
-                return { message: "You cannot edit this status" };
-            }
-
+    
+            // if (
+            //     (merchant && String(schedule.merchant) !== String(merchant)) ||
+            //     (user && String(schedule.user) !== String(user)) ||
+            //     (gasStation && String(schedule.gasStation) !== String(gasStation)) ||
+            //     (rider && String(schedule.rider) !== String(rider))
+            // ) {
+            //     return { message: "You cannot edit this status" };
+            // }
+    
             schedule.status = status;
-
-            let notification : Partial<INotification> = {
+    
+            let notification: Partial<INotification> = {
                 userId: new mongoose.Types.ObjectId(schedule.user),
-                actionLabel: "Order Status"
-            }
-
+                actionLabel: "Order Status",
+            };
+    
             switch (status) {
                 case RefillStatus.PICK_UP:
                     notification.message = "Your gas cylinder has been picked up!";
-                    notification.notificationType = "PICK_UP"
+                    notification.notificationType = "PICK_UP";
                     break;
+    
                 case RefillStatus.REFILL:
+                    const merchantDetails = await this.merchantRepo.findOne({_id: schedule.merchant});
+                    const riderDetails = await this.riderRepo.findOne({_id: schedule.rider});
+    
+                    if (!merchantDetails || !riderDetails) {
+                        return { message: "Merchant or Rider details not found" };
+                    }
+    
+                    const gasPrice = merchantDetails.retailPrice; // Price of 1kg
+                    const deliveryFee = 1000; // Fixed delivery fee
+                    const profit = gasPrice - 1000; // Profit margin for the merchant
+                    const platformShare = 0.2 * profit + 0.3 * deliveryFee;
+                    const merchantPayment = gasPrice - platformShare; // Merchant's share
+                    const riderPayment = deliveryFee - 0.3 * deliveryFee; // Rider's share
+    
+                    // Create transfer recipients and initiate transfers
+                    // const merchantRecipientCode = await this.createTransferRecipient(
+                    //     merchantDetails.accountNumber,
+                    //     merchantDetails.bankCode,
+                    //     "Merchant"
+                    // );
+                    // await this.initiateTransfer(merchantRecipientCode, merchantPayment, "Merchant Payment");
+    
+                    // const riderRecipientCode = await this.createTransferRecipient(
+                    //     riderDetails.accountNumber,
+                    //     riderDetails.bankCode,
+                    //     "Rider"
+                    // );
+                    // await this.initiateTransfer(riderRecipientCode, riderPayment, "Rider Payment");
+    
+                    // Notify merchant and rider
+                    // this.notificationService.sendNotification({
+                    //     userId: merchantDetails._id as Types.ObjectId,
+                    //     message: `You have been credited ₦${merchantPayment.toFixed(2)} for the refill.`,
+                    //     actionLabel: "Payment Received",
+                    //     notificationType: "PAYMENT",
+                    // });
+    
+                    // this.notificationService.sendNotification({
+                    //     userId: riderDetails._id as Types.ObjectId,
+                    //     message: `You have been credited ₦${riderPayment.toFixed(2)} for the delivery.`,
+                    //     actionLabel: "Payment Received",
+                    //     notificationType: "PAYMENT",
+                    // });
+    
                     notification.message = "Your gas cylinder has been refilled!";
-                    notification.notificationType = "REFILL"
+                    notification.notificationType = "REFILL";
                     break;
-                 case RefillStatus.DELIVERED:
+    
+                case RefillStatus.DELIVERED:
                     notification.message = "Your gas cylinder has been delivered!";
-                    notification.notificationType = "DELIVERED"
+                    notification.notificationType = "DELIVERED";
                     break;
-            
+    
                 default:
                     break;
             }
-
-            this.notificationService.sendNotification(notification)
-
+    
+            // Send user notification
+            this.notificationService.sendNotification(notification);
+    
+            // Update the schedule
             schedule = await this.repo.update({ gcode }, schedule);
+    
             return { payload: schedule, message: "Status Updated" };
         } catch (err: any) {
             throw new Error(err.message);
         }
     }
+    
+    async createTransferRecipient(accountNumber: string, bankCode: string, type: string): Promise<string> {
+        try {
+            const recipientResponse = await this.transactionService.createTransferRecipient(
+                type,
+                accountNumber,
+                bankCode,
+            );
+    
+            if (recipientResponse.status !== "success") {
+                throw new Error(`Failed to create transfer recipient for ${type}`);
+            }
+    
+            return recipientResponse.data.recipientCode; // Unique recipient code
+        } catch (err: any) {
+            throw new Error(`Error creating transfer recipient: ${err.message}`);
+        }
+    }
+    
+    async initiateTransfer(recipientCode: string, amount: number, description: string): Promise<void> {
+        try {
+            const transferResponse = await this.transactionService.initiateTransfer(
+                amount,
+                recipientCode,
+                description,
+            );
+    
+            if (transferResponse.status !== "success") {
+                throw new Error(`Failed to initiate transfer: ${transferResponse.message}`);
+            }
+        } catch (err: any) {
+            throw new Error(`Error initiating transfer: ${err.message}`);
+        }
+    }
+    
 }
 
 export default ExpressRefillServices;

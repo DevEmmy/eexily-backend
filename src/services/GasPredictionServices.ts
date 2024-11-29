@@ -24,7 +24,7 @@ class GasPredictionService {
     }
 
     // Update the refill history and last refill
-    async updateGasRefill(userId: string, refillData: { refillDate: Date; amountFilled: number }): Promise<IGasPrediction | null> {
+    async updateGasRefill(userId: string, refillData: { refillDate: Date; amountFilled: number }): Promise<any> {
         const gasPrediction = await this.gasPredictionRepository.findByUser(userId);
         if (!gasPrediction) {
             throw new Error("Gas prediction not found");
@@ -38,8 +38,11 @@ class GasPredictionService {
         gasPrediction.refillHistory.push(newRefill);
         gasPrediction.lastRefill = refillData.refillDate;
         gasPrediction.amountValue = refillData.amountFilled;
+        gasPrediction.save();
 
-        return gasPrediction.save();
+        return {
+            payload: await this.predictGasCompletion(String(gasPrediction.user._id)),
+        };
     }
 // Predict gas completion details
 async predictGasCompletion(userId: string): Promise<{ 

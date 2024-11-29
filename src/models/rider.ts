@@ -14,6 +14,7 @@ export interface IRider extends Document {
   address?: string,
   phoneNumber?: string,
   accountNumber: string;
+  bankCode: string,
   bankName: string;
   accountName: string;
   location: string
@@ -31,6 +32,7 @@ const RiderSchema = new Schema<IRider>({
   address: String,
   phoneNumber: String,
   driverLicense: { type: String },
+  bankCode: String,
   expiryDate: { type: Date },
   workPlaceAddress: { type: String },
   profilePicture: { type: String },

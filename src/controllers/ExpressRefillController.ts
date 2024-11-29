@@ -60,7 +60,13 @@ class ExpressRefillController {
     async updateStatus(req: Request, res: Response) {
         try {
             const { gcode } = req.params;
-            const { editor, status } = req.body; // Expecting editor and status in the request body
+            const { status } = req.body; // Expecting editor and status in the request body
+            let editor ={
+                merchant: req.body.user,
+                gasStation: req.body.user,
+                rider: req.body.user,
+                user: req.body.user,
+            }
             const result = await this.expressRefillServices.updateStatus(editor, gcode, status);
             return res.status(200).json(result);
         } catch (err: any) {
