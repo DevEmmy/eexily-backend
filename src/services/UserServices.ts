@@ -61,7 +61,8 @@ export class UserServices {
             await this.otpService.sendCreateUserOTP(otp, email);
 
             let typeData: any = {
-                user
+                user,
+                phoneNumber: data.phoneNumber
             }
 
             let typeObject;

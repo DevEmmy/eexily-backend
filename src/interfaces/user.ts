@@ -11,6 +11,7 @@ export interface createUserDto{
     firstName: string,
     lastName: string,
     email: string,
+    phoneNumber: string,
     password: string
     type: UserType,
     generatedOtp: string
