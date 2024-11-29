@@ -5,5 +5,5 @@ export enum RefillStatus{
     PICK_UP="PICK_UP",
     REFILL = "REFILL",
     DELIVERED = "DELIVERED",
-    CANCELLED = "CANCELLED"
+    CANCELED = "CANCELED"
 }
