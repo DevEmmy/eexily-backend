@@ -9,8 +9,8 @@ class NotificationController{
 
     async getUsersNotification(req: Request, res: Response){
         try{
-            const { _id} = req.body.user;
-            let payload= await this.service.getUserNotifications(_id)
+            const user = req.body.user;
+            let payload= await this.service.getUserNotifications(user)
             
             if(!payload){
                 return error("An Error Occured", res, 400)
