@@ -188,9 +188,19 @@ class ExpressRefillServices {
             const { merchant, user, rider, gasStation } = editor;
             let schedule = await this.repo.findOne({ gcode });
 
+
             if (!schedule) {
                 return { message: "Schedule Not Found" };
             }
+
+            let initialStatus = schedule.status
+
+
+            let lastStatus = schedule?.statusHistory[schedule?.statusHistory.length - 1]
+            if(lastStatus.status == status){
+                return {message: "Can't update status"}
+            }
+
 
             // if (
             //     (merchant && String(schedule.merchant) !== String(merchant)) ||
@@ -228,7 +238,10 @@ class ExpressRefillServices {
 
             switch (status) {
                 case RefillStatus.PICK_UP:
-                    notification.message = "Your gas cylinder has been picked up!";
+
+                    if (schedule)
+
+                        notification.message = "Your gas cylinder has been picked up!";
                     notification.notificationType = "PICK_UP";
 
                     let userNotification: Partial<INotification> = {
