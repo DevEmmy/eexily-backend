@@ -59,6 +59,22 @@ export class UserController{
         }
     }
 
+    async resendOtp(req: Request, res: Response){
+        try{
+            const { email} = req.body;
+            
+            let {payload, message} = await this.service.resendOtp(email);
+            
+            if(!payload && message){
+                return error(message, res, 400)
+            }
+            return success(payload, res);
+        }   
+        catch(err: any){
+            error(err.message, res, err.status||400);
+        }
+    }
+
     async forgotPassword(req: Request, res: Response){
         try{
             const {email} = req.body;

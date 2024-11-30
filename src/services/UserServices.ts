@@ -93,8 +93,38 @@ export class UserServices {
 
             let token = this.generateToken(String(user._id))
 
+
             return {
                 payload: { user, token, typeObject }
+            }
+        }
+        catch (err: any) {
+            throw Error(err.message);
+        }
+    }
+
+    async resendOtp(email: string){
+        try{
+            let user : any = await this.repo.findByEmail(email);
+
+            if(!user){
+                return {
+                    message: "User not found."
+                }
+            }
+
+            
+            let otp = this.otpService.generateOTP()
+            user.generatedOtp = await bcrypt.hash(String(otp), 8);
+            const currentDate = new Date();
+            user.generatedOtpExpiration = new Date(currentDate.getTime() + 5 * 60 * 60 * 1000);
+            user = await this.repo.update(user._id, user);
+
+            await this.otpService.sendCreateUserOTP(otp, email);
+
+            return {
+                payload: user,
+                message: "Email Sent"
             }
         }
         catch (err: any) {

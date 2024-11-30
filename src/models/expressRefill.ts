@@ -46,6 +46,7 @@ export interface IExpressRefill extends Document {
   statusHistory: IStatusHistory[];
   transactionData: any;
   metaData: IMetaData;
+  createdAt: Date;
 }
 
 const expressRefillSchema = new Schema<IExpressRefill>(

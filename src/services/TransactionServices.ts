@@ -2,11 +2,12 @@ import { Service } from "typedi";
 import axios from "axios";
 import TransactionRepository from "../repositories/TransactionRepository";
 import { ITransaction } from "../models/transaction";
+require("dotenv").config()
 
 @Service()
 export class TransactionService {
   private paystackApiUrl = "https://api.paystack.co";
-  private paystackSecretKey = "sk_test_de08c04eb8b47c95d24fc8383fdcae573dbdb996";
+  private paystackSecretKey = process.env.PAYSTACK_SECRET_KEY
 
   constructor(private readonly transactionRepository: TransactionRepository) {}
 

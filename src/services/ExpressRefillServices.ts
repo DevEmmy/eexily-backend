@@ -13,6 +13,7 @@ import { INotification } from "../models/notification";
 import NotificationService from "./NotificationServices";
 import { RiderType } from "../models/rider";
 import { gasPrices } from "../server";
+import GasPredictionService from "./GasPredictionServices";
 
 export interface Editor {
     merchant?: string;
@@ -30,7 +31,8 @@ class ExpressRefillServices {
         private readonly individualRepo: IndividualRepository,
         private readonly gasStationRepo: GasStationRepository,
         private readonly transactionService: TransactionService,
-        private readonly notificationService: NotificationService
+        private readonly notificationService: NotificationService,
+        private readonly gasPredictionService: GasPredictionService
     ) { }
 
     async create(data: Partial<IExpressRefill>) {
@@ -216,6 +218,7 @@ class ExpressRefillServices {
             let notification: Partial<INotification> = {
                 userId: new mongoose.Types.ObjectId(schedule.user),
                 actionLabel: "Order Status",
+                action: schedule._id as string
             };
 
             const merchantDetails = await this.merchantRepo.findOne({ _id: schedule.merchant });
@@ -231,7 +234,7 @@ class ExpressRefillServices {
 
             const gasPrice = merchantDetails.regularPrice; // Price of 1kg
             const deliveryFee = gasPrices.expressDeliveryFee; // Fixed delivery fee
-            const profit = gasPrice - 1000; // Profit margin for the merchant
+            const profit = gasPrice - 1220; // Profit margin for the merchant
             const platformShare = 0.2 * profit + 0.3 * deliveryFee;
             const merchantPayment = gasPrice - platformShare; // Merchant's share
             const riderPayment = deliveryFee - 0.3 * deliveryFee; // Rider's share
@@ -248,7 +251,8 @@ class ExpressRefillServices {
                         message: "Your gas cylinder has been picked up!",
                         actionLabel: "Order Status",
                         notificationType: "PICK_UP",
-                        userId: new mongoose.Types.ObjectId(schedule.user)
+                        userId: new mongoose.Types.ObjectId(schedule.user),
+                        action: schedule._id as string
                     }
 
                     this.notificationService.sendNotification(userNotification)
@@ -275,14 +279,18 @@ class ExpressRefillServices {
                         message: `You have been credited ₦${merchantPayment.toFixed(2)} for the refill.`,
                         actionLabel: "Payment Received",
                         notificationType: "PAYMENT",
+                        action: schedule._id as string
                     });
 
                     let riderNotification: Partial<INotification> = {
                         message: "The gas cylinder has been refilled!",
                         actionLabel: "Order Status",
                         notificationType: "REFILL",
-                        userId: new mongoose.Types.ObjectId(schedule.user)
+                        userId: new mongoose.Types.ObjectId(schedule.user),
+                        action: schedule._id as string
                     }
+
+                    this.gasPredictionService.updateGasRefill(schedule.user as string, {refillDate: schedule.createdAt, amountFilled: schedule.quantity})
 
                     this.notificationService.sendNotification(riderNotification)
 
@@ -298,7 +306,8 @@ class ExpressRefillServices {
                         message: "Your gas cylinder has been delivered",
                         actionLabel: "Order Status",
                         notificationType: "DELIVERED",
-                        userId: new mongoose.Types.ObjectId(schedule.user)
+                        userId: new mongoose.Types.ObjectId(schedule.user),
+                        action: schedule._id as string
                     }
 
                     this.notificationService.sendNotification(anotherUserNotification)
@@ -315,6 +324,7 @@ class ExpressRefillServices {
                         message: `You have been credited ₦${riderPayment.toFixed(2)} for the delivery.`,
                         actionLabel: "Payment Received",
                         notificationType: "PAYMENT",
+                        action: schedule._id as string
                     });
 
                     break;

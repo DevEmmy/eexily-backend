@@ -138,7 +138,7 @@ const notificationService = Container.get(NotificationService)
 app.post("/verify", async (req: Request, res: Response) => {
   try {
     // Paystack secret key
-    const paystackSecret = process.env.PAYSTACK_SECRET_KEY || "sk_test_de08c04eb8b47c95d24fc8383fdcae573dbdb996";
+    const paystackSecret = process.env.PAYSTACK_SECRET_KEY as string;
 
     // Verify the webhook signature
     const hash = crypto
@@ -182,21 +182,24 @@ app.post("/verify", async (req: Request, res: Response) => {
         userId: new mongoose.Types.ObjectId(userId),
         actionLabel: "Order Status",
         message: "Payment Confirmed",
-        notificationType: "PAID"
+        notificationType: "PAID",
+        action: updatedRefill._id
       }
 
       let riderNotification: Partial<INotification> = {
         message: "You have a paid order waiting for pick up! Check your incoming orders.",
         actionLabel: "Order Status",
         notificationType: "PAID",
-        userId: new mongoose.Types.ObjectId(updatedRefill.rider.user)
+        userId: new mongoose.Types.ObjectId(updatedRefill.rider.user),
+        action: updatedRefill._id
     }
 
     let merchantNotification: Partial<INotification> = {
       message: "You have a paid order, the rider will come and drop the cylinder soon! Check your incoming orders.",
       actionLabel: "Order Status",
       notificationType: "PAID",
-      userId: new mongoose.Types.ObjectId(updatedRefill.merchant.user)
+      userId: new mongoose.Types.ObjectId(updatedRefill.merchant.user),
+      action: updatedRefill._id
   }
 
       notificationService.sendNotification(merchantNotification)
@@ -228,7 +231,7 @@ app.get("/test-socket", (req, res) => {
     userId: "67427b3396f896b073a1d802",
     actionLabel: "Order Status",
     message: "Payment Confirmed",
-    notificationType: "PAID"
+    notificationType: "PAID",
   }
 
   notificationService.sendNotification(notification)
